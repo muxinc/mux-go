@@ -1,0 +1,4494 @@
+openapi: 3.0.0
+info:
+  title: Mux Video
+  version: v1
+servers:
+- description: Mux Production Environment
+  url: https://api.mux.com/
+security:
+- accessToken: []
+tags:
+- description: |
+    An asset refers to a piece of media content that is stored or is being live streamed through the Mux system. An asset always has a duration and one or more tracks (audio, video, and text data).
+
+    The media content of an asset cannot be updated once created, however an asset can be used to create another asset, and can be modified within that process.
+  name: Assets
+- description: |
+    A Live Stream represents a unique live stream of video being pushed to Mux. It includes configuration details (a Stream Key) for live broadcasting software/hardware and a Playback ID for playing the stream anywhere. Currently, RTMP is the only supported method of ingesting video. Use rtmp://live.mux.com/app with the Live Stream's Stream Key for getting the video into Mux, and use https://stream.mux.com with the Live Stream's Playback ID for playback.
+
+    A Live Stream can be used once for a specific event, or re-used forever. If you're building an application like Facebook Live or Twitch, you could create one Live Stream per user. This allows them the configure their broadcasting software once, and the Live Stream Playback ID will always show their latest stream.
+
+    Each RTMP session creates a new video asset automatically. You can set up a webhook to be notified each time a broadcast (or Live Stream RTMP session) begins or ends with the video.live_stream.active and video.live_stream.idle events respectively. Assets that are created from a Live Stream have the same behavior as other Assets you create.
+
+    Learn more about [how to go live in our guides](https://docs.mux.com/docs/live-streaming).
+  name: Live Streams
+- description: |
+    A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/) as the value of the token query parameter. The token query parameter must be set for URLs that reference a playback ID with a signed playback policy.
+  name: URL Signing Keys
+- description: |
+    Direct upload allows you to push assets directly to Mux storage instead of needing to go through your own first. When you create a new direct upload, we'll give you back a signed URL for a Google Cloud Storage bucket. Their storage API is S3 compatible, so whatever tool you use to upload to either GCS or S3 should work, just remember you're probably uploading large video files and should [take advantage of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).
+
+    Particularly for customers that deal with a lot of user-generated content, it's common to expect quite a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists, we don't create an asset for you until the upload is complete. Once that asset is created, you can expect all of the normal asset-related webhooks.
+  name: Direct Upload
+paths:
+  /video/v1/assets:
+    get:
+      operationId: list-assets
+      parameters:
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetsResponse'
+          description: Asset List
+      summary: List assets
+      tags:
+      - Assets
+    post:
+      description: |
+        Create a new Mux Video asset.
+      operationId: create-asset
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssetRequest'
+      responses:
+        200:
+          content:
+            application/json:
+              example: |
+                {
+                  "data": {
+                    "status": "preparing",
+                    "playback_ids": [
+                      {
+                        "policy": "public",
+                        "id": "01YAZhmGutYz00axsUvj3xTiJ4sYYZe2um"
+                      }
+                    ],
+                    "id": "jHNEnSAycoY013ub9sJSm9rKNQM1eCKr8",
+                    "created_at": "1532671577"
+                  }
+                }
+              schema:
+                $ref: '#/components/schemas/AssetResponse'
+          description: Asset Created
+      summary: Create an asset
+      tags:
+      - Assets
+  /video/v1/assets/{ASSET_ID}:
+    delete:
+      operationId: delete-asset
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: No Content
+      summary: Delete an asset
+      tags:
+      - Assets
+    get:
+      description: Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset.
+      operationId: get-asset
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetResponse'
+          description: OK
+      summary: Retrieve an asset
+      tags:
+      - Assets
+  /video/v1/assets/{ASSET_ID}/input-info:
+    get:
+      description: Returns a list of the input objects that were used to create the asset along with any settings that were applied to each input.
+      operationId: get-asset-input-info
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetInputInfoResponse'
+          description: Asset Input Info List
+      summary: Retrieve asset input info
+      tags:
+      - Assets
+  /video/v1/assets/{ASSET_ID}/playback-ids:
+    post:
+      operationId: create-asset-playback-id
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlaybackIDRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlaybackIDResponse'
+          description: Asset Playback ID
+      summary: Create a playback ID
+      tags:
+      - Assets
+  /video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}:
+    delete:
+      operationId: delete-asset-playback-id
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The live stream's playback ID.
+        explode: false
+        in: path
+        name: PLAYBACK_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: No Content
+      summary: Delete a playback ID
+      tags:
+      - Assets
+    get:
+      operationId: get-asset-playback-id
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The live stream's playback ID.
+        explode: false
+        in: path
+        name: PLAYBACK_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetPlaybackIDResponse'
+          description: OK
+      summary: Retrieve a playback ID
+      tags:
+      - Assets
+  /video/v1/assets/{ASSET_ID}/mp4-support:
+    put:
+      description: Allows you add or remove mp4 support for assets that were created without it. Currently there are two values supported in this request, `standard` and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
+      operationId: update-asset-mp4-support
+      parameters:
+      - description: The asset ID.
+        explode: false
+        in: path
+        name: ASSET_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAssetMP4SupportRequest'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetResponse'
+          description: Asset Updated
+      summary: Update MP4 support
+      tags:
+      - Assets
+  /video/v1/live-streams:
+    get:
+      operationId: list-live-streams
+      parameters:
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLiveStreamsResponse'
+          description: OK
+      summary: List live streams
+      tags:
+      - Live Streams
+    post:
+      operationId: create-live-stream
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLiveStreamRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveStreamResponse'
+          description: Live Stream Created
+      summary: Create a live stream
+      tags:
+      - Live Streams
+  /video/v1/live-streams/{LIVE_STREAM_ID}:
+    delete:
+      operationId: delete-live-stream
+      parameters:
+      - description: The live stream ID
+        explode: false
+        in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: No Content
+      summary: Delete a live stream
+      tags:
+      - Live Streams
+    get:
+      description: Retrieves the details of a live stream that has previously been created. Supply the unique live stream ID that was returned from your previous request, and Mux will return the corresponding live stream information. The same information is returned when creating a live stream.
+      operationId: get-live-stream
+      parameters:
+      - description: The live stream ID
+        explode: false
+        in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveStreamResponse'
+          description: OK
+      summary: Retrieve a live stream
+      tags:
+      - Live Streams
+  /video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids:
+    post:
+      operationId: create-live-stream-playback-id
+      parameters:
+      - description: The live stream ID
+        explode: false
+        in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlaybackIDRequest'
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePlaybackIDResponse'
+          description: Playback ID Created
+      summary: Create a live stream playback ID
+      tags:
+      - Live Streams
+  /video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID}:
+    delete:
+      operationId: delete-live-stream-playback-id
+      parameters:
+      - description: The live stream ID
+        explode: false
+        in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The live stream's playback ID.
+        explode: false
+        in: path
+        name: PLAYBACK_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: No Content
+      summary: Delete a live stream playback ID
+      tags:
+      - Live Streams
+  /video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key:
+    post:
+      description: Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts.
+      operationId: reset-stream-key
+      parameters:
+      - description: The live stream ID
+        explode: false
+        in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LiveStreamResponse'
+          description: Stream Key Reset
+      summary: Reset a live stream’s stream key
+      tags:
+      - Live Streams
+  /video/v1/live-streams/{LIVE_STREAM_ID}/complete:
+    put:
+      description: (Optional) Make the recorded asset available immediately instead of waiting for the reconnect_window.
+      operationId: signal-live-stream-complete
+      parameters:
+      - description: The live stream ID
+        explode: false
+        in: path
+        name: LIVE_STREAM_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignalLiveStreamCompleteResponse'
+          description: Stream Complete
+      summary: Signal a live stream is finished
+      tags:
+      - Live Streams
+  /video/v1/signing-keys:
+    get:
+      description: |
+        Returns a list of URL signing keys.
+      operationId: list-url-signing-keys
+      parameters:
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSigningKeysResponse'
+          description: OK
+      summary: List URL signing keys
+      tags:
+      - URL Signing Keys
+    post:
+      description: |
+        Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens.
+      operationId: create-url-signing-key
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyResponse'
+          description: Created
+      summary: Create a URL signing key
+      tags:
+      - URL Signing Keys
+  /video/v1/signing-keys/{SIGNING_KEY_ID}:
+    delete:
+      description: |
+        Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again.
+      operationId: delete-url-signing-key
+      parameters:
+      - description: The ID of the signing key.
+        explode: false
+        in: path
+        name: SIGNING_KEY_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        204:
+          description: No Content
+      summary: Delete a URL signing key
+      tags:
+      - URL Signing Keys
+    get:
+      description: |
+        Retrieves the details of a URL signing key that has previously
+        been created. Supply the unique signing key ID that was returned from your
+        previous request, and Mux will return the corresponding signing key information.
+        **The private key is not returned in this response.**
+      operationId: get-url-signing-key
+      parameters:
+      - description: The ID of the signing key.
+        explode: false
+        in: path
+        name: SIGNING_KEY_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SigningKeyResponse'
+          description: OK
+      summary: Retrieve a URL signing key
+      tags:
+      - URL Signing Keys
+  /video/v1/uploads:
+    get:
+      operationId: list-direct-uploads
+      parameters:
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              example: |
+                {
+                  "data": [
+                    {
+                      "id": "abcd123",
+                      "status": "waiting",
+                      "timeout": 3600,
+                      "url": "https://some-upload-bucket-thing.mux.com/abcd123",
+                      "new_asset_settings": {
+                        "playback_policy": "public"
+                      }
+                    },
+                    {
+                      "id": "efgh567",
+                      "status": "waiting",
+                      "timeout": 3600,
+                      "url": "https://some-upload-bucket-thing.mux.com/efgh567",
+                      "new_asset_settings": {
+                        "playback_policy": "public"
+                      }
+                    },
+                    {
+                      "id": "ijklm899",
+                      "status": "asset_created",
+                      "timeout": 3600,
+                      "asset_id": "dcdcb1223",
+                      "new_asset_settings": {
+                        "playback_policy": "public"
+                      }
+                    }
+                  ]
+                }
+              schema:
+                $ref: '#/components/schemas/ListUploadsResponse'
+          description: OK
+      summary: List direct uploads
+      tags:
+      - Direct Uploads
+    post:
+      operationId: create-direct-upload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUploadRequest'
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              example: |
+                {
+                  "data": {
+                    "id": "abcd123",
+                    "status": "waiting",
+                    "timeout": 3600,
+                    "url": "https://some-upload-bucket-thing.mux.com/abcd123",
+                    "new_asset_settings": {
+                      "playback_policy": "public"
+                    }
+                  }
+                }
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+          description: Created
+      summary: Create a new direct upload URL
+      tags:
+      - Direct Uploads
+  /video/v1/uploads/{UPLOAD_ID}:
+    get:
+      operationId: get-direct-upload
+      parameters:
+      - description: ID of the Upload
+        example: abcd1234
+        explode: false
+        in: path
+        name: UPLOAD_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              example: |
+                {
+                  "data": {
+                    "id": "ijklm899",
+                    "status": "asset_created",
+                    "asset_id": "dcdcb1223",
+                    "timeout": 3600,
+                    "new_asset_settings": {
+                      "playback_policy": "public"
+                    }
+                  }
+                }
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+          description: OK
+      summary: Retrieve a single direct upload's info
+      tags:
+      - Direct Uploads
+  /video/v1/uploads/{UPLOAD_ID}/cancel:
+    put:
+      description: |
+        Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this
+        request, no asset will be created. This request will only succeed if the upload is still in
+        the `waiting` state.
+      operationId: cancel-direct-upload
+      parameters:
+      - description: ID of the Upload
+        example: abcd1234
+        explode: false
+        in: path
+        name: UPLOAD_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              example: |
+                {
+                  "data": {
+                    "id": "ijklm899",
+                    "status": "cancelled",
+                    "timeout": 3600,
+                    "new_asset_settings": {
+                      "playback_policy": "public"
+                    }
+                  }
+                }
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+          description: Cancelled
+        403:
+          description: Cancellation no longer possible
+      summary: Cancel a direct upload
+      tags:
+      - Direct Uploads
+  /data/v1/video-views:
+    get:
+      description: |
+        Returns a list of video views
+      operationId: list-video-views
+      parameters:
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
+        explode: true
+        in: query
+        name: viewer_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
+        explode: true
+        in: query
+        name: error_id
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: Sort order.
+        explode: true
+        in: query
+        name: order_direction
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVideoViewsResponse'
+          description: OK
+      summary: List Video Views
+      tags:
+      - Video Views
+  /data/v1/video-views/{VIDEO_VIEW_ID}:
+    get:
+      description: |
+        Returns the details of a video view
+      operationId: get-video-view
+      parameters:
+      - description: ID of the Video View
+        example: abcd1234
+        explode: false
+        in: path
+        name: VIDEO_VIEW_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoViewResponse'
+          description: OK
+      summary: Get a Video View
+      tags:
+      - Video Views
+  /data/v1/errors:
+    get:
+      description: |
+        Returns a list of errors
+      operationId: list-errors
+      parameters:
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListErrorsResponse'
+          description: OK
+      summary: List Errors
+      tags:
+      - Errors
+  /data/v1/filters:
+    get:
+      description: |
+        Lists all the filters broken out into basic and advanced
+      operationId: list-filters
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFiltersResponse'
+          description: OK
+      summary: List Filters
+      tags:
+      - Filters
+  /data/v1/filters/{FILTER_ID}:
+    get:
+      description: |
+        Lists the values for a filter along with a total count of related views
+      operationId: list-filter-values
+      parameters:
+      - description: ID of the Filter
+        example: abcd1234
+        explode: false
+        in: path
+        name: FILTER_ID
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFilterValuesResponse'
+          description: OK
+      summary: Lists values for a specific filter
+      tags:
+      - Filters
+  /data/v1/exports:
+    get:
+      description: |
+        Lists the available video view exports along with URLs to retrieve them
+      operationId: list-exports
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListExportsResponse'
+          description: OK
+      summary: List property video view export links
+      tags:
+      - Exports
+  /data/v1/metrics/{METRIC_ID}/breakdown:
+    get:
+      description: |
+        List the breakdown values for a specific metric
+      operationId: list-breakdown-values
+      parameters:
+      - description: ID of the Metric
+        example: video_startup_time
+        explode: false
+        in: path
+        name: METRIC_ID
+        required: true
+        schema:
+          enum:
+          - aggregate_startup_time
+          - downscale_percentage
+          - exits_before_video_start
+          - max_downscale_percentage
+          - max_upscale_percentage
+          - page_load_time
+          - playback_failure_percentage
+          - playback_failure_score
+          - player_startup_time
+          - rebuffer_count
+          - rebuffer_duration
+          - rebuffer_frequency
+          - rebuffer_percentage
+          - rebuffer_score
+          - requests_for_first_preroll
+          - seek_latency
+          - startup_time_score
+          - upscale_percentage
+          - video_quality_score
+          - video_startup_preroll_load_time
+          - video_startup_preroll_request_time video_startup_time
+          - viewer_experience_score
+          type: string
+        style: simple
+      - description: Breakdown value to group the results by
+        explode: true
+        in: query
+        name: group_by
+        required: false
+        schema:
+          enum:
+          - asn
+          - browser
+          - browser_version
+          - cdn
+          - country
+          - experiment_name
+          - operating_system
+          - operating_system_version
+          - player_name
+          - player_software
+          - player_software_version
+          - player_version
+          - preroll_ad_asset_hostname
+          - preroll_ad_tag_hostname
+          - preroll_played
+          - preroll_requested
+          - source_hostname
+          - source_type
+          - stream_type
+          - sub_property_id
+          - video_series
+          - video_title
+          type: string
+        style: form
+      - description: Measurement for the provided metric. If omitted, the deafult for the metric will be used.
+        explode: true
+        in: query
+        name: measurement
+        required: false
+        schema:
+          enum:
+          - 95th
+          - median
+          - avg
+          type: string
+        style: form
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Number of items to include in the response
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      - description: Offset by this many pages, of the size of `limit`
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          format: int32
+          type: integer
+        style: form
+      - description: Value to order the results by
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - negative_impact
+          - value
+          - views
+          - field
+          type: string
+        style: form
+      - description: Sort order.
+        explode: true
+        in: query
+        name: order_direction
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBreakdownValuesResponse'
+          description: OK
+      summary: List breakdown values
+      tags:
+      - Metrics
+  /data/v1/metrics/{METRIC_ID}/overall:
+    get:
+      description: |
+        Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.
+      operationId: get-overall-values
+      parameters:
+      - description: ID of the Metric
+        example: video_startup_time
+        explode: false
+        in: path
+        name: METRIC_ID
+        required: true
+        schema:
+          enum:
+          - aggregate_startup_time
+          - downscale_percentage
+          - exits_before_video_start
+          - max_downscale_percentage
+          - max_upscale_percentage
+          - page_load_time
+          - playback_failure_percentage
+          - playback_failure_score
+          - player_startup_time
+          - rebuffer_count
+          - rebuffer_duration
+          - rebuffer_frequency
+          - rebuffer_percentage
+          - rebuffer_score
+          - requests_for_first_preroll
+          - seek_latency
+          - startup_time_score
+          - upscale_percentage
+          - video_quality_score
+          - video_startup_preroll_load_time
+          - video_startup_preroll_request_time video_startup_time
+          - viewer_experience_score
+          type: string
+        style: simple
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Measurement for the provided metric. If omitted, the deafult for the metric will be used.
+        explode: true
+        in: query
+        name: measurement
+        required: false
+        schema:
+          enum:
+          - 95th
+          - median
+          - avg
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOverallValuesResponse'
+          description: OK
+      summary: Get Overall values
+      tags:
+      - Metrics
+  /data/v1/metrics/{METRIC_ID}/insights:
+    get:
+      description: |
+        Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.
+      operationId: list-insights
+      parameters:
+      - description: ID of the Metric
+        example: video_startup_time
+        explode: false
+        in: path
+        name: METRIC_ID
+        required: true
+        schema:
+          enum:
+          - aggregate_startup_time
+          - downscale_percentage
+          - exits_before_video_start
+          - max_downscale_percentage
+          - max_upscale_percentage
+          - page_load_time
+          - playback_failure_percentage
+          - playback_failure_score
+          - player_startup_time
+          - rebuffer_count
+          - rebuffer_duration
+          - rebuffer_frequency
+          - rebuffer_percentage
+          - rebuffer_score
+          - requests_for_first_preroll
+          - seek_latency
+          - startup_time_score
+          - upscale_percentage
+          - video_quality_score
+          - video_startup_preroll_load_time
+          - video_startup_preroll_request_time video_startup_time
+          - viewer_experience_score
+          type: string
+        style: simple
+      - description: Measurement for the provided metric. If omitted, the deafult for the metric will be used.
+        explode: true
+        in: query
+        name: measurement
+        required: false
+        schema:
+          enum:
+          - 95th
+          - median
+          - avg
+          type: string
+        style: form
+      - description: Sort order.
+        explode: true
+        in: query
+        name: order_direction
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInsightsResponse'
+          description: OK
+      summary: List Insights
+      tags:
+      - Metrics
+  /data/v1/metrics/{METRIC_ID}/timeseries:
+    get:
+      description: |
+        Returns timeseries data for a specific metric
+      operationId: get-metric-timeseries-data
+      parameters:
+      - description: ID of the Metric
+        example: video_startup_time
+        explode: false
+        in: path
+        name: METRIC_ID
+        required: true
+        schema:
+          enum:
+          - aggregate_startup_time
+          - downscale_percentage
+          - exits_before_video_start
+          - max_downscale_percentage
+          - max_upscale_percentage
+          - page_load_time
+          - playback_failure_percentage
+          - playback_failure_score
+          - player_startup_time
+          - rebuffer_count
+          - rebuffer_duration
+          - rebuffer_frequency
+          - rebuffer_percentage
+          - rebuffer_score
+          - requests_for_first_preroll
+          - seek_latency
+          - startup_time_score
+          - upscale_percentage
+          - video_quality_score
+          - video_startup_preroll_load_time
+          - video_startup_preroll_request_time video_startup_time
+          - viewer_experience_score
+          type: string
+        style: simple
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Measurement for the provided metric. If omitted, the deafult for the metric will be used.
+        explode: true
+        in: query
+        name: measurement
+        required: false
+        schema:
+          enum:
+          - 95th
+          - median
+          - avg
+          type: string
+        style: form
+      - description: Sort order.
+        explode: true
+        in: query
+        name: order_direction
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+        style: form
+      - description: Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe.
+        explode: true
+        in: query
+        name: group_by
+        required: false
+        schema:
+          enum:
+          - hour
+          - day
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMetricTimeseriesDataResponse'
+          description: OK
+      summary: Get metric timeseries data
+      tags:
+      - Metrics
+  /data/v1/metrics/comparison:
+    get:
+      description: |
+        List all of the values across every breakdown for a specific metric
+      operationId: list-all-metric-values
+      parameters:
+      - description: "Timeframe window to limit results by. Must be provided as an\
+          \ array query string parameter (e.g. timeframe[]=). Accepted formats are...\n\
+          \  * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+          \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+        explode: true
+        in: query
+        name: timeframe[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Filter key:value pairs. Must be provided as an array query string\
+          \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+          \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+        explode: true
+        in: query
+        name: filters[]
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Dimension the specified value belongs to
+        explode: true
+        in: query
+        name: dimension
+        required: false
+        schema:
+          enum:
+          - asn
+          - browser
+          - browser_version
+          - cdn
+          - country
+          - experiment_name
+          - operating_system
+          - operating_system_version
+          - player_name
+          - player_software
+          - player_software_version
+          - player_version
+          - preroll_ad_asset_hostname
+          - preroll_ad_tag_hostname
+          - preroll_played
+          - preroll_requested
+          - source_hostname
+          - source_type
+          - stream_type
+          - sub_property_id
+          - video_series
+          - video_title
+          type: string
+        style: form
+      - description: Value to show all available metrics for
+        explode: true
+        in: query
+        name: value
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAllMetricValuesResponse'
+          description: OK
+      summary: List all metric values
+      tags:
+      - Metrics
+components:
+  parameters:
+    limit:
+      description: Number of items to include in the response
+      explode: true
+      in: query
+      name: limit
+      required: false
+      schema:
+        default: 25
+        format: int32
+        type: integer
+      style: form
+    page:
+      description: Offset by this many pages, of the size of `limit`
+      explode: true
+      in: query
+      name: page
+      required: false
+      schema:
+        default: 1
+        format: int32
+        type: integer
+      style: form
+    viewer_id:
+      description: Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
+      explode: true
+      in: query
+      name: viewer_id
+      required: false
+      schema:
+        type: string
+      style: form
+    error_id:
+      description: Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
+      explode: true
+      in: query
+      name: error_id
+      required: false
+      schema:
+        format: int32
+        type: integer
+      style: form
+    order_direction:
+      description: Sort order.
+      explode: true
+      in: query
+      name: order_direction
+      required: false
+      schema:
+        enum:
+        - asc
+        - desc
+        type: string
+      style: form
+    measurement:
+      description: Measurement for the provided metric. If omitted, the deafult for the metric will be used.
+      explode: true
+      in: query
+      name: measurement
+      required: false
+      schema:
+        enum:
+        - 95th
+        - median
+        - avg
+        type: string
+      style: form
+    order_by:
+      description: Value to order the results by
+      explode: true
+      in: query
+      name: order_by
+      required: false
+      schema:
+        enum:
+        - negative_impact
+        - value
+        - views
+        - field
+        type: string
+      style: form
+    group_by:
+      description: Breakdown value to group the results by
+      explode: true
+      in: query
+      name: group_by
+      required: false
+      schema:
+        enum:
+        - asn
+        - browser
+        - browser_version
+        - cdn
+        - country
+        - experiment_name
+        - operating_system
+        - operating_system_version
+        - player_name
+        - player_software
+        - player_software_version
+        - player_version
+        - preroll_ad_asset_hostname
+        - preroll_ad_tag_hostname
+        - preroll_played
+        - preroll_requested
+        - source_hostname
+        - source_type
+        - stream_type
+        - sub_property_id
+        - video_series
+        - video_title
+        type: string
+      style: form
+    filters:
+      description: "Filter key:value pairs. Must be provided as an array query string\
+        \ parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).\
+        \ \nPossible filter names are the same as returned by the List Filters endpoint.\n"
+      explode: true
+      in: query
+      name: filters[]
+      required: false
+      schema:
+        items:
+          type: string
+        type: array
+      style: form
+    timeframe:
+      description: "Timeframe window to limit results by. Must be provided as an array\
+        \ query string parameter (e.g. timeframe[]=). Accepted formats are...\n  *\
+        \ array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600\
+        \ \n  * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.\n"
+      explode: true
+      in: query
+      name: timeframe[]
+      required: false
+      schema:
+        items:
+          type: string
+        type: array
+      style: form
+    timeseries_group_by:
+      description: Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe.
+      explode: true
+      in: query
+      name: group_by
+      required: false
+      schema:
+        enum:
+        - hour
+        - day
+        type: string
+      style: form
+    dimension:
+      description: Dimension the specified value belongs to
+      explode: true
+      in: query
+      name: dimension
+      required: false
+      schema:
+        enum:
+        - asn
+        - browser
+        - browser_version
+        - cdn
+        - country
+        - experiment_name
+        - operating_system
+        - operating_system_version
+        - player_name
+        - player_software
+        - player_software_version
+        - player_version
+        - preroll_ad_asset_hostname
+        - preroll_ad_tag_hostname
+        - preroll_played
+        - preroll_requested
+        - source_hostname
+        - source_type
+        - stream_type
+        - sub_property_id
+        - video_series
+        - video_title
+        type: string
+      style: form
+    value:
+      description: Value to show all available metrics for
+      explode: true
+      in: query
+      name: value
+      required: false
+      schema:
+        type: string
+      style: form
+    asset_id:
+      description: The asset ID.
+      explode: false
+      in: path
+      name: ASSET_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    livestream_id:
+      description: The live stream ID
+      explode: false
+      in: path
+      name: LIVE_STREAM_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    playback_id:
+      description: The live stream's playback ID.
+      explode: false
+      in: path
+      name: PLAYBACK_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    signing_key_id:
+      description: The ID of the signing key.
+      explode: false
+      in: path
+      name: SIGNING_KEY_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    upload_id:
+      description: ID of the Upload
+      example: abcd1234
+      explode: false
+      in: path
+      name: UPLOAD_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    video_view_id:
+      description: ID of the Video View
+      example: abcd1234
+      explode: false
+      in: path
+      name: VIDEO_VIEW_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    filter_id:
+      description: ID of the Filter
+      example: abcd1234
+      explode: false
+      in: path
+      name: FILTER_ID
+      required: true
+      schema:
+        type: string
+      style: simple
+    metric_id:
+      description: ID of the Metric
+      example: video_startup_time
+      explode: false
+      in: path
+      name: METRIC_ID
+      required: true
+      schema:
+        enum:
+        - aggregate_startup_time
+        - downscale_percentage
+        - exits_before_video_start
+        - max_downscale_percentage
+        - max_upscale_percentage
+        - page_load_time
+        - playback_failure_percentage
+        - playback_failure_score
+        - player_startup_time
+        - rebuffer_count
+        - rebuffer_duration
+        - rebuffer_frequency
+        - rebuffer_percentage
+        - rebuffer_score
+        - requests_for_first_preroll
+        - seek_latency
+        - startup_time_score
+        - upscale_percentage
+        - video_quality_score
+        - video_startup_preroll_load_time
+        - video_startup_preroll_request_time video_startup_time
+        - viewer_experience_score
+        type: string
+      style: simple
+  schemas:
+    AssetResponse:
+      example:
+        data:
+          aspect_ratio: aspect_ratio
+          playback_ids:
+          - id: id
+          - id: id
+          max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+          created_at: created_at
+          per_title_encode: true
+          mp4_support: none
+          deleted_at: deleted_at
+          demo: true
+          tracks:
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          static_renditions:
+            files:
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            status: disabled
+          master:
+            url: url
+            status: status
+          duration: 0.80082819046101150206595775671303272247314453125
+          is_live: true
+          passthrough: passthrough
+          max_stored_resolution: max_stored_resolution
+          id: id
+          live_stream_id: live_stream_id
+          master_access: none
+          errors:
+            messages:
+            - messages
+            - messages
+            type: type
+          status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/Asset'
+      type: object
+    CreateAssetRequest:
+      example:
+        input:
+        - overlay_settings:
+            horizontal_margin: horizontal_margin
+            vertical_align: vertical_align
+            horizontal_align: horizontal_align
+            width: width
+            opacity: opacity
+            vertical_margin: vertical_margin
+            height: height
+          language: language
+          url: url
+        - overlay_settings:
+            horizontal_margin: horizontal_margin
+            vertical_align: vertical_align
+            horizontal_align: horizontal_align
+            width: width
+            opacity: opacity
+            vertical_margin: vertical_margin
+            height: height
+          language: language
+          url: url
+        playback_policy:
+        - null
+        - null
+        passthrough: passthrough
+        per_title_encode: true
+        mp4_support: none
+        demo: true
+      properties:
+        input:
+          items:
+            $ref: '#/components/schemas/InputSettings'
+          type: array
+        playback_policy:
+          items:
+            $ref: '#/components/schemas/PlaybackPolicy'
+          type: array
+        demo:
+          format: boolean
+          type: boolean
+        per_title_encode:
+          format: boolean
+          type: boolean
+        passthrough:
+          type: string
+        mp4_support:
+          enum:
+          - none
+          - standard
+          type: string
+      type: object
+    CreateLiveStreamRequest:
+      example:
+        playback_policy:
+        - null
+        - null
+        new_asset_settings:
+          input:
+          - overlay_settings:
+              horizontal_margin: horizontal_margin
+              vertical_align: vertical_align
+              horizontal_align: horizontal_align
+              width: width
+              opacity: opacity
+              vertical_margin: vertical_margin
+              height: height
+            language: language
+            url: url
+          - overlay_settings:
+              horizontal_margin: horizontal_margin
+              vertical_align: vertical_align
+              horizontal_align: horizontal_align
+              width: width
+              opacity: opacity
+              vertical_margin: vertical_margin
+              height: height
+            language: language
+            url: url
+          playback_policy:
+          - null
+          - null
+          passthrough: passthrough
+          per_title_encode: true
+          mp4_support: none
+          demo: true
+      properties:
+        playback_policy:
+          items:
+            $ref: '#/components/schemas/PlaybackPolicy'
+          type: array
+        new_asset_settings:
+          $ref: '#/components/schemas/CreateAssetRequest'
+      type: object
+    CreatePlaybackIDRequest:
+      properties:
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+      type: object
+    CreatePlaybackIDResponse:
+      example:
+        data:
+          id: id
+      properties:
+        data:
+          $ref: '#/components/schemas/PlaybackID'
+      type: object
+    CreateUploadRequest:
+      example:
+        cors_origin: cors_origin
+        new_asset_settings:
+          input:
+          - overlay_settings:
+              horizontal_margin: horizontal_margin
+              vertical_align: vertical_align
+              horizontal_align: horizontal_align
+              width: width
+              opacity: opacity
+              vertical_margin: vertical_margin
+              height: height
+            language: language
+            url: url
+          - overlay_settings:
+              horizontal_margin: horizontal_margin
+              vertical_align: vertical_align
+              horizontal_align: horizontal_align
+              width: width
+              opacity: opacity
+              vertical_margin: vertical_margin
+              height: height
+            language: language
+            url: url
+          playback_policy:
+          - null
+          - null
+          passthrough: passthrough
+          per_title_encode: true
+          mp4_support: none
+          demo: true
+        timeout: 48489
+      properties:
+        timeout:
+          default: 3600
+          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
+          format: int32
+          maximum: 604800
+          minimum: 60
+          type: integer
+        cors_origin:
+          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
+          type: string
+        new_asset_settings:
+          $ref: '#/components/schemas/CreateAssetRequest'
+      required:
+      - new_asset_settings
+      type: object
+    GetAssetInputInfoResponse:
+      example:
+        data:
+        - settings:
+            overlay_settings:
+              horizontal_margin: horizontal_margin
+              vertical_align: vertical_align
+              horizontal_align: horizontal_align
+              width: width
+              opacity: opacity
+              vertical_margin: vertical_margin
+              height: height
+            language: language
+            url: url
+          file:
+            container_format: container_format
+            tracks:
+            - duration: 0.80082819046101150206595775671303272247314453125
+              sample_rate: 5
+              sample_size: 2
+              channels: 7
+              width: 6
+              text_track_type: text_track_type
+              language: language
+              type: type
+              encoding: encoding
+              frame_rate: 5.962133916683182377482808078639209270477294921875
+              height: 1
+            - duration: 0.80082819046101150206595775671303272247314453125
+              sample_rate: 5
+              sample_size: 2
+              channels: 7
+              width: 6
+              text_track_type: text_track_type
+              language: language
+              type: type
+              encoding: encoding
+              frame_rate: 5.962133916683182377482808078639209270477294921875
+              height: 1
+        - settings:
+            overlay_settings:
+              horizontal_margin: horizontal_margin
+              vertical_align: vertical_align
+              horizontal_align: horizontal_align
+              width: width
+              opacity: opacity
+              vertical_margin: vertical_margin
+              height: height
+            language: language
+            url: url
+          file:
+            container_format: container_format
+            tracks:
+            - duration: 0.80082819046101150206595775671303272247314453125
+              sample_rate: 5
+              sample_size: 2
+              channels: 7
+              width: 6
+              text_track_type: text_track_type
+              language: language
+              type: type
+              encoding: encoding
+              frame_rate: 5.962133916683182377482808078639209270477294921875
+              height: 1
+            - duration: 0.80082819046101150206595775671303272247314453125
+              sample_rate: 5
+              sample_size: 2
+              channels: 7
+              width: 6
+              text_track_type: text_track_type
+              language: language
+              type: type
+              encoding: encoding
+              frame_rate: 5.962133916683182377482808078639209270477294921875
+              height: 1
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InputInfo'
+          type: array
+      type: object
+    GetAssetPlaybackIDResponse:
+      example:
+        data:
+          id: id
+      properties:
+        data:
+          $ref: '#/components/schemas/PlaybackID'
+      type: object
+    ListAssetsResponse:
+      example:
+        data:
+        - aspect_ratio: aspect_ratio
+          playback_ids:
+          - id: id
+          - id: id
+          max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+          created_at: created_at
+          per_title_encode: true
+          mp4_support: none
+          deleted_at: deleted_at
+          demo: true
+          tracks:
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          static_renditions:
+            files:
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            status: disabled
+          master:
+            url: url
+            status: status
+          duration: 0.80082819046101150206595775671303272247314453125
+          is_live: true
+          passthrough: passthrough
+          max_stored_resolution: max_stored_resolution
+          id: id
+          live_stream_id: live_stream_id
+          master_access: none
+          errors:
+            messages:
+            - messages
+            - messages
+            type: type
+          status: status
+        - aspect_ratio: aspect_ratio
+          playback_ids:
+          - id: id
+          - id: id
+          max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+          created_at: created_at
+          per_title_encode: true
+          mp4_support: none
+          deleted_at: deleted_at
+          demo: true
+          tracks:
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          static_renditions:
+            files:
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            status: disabled
+          master:
+            url: url
+            status: status
+          duration: 0.80082819046101150206595775671303272247314453125
+          is_live: true
+          passthrough: passthrough
+          max_stored_resolution: max_stored_resolution
+          id: id
+          live_stream_id: live_stream_id
+          master_access: none
+          errors:
+            messages:
+            - messages
+            - messages
+            type: type
+          status: status
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Asset'
+          type: array
+      type: object
+    ListLiveStreamsResponse:
+      example:
+        data:
+        - reconnect_window: 0.80082819046101150206595775671303272247314453125
+          playback_ids:
+          - id: id
+          - id: id
+          passthrough: passthrough
+          created_at: created_at
+          id: id
+          recent_asset_ids:
+          - recent_asset_ids
+          - recent_asset_ids
+          new_asset_settings:
+            aspect_ratio: aspect_ratio
+            playback_ids:
+            - id: id
+            - id: id
+            max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+            created_at: created_at
+            per_title_encode: true
+            mp4_support: none
+            deleted_at: deleted_at
+            demo: true
+            tracks:
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            static_renditions:
+              files:
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              status: disabled
+            master:
+              url: url
+              status: status
+            duration: 0.80082819046101150206595775671303272247314453125
+            is_live: true
+            passthrough: passthrough
+            max_stored_resolution: max_stored_resolution
+            id: id
+            live_stream_id: live_stream_id
+            master_access: none
+            errors:
+              messages:
+              - messages
+              - messages
+              type: type
+            status: status
+          active_asset_id: active_asset_id
+          stream_key: stream_key
+          status: status
+        - reconnect_window: 0.80082819046101150206595775671303272247314453125
+          playback_ids:
+          - id: id
+          - id: id
+          passthrough: passthrough
+          created_at: created_at
+          id: id
+          recent_asset_ids:
+          - recent_asset_ids
+          - recent_asset_ids
+          new_asset_settings:
+            aspect_ratio: aspect_ratio
+            playback_ids:
+            - id: id
+            - id: id
+            max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+            created_at: created_at
+            per_title_encode: true
+            mp4_support: none
+            deleted_at: deleted_at
+            demo: true
+            tracks:
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            static_renditions:
+              files:
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              status: disabled
+            master:
+              url: url
+              status: status
+            duration: 0.80082819046101150206595775671303272247314453125
+            is_live: true
+            passthrough: passthrough
+            max_stored_resolution: max_stored_resolution
+            id: id
+            live_stream_id: live_stream_id
+            master_access: none
+            errors:
+              messages:
+              - messages
+              - messages
+              type: type
+            status: status
+          active_asset_id: active_asset_id
+          stream_key: stream_key
+          status: status
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/LiveStream'
+          type: array
+      type: object
+    ListSigningKeysResponse:
+      example:
+        data:
+        - created_at: created_at
+          private_key: private_key
+          id: id
+        - created_at: created_at
+          private_key: private_key
+          id: id
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SigningKey'
+          type: array
+      type: object
+    ListUploadsResponse:
+      example:
+        data:
+        - cors_origin: cors_origin
+          id: id
+          new_asset_settings:
+            aspect_ratio: aspect_ratio
+            playback_ids:
+            - id: id
+            - id: id
+            max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+            created_at: created_at
+            per_title_encode: true
+            mp4_support: none
+            deleted_at: deleted_at
+            demo: true
+            tracks:
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            static_renditions:
+              files:
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              status: disabled
+            master:
+              url: url
+              status: status
+            duration: 0.80082819046101150206595775671303272247314453125
+            is_live: true
+            passthrough: passthrough
+            max_stored_resolution: max_stored_resolution
+            id: id
+            live_stream_id: live_stream_id
+            master_access: none
+            errors:
+              messages:
+              - messages
+              - messages
+              type: type
+            status: status
+          asset_id: asset_id
+          error:
+            type: type
+            message: message
+          timeout: 48489
+          status: waiting
+        - cors_origin: cors_origin
+          id: id
+          new_asset_settings:
+            aspect_ratio: aspect_ratio
+            playback_ids:
+            - id: id
+            - id: id
+            max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+            created_at: created_at
+            per_title_encode: true
+            mp4_support: none
+            deleted_at: deleted_at
+            demo: true
+            tracks:
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            static_renditions:
+              files:
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              status: disabled
+            master:
+              url: url
+              status: status
+            duration: 0.80082819046101150206595775671303272247314453125
+            is_live: true
+            passthrough: passthrough
+            max_stored_resolution: max_stored_resolution
+            id: id
+            live_stream_id: live_stream_id
+            master_access: none
+            errors:
+              messages:
+              - messages
+              - messages
+              type: type
+            status: status
+          asset_id: asset_id
+          error:
+            type: type
+            message: message
+          timeout: 48489
+          status: waiting
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Upload'
+          type: array
+      type: object
+    LiveStreamResponse:
+      example:
+        data:
+          reconnect_window: 0.80082819046101150206595775671303272247314453125
+          playback_ids:
+          - id: id
+          - id: id
+          passthrough: passthrough
+          created_at: created_at
+          id: id
+          recent_asset_ids:
+          - recent_asset_ids
+          - recent_asset_ids
+          new_asset_settings:
+            aspect_ratio: aspect_ratio
+            playback_ids:
+            - id: id
+            - id: id
+            max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+            created_at: created_at
+            per_title_encode: true
+            mp4_support: none
+            deleted_at: deleted_at
+            demo: true
+            tracks:
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            static_renditions:
+              files:
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              status: disabled
+            master:
+              url: url
+              status: status
+            duration: 0.80082819046101150206595775671303272247314453125
+            is_live: true
+            passthrough: passthrough
+            max_stored_resolution: max_stored_resolution
+            id: id
+            live_stream_id: live_stream_id
+            master_access: none
+            errors:
+              messages:
+              - messages
+              - messages
+              type: type
+            status: status
+          active_asset_id: active_asset_id
+          stream_key: stream_key
+          status: status
+      properties:
+        data:
+          $ref: '#/components/schemas/LiveStream'
+      type: object
+    SigningKeyResponse:
+      example:
+        data:
+          created_at: created_at
+          private_key: private_key
+          id: id
+      properties:
+        data:
+          $ref: '#/components/schemas/SigningKey'
+      type: object
+    SignalLiveStreamCompleteResponse:
+      example:
+        data: '{}'
+      properties:
+        data:
+          type: object
+      type: object
+    UpdateAssetMP4SupportRequest:
+      properties:
+        mp4_support:
+          description: String value for the level of mp4 support
+          enum:
+          - standard
+          - none
+          type: string
+      type: object
+    UploadResponse:
+      example:
+        data:
+          cors_origin: cors_origin
+          id: id
+          new_asset_settings:
+            aspect_ratio: aspect_ratio
+            playback_ids:
+            - id: id
+            - id: id
+            max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+            created_at: created_at
+            per_title_encode: true
+            mp4_support: none
+            deleted_at: deleted_at
+            demo: true
+            tracks:
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            - duration: 1.46581298050294517310021547018550336360931396484375
+              max_width: 5
+              max_channel_layout: max_channel_layout
+              text_track_type: text_track_type
+              max_height: 5
+              max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+              max_channels: 7
+              language: language
+              id: id
+              type: type
+            static_renditions:
+              files:
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              - ext: mp4
+                name: low.mp4
+                width: 3
+                bitrate: 2
+                filesize: filesize
+                height: 9
+              status: disabled
+            master:
+              url: url
+              status: status
+            duration: 0.80082819046101150206595775671303272247314453125
+            is_live: true
+            passthrough: passthrough
+            max_stored_resolution: max_stored_resolution
+            id: id
+            live_stream_id: live_stream_id
+            master_access: none
+            errors:
+              messages:
+              - messages
+              - messages
+              type: type
+            status: status
+          asset_id: asset_id
+          error:
+            type: type
+            message: message
+          timeout: 48489
+          status: waiting
+      properties:
+        data:
+          $ref: '#/components/schemas/Upload'
+      type: object
+    ListVideoViewsResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - country_code: country_code
+          player_error_message: player_error_message
+          video_title: video_title
+          error_type_id: 6
+          view_start: view_start
+          total_row_count: 0
+          id: id
+          viewer_application_name: viewer_application_name
+          view_end: view_end
+          player_error_code: player_error_code
+          viewer_os_family: viewer_os_family
+        - country_code: country_code
+          player_error_message: player_error_message
+          video_title: video_title
+          error_type_id: 6
+          view_start: view_start
+          total_row_count: 0
+          id: id
+          viewer_application_name: viewer_application_name
+          view_end: view_end
+          player_error_code: player_error_code
+          viewer_os_family: viewer_os_family
+        total_row_count: 1
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AbridgedVideoView'
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    VideoViewResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+          mux_embed_version: mux_embed_version
+          view_total_downscaling: view_total_downscaling
+          view_total_content_playback_time: view_total_content_playback_time
+          viewer_device_manufacturer: viewer_device_manufacturer
+          player_startup_time: 1
+          view_end: view_end
+          player_source_height: 0
+          used_fullscreen: true
+          player_preload: true
+          player_source_domain: player_source_domain
+          view_max_request_latency: view_max_request_latency
+          viewer_user_agent: viewer_user_agent
+          player_view_count: 5
+          player_name: player_name
+          id: id
+          player_error_code: player_error_code
+          events:
+          - playback_time: 3
+            name: name
+            viewer_time: 9
+            event_time: 2
+          - playback_time: 3
+            name: name
+            viewer_time: 9
+            event_time: 2
+          view_start: view_start
+          view_seek_duration: view_seek_duration
+          player_source_url: player_source_url
+          viewer_application_name: viewer_application_name
+          cdn: cdn
+          property_id: 1
+          view_error_id: 7
+          video_title: video_title
+          metro: metro
+          watch_time: 5
+          viewer_application_engine: viewer_application_engine
+          video_language: video_language
+          exit_before_video_start: true
+          mux_api_version: mux_api_version
+          page_type: page_type
+          city: city
+          latitude: latitude
+          buffering_count: buffering_count
+          view_average_request_latency: view_average_request_latency
+          player_autoplay: true
+          video_content_type: video_content_type
+          preroll_ad_asset_hostname: preroll_ad_asset_hostname
+          updated_at: updated_at
+          player_instance_id: player_instance_id
+          viewer_os_version: viewer_os_version
+          view_max_downscale_percentage: view_max_downscale_percentage
+          player_source_width: 6
+          view_total_upscaling: view_total_upscaling
+          viewer_device_name: viewer_device_name
+          player_software: player_software
+          video_variant_name: video_variant_name
+          quality_score: quality_score
+          session_id: session_id
+          viewer_application_version: viewer_application_version
+          view_seek_count: view_seek_count
+          viewer_user_id: viewer_user_id
+          player_software_version: player_software_version
+          requests_for_first_preroll: requests_for_first_preroll
+          viewer_experience_score: viewer_experience_score
+          asn: 6
+          player_width: 2
+          page_url: page_url
+          view_max_upscale_percentage: view_max_upscale_percentage
+          rebuffer_percentage: rebuffer_percentage
+          video_startup_preroll_request_time: video_startup_preroll_request_time
+          isp: isp
+          viewer_os_architecture: viewer_os_architecture
+          viewer_device_category: viewer_device_category
+          video_startup_preroll_load_time: video_startup_preroll_load_time
+          view_average_request_throughput: view_average_request_throughput
+          inserted_at: inserted_at
+          longitude: longitude
+          viewer_os_family: viewer_os_family
+          page_load_time: 1
+          experiment_name: experiment_name
+          player_poster: player_poster
+          player_language: player_language
+          error_type_id: 4
+          buffering_duration: buffering_duration
+          video_encoding_variant: video_encoding_variant
+          player_source_host_name: player_source_host_name
+          continent_code: continent_code
+          startup_score: startup_score
+          rebuffering_score: rebuffering_score
+          player_source_type: player_source_type
+          country_code: country_code
+          player_error_message: player_error_message
+          watched: true
+          player_mux_plugin_version: player_mux_plugin_version
+          platform_summary: platform_summary
+          preroll_ad_tag_hostname: preroll_ad_tag_hostname
+          mux_viewer_id: mux_viewer_id
+          region: region
+          time_to_first_frame: time_to_first_frame
+          video_duration: video_duration
+          video_stream_type: video_stream_type
+          buffering_rate: buffering_rate
+          video_series: video_series
+          player_version: player_version
+          player_height: 1
+          video_producer: video_producer
+          country_name: country_name
+          playback_score: playback_score
+          player_source_duration: 7
+          preroll_played: true
+          video_variant_id: video_variant_id
+          short_time: short_time
+          view_id: view_id
+          platform_description: platform_description
+          player_source_stream_type: player_source_stream_type
+          player_load_time: player_load_time
+          preroll_requested: true
+          video_id: video_id
+      properties:
+        data:
+          $ref: '#/components/schemas/VideoView'
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    ListErrorsResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - notes: notes
+          code: 5
+          last_seen: last_seen
+          percentage: 6.02745618307040320615897144307382404804229736328125
+          count: 1
+          description: description
+          id: 0
+          message: message
+        - notes: notes
+          code: 5
+          last_seen: last_seen
+          percentage: 6.02745618307040320615897144307382404804229736328125
+          count: 1
+          description: description
+          id: 0
+          message: message
+        total_row_count: 5
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    Error:
+      example:
+        notes: notes
+        code: 5
+        last_seen: last_seen
+        percentage: 6.02745618307040320615897144307382404804229736328125
+        count: 1
+        description: description
+        id: 0
+        message: message
+      properties:
+        id:
+          format: uint64
+          type: integer
+        percentage:
+          format: double
+          type: number
+        notes:
+          type: string
+        message:
+          type: string
+        last_seen:
+          type: string
+        description:
+          type: string
+        count:
+          format: uint64
+          type: integer
+        code:
+          format: uint64
+          type: integer
+      type: object
+    ListFiltersResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+          advanced:
+          - advanced
+          - advanced
+          basic:
+          - basic
+          - basic
+        total_row_count: 0
+      properties:
+        data:
+          $ref: '#/components/schemas/ListFiltersResponse_data'
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    ListFilterValuesResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - total_count: 0
+          value: value
+        - total_count: 0
+          value: value
+        total_row_count: 6
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/FilterValue'
+          type: arrary
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    FilterValue:
+      example:
+        total_count: 0
+        value: value
+      properties:
+        value:
+          type: string
+        total_count:
+          format: uint64
+          type: integer
+      type: object
+    ListExportsResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - data
+        - data
+        total_row_count: 0
+      properties:
+        data:
+          items:
+            type: string
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    ListBreakdownValuesResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - negative_impact: 5
+          total_watch_time: 1
+          field: field
+          value: 6.02745618307040320615897144307382404804229736328125
+          views: 0
+        - negative_impact: 5
+          total_watch_time: 1
+          field: field
+          value: 6.02745618307040320615897144307382404804229736328125
+          views: 0
+        total_row_count: 5
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BreakdownValue'
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    BreakdownValue:
+      example:
+        negative_impact: 5
+        total_watch_time: 1
+        field: field
+        value: 6.02745618307040320615897144307382404804229736328125
+        views: 0
+      properties:
+        views:
+          format: uint64
+          type: integer
+        value:
+          format: double
+          type: number
+        total_watch_time:
+          format: uint64
+          type: integer
+        negative_impact:
+          format: int32
+          type: integer
+        field:
+          type: string
+      type: object
+    GetOverallValuesResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+          total_watch_time: 6
+          total_views: 1
+          value: 0.80082819046101150206595775671303272247314453125
+          global_value: 5.962133916683182377482808078639209270477294921875
+        total_row_count: 5
+      properties:
+        data:
+          $ref: '#/components/schemas/OverallValues'
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    OverallValues:
+      example:
+        total_watch_time: 6
+        total_views: 1
+        value: 0.80082819046101150206595775671303272247314453125
+        global_value: 5.962133916683182377482808078639209270477294921875
+      properties:
+        value:
+          format: double
+          type: number
+        total_watch_time:
+          format: uint64
+          type: integer
+        total_views:
+          format: uint64
+          type: integer
+        global_value:
+          format: double
+          type: number
+      type: object
+    ListInsightsResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - filter_value: filter_value
+          total_watch_time: 0
+          metric: 5
+          filter_column: filter_column
+          total_views: 6
+          negative_impact_score: 1
+        - filter_value: filter_value
+          total_watch_time: 0
+          metric: 5
+          filter_column: filter_column
+          total_views: 6
+          negative_impact_score: 1
+        total_row_count: 5
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Insight'
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    Insight:
+      example:
+        filter_value: filter_value
+        total_watch_time: 0
+        metric: 5
+        filter_column: filter_column
+        total_views: 6
+        negative_impact_score: 1
+      properties:
+        total_watch_time:
+          format: uint64
+          type: integer
+        total_views:
+          format: uint64
+          type: integer
+        negative_impact_score:
+          format: uint64
+          type: integer
+        metric:
+          format: uint64
+          type: integer
+        filter_value:
+          type: string
+        filter_column:
+          type: string
+      type: object
+    GetMetricTimeseriesDataResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - - data
+          - data
+        - - data
+          - data
+        total_row_count: 0
+      properties:
+        data:
+          items:
+            items:
+              type: string
+            type: array
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    ListAllMetricValuesResponse:
+      example:
+        timeframe:
+        - timeframe
+        - timeframe
+        data:
+        - metric: metric
+          watch_time: 0
+          name: name
+          value: 1.46581298050294517310021547018550336360931396484375
+          items:
+          - metric: metric
+            name: name
+            type: type
+            value: 5.962133916683182377482808078639209270477294921875
+            measurement: measurement
+          - metric: metric
+            name: name
+            type: type
+            value: 5.962133916683182377482808078639209270477294921875
+            measurement: measurement
+          view_count: 6
+        - metric: metric
+          watch_time: 0
+          name: name
+          value: 1.46581298050294517310021547018550336360931396484375
+          items:
+          - metric: metric
+            name: name
+            type: type
+            value: 5.962133916683182377482808078639209270477294921875
+            measurement: measurement
+          - metric: metric
+            name: name
+            type: type
+            value: 5.962133916683182377482808078639209270477294921875
+            measurement: measurement
+          view_count: 6
+        total_row_count: 5
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Score'
+          type: array
+        total_row_count:
+          format: uint64
+          type: integer
+        timeframe:
+          items:
+            type: string
+          type: array
+      type: object
+    Score:
+      example:
+        metric: metric
+        watch_time: 0
+        name: name
+        value: 1.46581298050294517310021547018550336360931396484375
+        items:
+        - metric: metric
+          name: name
+          type: type
+          value: 5.962133916683182377482808078639209270477294921875
+          measurement: measurement
+        - metric: metric
+          name: name
+          type: type
+          value: 5.962133916683182377482808078639209270477294921875
+          measurement: measurement
+        view_count: 6
+      properties:
+        watch_time:
+          format: uint64
+          type: integer
+        view_count:
+          format: uint64
+          type: integer
+        name:
+          type: string
+        value:
+          format: double
+          type: number
+        metric:
+          type: string
+        items:
+          items:
+            $ref: '#/components/schemas/Metric'
+          type: array
+      type: object
+    Metric:
+      example:
+        metric: metric
+        name: name
+        type: type
+        value: 5.962133916683182377482808078639209270477294921875
+        measurement: measurement
+      properties:
+        value:
+          format: double
+          type: number
+        type:
+          type: string
+        name:
+          type: string
+        metric:
+          type: string
+        measurement:
+          type: string
+      type: object
+    Asset:
+      example:
+        aspect_ratio: aspect_ratio
+        playback_ids:
+        - id: id
+        - id: id
+        max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+        created_at: created_at
+        per_title_encode: true
+        mp4_support: none
+        deleted_at: deleted_at
+        demo: true
+        tracks:
+        - duration: 1.46581298050294517310021547018550336360931396484375
+          max_width: 5
+          max_channel_layout: max_channel_layout
+          text_track_type: text_track_type
+          max_height: 5
+          max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+          max_channels: 7
+          language: language
+          id: id
+          type: type
+        - duration: 1.46581298050294517310021547018550336360931396484375
+          max_width: 5
+          max_channel_layout: max_channel_layout
+          text_track_type: text_track_type
+          max_height: 5
+          max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+          max_channels: 7
+          language: language
+          id: id
+          type: type
+        static_renditions:
+          files:
+          - ext: mp4
+            name: low.mp4
+            width: 3
+            bitrate: 2
+            filesize: filesize
+            height: 9
+          - ext: mp4
+            name: low.mp4
+            width: 3
+            bitrate: 2
+            filesize: filesize
+            height: 9
+          status: disabled
+        master:
+          url: url
+          status: status
+        duration: 0.80082819046101150206595775671303272247314453125
+        is_live: true
+        passthrough: passthrough
+        max_stored_resolution: max_stored_resolution
+        id: id
+        live_stream_id: live_stream_id
+        master_access: none
+        errors:
+          messages:
+          - messages
+          - messages
+          type: type
+        status: status
+      properties:
+        id:
+          type: string
+        created_at:
+          format: uint64
+          type: string
+        deleted_at:
+          format: uint64
+          type: string
+        status:
+          type: string
+        duration:
+          format: double
+          type: number
+        max_stored_resolution:
+          type: string
+        max_stored_frame_rate:
+          format: double
+          type: number
+        aspect_ratio:
+          type: string
+        playback_ids:
+          items:
+            $ref: '#/components/schemas/PlaybackID'
+          type: array
+        tracks:
+          items:
+            $ref: '#/components/schemas/Track'
+          type: array
+        demo:
+          format: boolean
+          type: boolean
+        errors:
+          $ref: '#/components/schemas/Asset_errors'
+        per_title_encode:
+          format: boolean
+          type: boolean
+        is_live:
+          format: boolean
+          type: boolean
+        passthrough:
+          type: string
+        live_stream_id:
+          type: string
+        master:
+          $ref: '#/components/schemas/Asset_master'
+        master_access:
+          default: none
+          enum:
+          - temporary
+          - none
+          type: string
+        mp4_support:
+          default: none
+          enum:
+          - standard
+          - none
+          type: string
+        static_renditions:
+          $ref: '#/components/schemas/Asset_static_renditions'
+      type: object
+    InputSettings:
+      description: Input object with additional configuration
+      example:
+        overlay_settings:
+          horizontal_margin: horizontal_margin
+          vertical_align: vertical_align
+          horizontal_align: horizontal_align
+          width: width
+          opacity: opacity
+          vertical_margin: vertical_margin
+          height: height
+        language: language
+        url: url
+      properties:
+        url:
+          type: string
+        language:
+          type: string
+        overlay_settings:
+          $ref: '#/components/schemas/InputSettings_overlay_settings'
+      type: object
+    InputTrack:
+      example:
+        duration: 0.80082819046101150206595775671303272247314453125
+        sample_rate: 5
+        sample_size: 2
+        channels: 7
+        width: 6
+        text_track_type: text_track_type
+        language: language
+        type: type
+        encoding: encoding
+        frame_rate: 5.962133916683182377482808078639209270477294921875
+        height: 1
+      properties:
+        type:
+          type: string
+        duration:
+          format: double
+          type: number
+        encoding:
+          type: string
+        width:
+          format: int64
+          type: integer
+        height:
+          format: int64
+          type: integer
+        frame_rate:
+          format: double
+          type: number
+        sample_rate:
+          format: int64
+          type: integer
+        sample_size:
+          format: int64
+          type: integer
+        channels:
+          format: int64
+          type: integer
+        text_track_type:
+          type: string
+        language:
+          type: string
+      type: object
+    InputFile:
+      example:
+        container_format: container_format
+        tracks:
+        - duration: 0.80082819046101150206595775671303272247314453125
+          sample_rate: 5
+          sample_size: 2
+          channels: 7
+          width: 6
+          text_track_type: text_track_type
+          language: language
+          type: type
+          encoding: encoding
+          frame_rate: 5.962133916683182377482808078639209270477294921875
+          height: 1
+        - duration: 0.80082819046101150206595775671303272247314453125
+          sample_rate: 5
+          sample_size: 2
+          channels: 7
+          width: 6
+          text_track_type: text_track_type
+          language: language
+          type: type
+          encoding: encoding
+          frame_rate: 5.962133916683182377482808078639209270477294921875
+          height: 1
+      properties:
+        container_format:
+          type: string
+        tracks:
+          items:
+            $ref: '#/components/schemas/InputTrack'
+          type: array
+      type: object
+    InputInfo:
+      example:
+        settings:
+          overlay_settings:
+            horizontal_margin: horizontal_margin
+            vertical_align: vertical_align
+            horizontal_align: horizontal_align
+            width: width
+            opacity: opacity
+            vertical_margin: vertical_margin
+            height: height
+          language: language
+          url: url
+        file:
+          container_format: container_format
+          tracks:
+          - duration: 0.80082819046101150206595775671303272247314453125
+            sample_rate: 5
+            sample_size: 2
+            channels: 7
+            width: 6
+            text_track_type: text_track_type
+            language: language
+            type: type
+            encoding: encoding
+            frame_rate: 5.962133916683182377482808078639209270477294921875
+            height: 1
+          - duration: 0.80082819046101150206595775671303272247314453125
+            sample_rate: 5
+            sample_size: 2
+            channels: 7
+            width: 6
+            text_track_type: text_track_type
+            language: language
+            type: type
+            encoding: encoding
+            frame_rate: 5.962133916683182377482808078639209270477294921875
+            height: 1
+      properties:
+        settings:
+          $ref: '#/components/schemas/InputSettings'
+        file:
+          $ref: '#/components/schemas/InputFile'
+      type: object
+    LiveStream:
+      example:
+        reconnect_window: 0.80082819046101150206595775671303272247314453125
+        playback_ids:
+        - id: id
+        - id: id
+        passthrough: passthrough
+        created_at: created_at
+        id: id
+        recent_asset_ids:
+        - recent_asset_ids
+        - recent_asset_ids
+        new_asset_settings:
+          aspect_ratio: aspect_ratio
+          playback_ids:
+          - id: id
+          - id: id
+          max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+          created_at: created_at
+          per_title_encode: true
+          mp4_support: none
+          deleted_at: deleted_at
+          demo: true
+          tracks:
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          static_renditions:
+            files:
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            status: disabled
+          master:
+            url: url
+            status: status
+          duration: 0.80082819046101150206595775671303272247314453125
+          is_live: true
+          passthrough: passthrough
+          max_stored_resolution: max_stored_resolution
+          id: id
+          live_stream_id: live_stream_id
+          master_access: none
+          errors:
+            messages:
+            - messages
+            - messages
+            type: type
+          status: status
+        active_asset_id: active_asset_id
+        stream_key: stream_key
+        status: status
+      properties:
+        id:
+          type: string
+        created_at:
+          format: uint64
+          type: string
+        stream_key:
+          type: string
+        active_asset_id:
+          type: string
+        recent_asset_ids:
+          items:
+            type: string
+          type: array
+        status:
+          type: string
+        playback_ids:
+          items:
+            $ref: '#/components/schemas/PlaybackID'
+          type: array
+        new_asset_settings:
+          $ref: '#/components/schemas/Asset'
+        passthrough:
+          type: string
+        reconnect_window:
+          format: double
+          type: number
+      type: object
+    SigningKey:
+      example:
+        created_at: created_at
+        private_key: private_key
+        id: id
+      properties:
+        id:
+          type: string
+        created_at:
+          format: uint64
+          type: string
+        private_key:
+          format: byte
+          type: string
+      type: object
+    Track:
+      example:
+        duration: 1.46581298050294517310021547018550336360931396484375
+        max_width: 5
+        max_channel_layout: max_channel_layout
+        text_track_type: text_track_type
+        max_height: 5
+        max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+        max_channels: 7
+        language: language
+        id: id
+        type: type
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        duration:
+          format: double
+          type: number
+        max_width:
+          format: int64
+          type: integer
+        max_height:
+          format: int64
+          type: integer
+        max_frame_rate:
+          format: double
+          type: number
+        max_channels:
+          format: int64
+          type: integer
+        max_channel_layout:
+          type: string
+        text_track_type:
+          type: string
+        language:
+          type: string
+      type: object
+    PlaybackID:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+        policy:
+          $ref: '#/components/schemas/PlaybackPolicy'
+      type: object
+    PlaybackPolicy:
+      enum:
+      - public
+      - signed
+      type: string
+    Upload:
+      example:
+        cors_origin: cors_origin
+        id: id
+        new_asset_settings:
+          aspect_ratio: aspect_ratio
+          playback_ids:
+          - id: id
+          - id: id
+          max_stored_frame_rate: 6.02745618307040320615897144307382404804229736328125
+          created_at: created_at
+          per_title_encode: true
+          mp4_support: none
+          deleted_at: deleted_at
+          demo: true
+          tracks:
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          - duration: 1.46581298050294517310021547018550336360931396484375
+            max_width: 5
+            max_channel_layout: max_channel_layout
+            text_track_type: text_track_type
+            max_height: 5
+            max_frame_rate: 2.3021358869347654518833223846741020679473876953125
+            max_channels: 7
+            language: language
+            id: id
+            type: type
+          static_renditions:
+            files:
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            - ext: mp4
+              name: low.mp4
+              width: 3
+              bitrate: 2
+              filesize: filesize
+              height: 9
+            status: disabled
+          master:
+            url: url
+            status: status
+          duration: 0.80082819046101150206595775671303272247314453125
+          is_live: true
+          passthrough: passthrough
+          max_stored_resolution: max_stored_resolution
+          id: id
+          live_stream_id: live_stream_id
+          master_access: none
+          errors:
+            messages:
+            - messages
+            - messages
+            type: type
+          status: status
+        asset_id: asset_id
+        error:
+          type: type
+          message: message
+        timeout: 48489
+        status: waiting
+      properties:
+        id:
+          type: string
+        timeout:
+          default: 3600
+          description: Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
+          format: int32
+          maximum: 604800
+          minimum: 60
+          type: integer
+        status:
+          enum:
+          - waiting
+          - asset_created
+          - errored
+          - cancelled
+          - timed_out
+          type: string
+        new_asset_settings:
+          $ref: '#/components/schemas/Asset'
+        asset_id:
+          description: Only set once the upload is in the `asset_created` state.
+          type: string
+        error:
+          $ref: '#/components/schemas/Upload_error'
+        cors_origin:
+          description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
+          type: string
+      type: object
+    VideoView:
+      example:
+        mux_embed_version: mux_embed_version
+        view_total_downscaling: view_total_downscaling
+        view_total_content_playback_time: view_total_content_playback_time
+        viewer_device_manufacturer: viewer_device_manufacturer
+        player_startup_time: 1
+        view_end: view_end
+        player_source_height: 0
+        used_fullscreen: true
+        player_preload: true
+        player_source_domain: player_source_domain
+        view_max_request_latency: view_max_request_latency
+        viewer_user_agent: viewer_user_agent
+        player_view_count: 5
+        player_name: player_name
+        id: id
+        player_error_code: player_error_code
+        events:
+        - playback_time: 3
+          name: name
+          viewer_time: 9
+          event_time: 2
+        - playback_time: 3
+          name: name
+          viewer_time: 9
+          event_time: 2
+        view_start: view_start
+        view_seek_duration: view_seek_duration
+        player_source_url: player_source_url
+        viewer_application_name: viewer_application_name
+        cdn: cdn
+        property_id: 1
+        view_error_id: 7
+        video_title: video_title
+        metro: metro
+        watch_time: 5
+        viewer_application_engine: viewer_application_engine
+        video_language: video_language
+        exit_before_video_start: true
+        mux_api_version: mux_api_version
+        page_type: page_type
+        city: city
+        latitude: latitude
+        buffering_count: buffering_count
+        view_average_request_latency: view_average_request_latency
+        player_autoplay: true
+        video_content_type: video_content_type
+        preroll_ad_asset_hostname: preroll_ad_asset_hostname
+        updated_at: updated_at
+        player_instance_id: player_instance_id
+        viewer_os_version: viewer_os_version
+        view_max_downscale_percentage: view_max_downscale_percentage
+        player_source_width: 6
+        view_total_upscaling: view_total_upscaling
+        viewer_device_name: viewer_device_name
+        player_software: player_software
+        video_variant_name: video_variant_name
+        quality_score: quality_score
+        session_id: session_id
+        viewer_application_version: viewer_application_version
+        view_seek_count: view_seek_count
+        viewer_user_id: viewer_user_id
+        player_software_version: player_software_version
+        requests_for_first_preroll: requests_for_first_preroll
+        viewer_experience_score: viewer_experience_score
+        asn: 6
+        player_width: 2
+        page_url: page_url
+        view_max_upscale_percentage: view_max_upscale_percentage
+        rebuffer_percentage: rebuffer_percentage
+        video_startup_preroll_request_time: video_startup_preroll_request_time
+        isp: isp
+        viewer_os_architecture: viewer_os_architecture
+        viewer_device_category: viewer_device_category
+        video_startup_preroll_load_time: video_startup_preroll_load_time
+        view_average_request_throughput: view_average_request_throughput
+        inserted_at: inserted_at
+        longitude: longitude
+        viewer_os_family: viewer_os_family
+        page_load_time: 1
+        experiment_name: experiment_name
+        player_poster: player_poster
+        player_language: player_language
+        error_type_id: 4
+        buffering_duration: buffering_duration
+        video_encoding_variant: video_encoding_variant
+        player_source_host_name: player_source_host_name
+        continent_code: continent_code
+        startup_score: startup_score
+        rebuffering_score: rebuffering_score
+        player_source_type: player_source_type
+        country_code: country_code
+        player_error_message: player_error_message
+        watched: true
+        player_mux_plugin_version: player_mux_plugin_version
+        platform_summary: platform_summary
+        preroll_ad_tag_hostname: preroll_ad_tag_hostname
+        mux_viewer_id: mux_viewer_id
+        region: region
+        time_to_first_frame: time_to_first_frame
+        video_duration: video_duration
+        video_stream_type: video_stream_type
+        buffering_rate: buffering_rate
+        video_series: video_series
+        player_version: player_version
+        player_height: 1
+        video_producer: video_producer
+        country_name: country_name
+        playback_score: playback_score
+        player_source_duration: 7
+        preroll_played: true
+        video_variant_id: video_variant_id
+        short_time: short_time
+        view_id: view_id
+        platform_description: platform_description
+        player_source_stream_type: player_source_stream_type
+        player_load_time: player_load_time
+        preroll_requested: true
+        video_id: video_id
+      properties:
+        view_total_upscaling:
+          type: string
+        preroll_ad_asset_hostname:
+          type: string
+        player_source_domain:
+          type: string
+        region:
+          type: string
+        viewer_user_agent:
+          type: string
+        preroll_requested:
+          type: boolean
+        page_type:
+          type: string
+        startup_score:
+          type: string
+        view_seek_duration:
+          type: string
+        country_name:
+          type: string
+        player_source_height:
+          format: int32
+          type: integer
+        longitude:
+          type: string
+        buffering_count:
+          type: string
+        video_duration:
+          type: string
+        player_source_type:
+          type: string
+        city:
+          type: string
+        view_id:
+          type: string
+        platform_description:
+          type: string
+        video_startup_preroll_request_time:
+          type: string
+        viewer_device_name:
+          type: string
+        video_series:
+          type: string
+        viewer_application_name:
+          type: string
+        updated_at:
+          type: string
+        view_total_content_playback_time:
+          type: string
+        cdn:
+          type: string
+        player_instance_id:
+          type: string
+        video_language:
+          type: string
+        player_source_width:
+          format: int32
+          type: integer
+        player_error_message:
+          type: string
+        player_mux_plugin_version:
+          type: string
+        watched:
+          type: boolean
+        playback_score:
+          type: string
+        page_url:
+          type: string
+        metro:
+          type: string
+        view_max_request_latency:
+          type: string
+        requests_for_first_preroll:
+          type: string
+        view_total_downscaling:
+          type: string
+        latitude:
+          type: string
+        player_source_host_name:
+          type: string
+        inserted_at:
+          type: string
+        view_end:
+          type: string
+        mux_embed_version:
+          type: string
+        player_language:
+          type: string
+        page_load_time:
+          format: int32
+          type: integer
+        viewer_device_category:
+          type: string
+        video_startup_preroll_load_time:
+          type: string
+        player_version:
+          type: string
+        watch_time:
+          format: int32
+          type: integer
+        player_source_stream_type:
+          type: string
+        preroll_ad_tag_hostname:
+          type: string
+        viewer_device_manufacturer:
+          type: string
+        rebuffering_score:
+          type: string
+        experiment_name:
+          type: string
+        viewer_os_version:
+          type: string
+        player_preload:
+          type: boolean
+        buffering_duration:
+          type: string
+        player_view_count:
+          format: int32
+          type: integer
+        player_software:
+          type: string
+        player_load_time:
+          type: string
+        platform_summary:
+          type: string
+        video_encoding_variant:
+          type: string
+        player_width:
+          format: int32
+          type: integer
+        view_seek_count:
+          type: string
+        viewer_experience_score:
+          type: string
+        view_error_id:
+          format: int32
+          type: integer
+        video_variant_name:
+          type: string
+        preroll_played:
+          type: boolean
+        viewer_application_engine:
+          type: string
+        viewer_os_architecture:
+          type: string
+        player_error_code:
+          type: string
+        buffering_rate:
+          type: string
+        events:
+          items:
+            $ref: '#/components/schemas/VideoViewEvent'
+          type: array
+        player_name:
+          type: string
+        view_start:
+          type: string
+        view_average_request_throughput:
+          type: string
+        video_producer:
+          type: string
+        error_type_id:
+          format: int32
+          type: integer
+        mux_viewer_id:
+          type: string
+        video_id:
+          type: string
+        continent_code:
+          type: string
+        session_id:
+          type: string
+        exit_before_video_start:
+          type: boolean
+        video_content_type:
+          type: string
+        viewer_os_family:
+          type: string
+        player_poster:
+          type: string
+        view_average_request_latency:
+          type: string
+        video_variant_id:
+          type: string
+        player_source_duration:
+          format: int32
+          type: integer
+        player_source_url:
+          type: string
+        mux_api_version:
+          type: string
+        video_title:
+          type: string
+        id:
+          type: string
+        short_time:
+          type: string
+        rebuffer_percentage:
+          type: string
+        time_to_first_frame:
+          type: string
+        viewer_user_id:
+          type: string
+        video_stream_type:
+          type: string
+        player_startup_time:
+          format: int32
+          type: integer
+        viewer_application_version:
+          type: string
+        view_max_downscale_percentage:
+          type: string
+        view_max_upscale_percentage:
+          type: string
+        country_code:
+          type: string
+        used_fullscreen:
+          type: boolean
+        isp:
+          type: string
+        property_id:
+          format: int32
+          type: integer
+        player_autoplay:
+          type: boolean
+        player_height:
+          format: int32
+          type: integer
+        asn:
+          format: int32
+          type: integer
+        quality_score:
+          type: string
+        player_software_version:
+          type: string
+      type: object
+    AbridgedVideoView:
+      example:
+        country_code: country_code
+        player_error_message: player_error_message
+        video_title: video_title
+        error_type_id: 6
+        view_start: view_start
+        total_row_count: 0
+        id: id
+        viewer_application_name: viewer_application_name
+        view_end: view_end
+        player_error_code: player_error_code
+        viewer_os_family: viewer_os_family
+      properties:
+        id:
+          type: string
+        viewer_os_family:
+          type: string
+        viewer_application_name:
+          type: string
+        video_title:
+          type: string
+        total_row_count:
+          format: uint64
+          type: integer
+        player_error_message:
+          type: string
+        player_error_code:
+          type: string
+        error_type_id:
+          format: int32
+          type: integer
+        country_code:
+          type: string
+        view_start:
+          type: string
+        view_end:
+          type: string
+      type: object
+    VideoViewEvent:
+      example:
+        playback_time: 3
+        name: name
+        viewer_time: 9
+        event_time: 2
+      properties:
+        viewer_time:
+          format: uint64
+          type: integer
+        playback_time:
+          format: uint64
+          type: integer
+        name:
+          type: string
+        event_time:
+          format: uint64
+          type: integer
+      type: object
+    ListFiltersResponse_data:
+      example:
+        advanced:
+        - advanced
+        - advanced
+        basic:
+        - basic
+        - basic
+      properties:
+        basic:
+          items:
+            type: string
+          type: array
+        advanced:
+          items:
+            type: string
+          type: array
+    Asset_errors:
+      example:
+        messages:
+        - messages
+        - messages
+        type: type
+      properties:
+        type:
+          type: string
+        messages:
+          items:
+            type: string
+          type: array
+    Asset_master:
+      example:
+        url: url
+        status: status
+      properties:
+        status:
+          type: string
+        url:
+          type: string
+    Asset_static_renditions_files:
+      example:
+        ext: mp4
+        name: low.mp4
+        width: 3
+        bitrate: 2
+        filesize: filesize
+        height: 9
+      properties:
+        name:
+          enum:
+          - low.mp4
+          - medium.mp4
+          - high.mp4
+          type: string
+        ext:
+          description: Extension of the static rendition file
+          enum:
+          - mp4
+          type: string
+        height:
+          description: The height of the static rendition's file in pixels
+          format: int32
+          type: integer
+        width:
+          description: The width of the static rendition's file in pixels
+          format: int32
+          type: integer
+        bitrate:
+          description: The bitrate in bits per second
+          format: int64
+          type: integer
+        filesize:
+          format: uint64
+          type: string
+    Asset_static_renditions:
+      example:
+        files:
+        - ext: mp4
+          name: low.mp4
+          width: 3
+          bitrate: 2
+          filesize: filesize
+          height: 9
+        - ext: mp4
+          name: low.mp4
+          width: 3
+          bitrate: 2
+          filesize: filesize
+          height: 9
+        status: disabled
+      properties:
+        status:
+          default: disabled
+          description: |
+            * `ready`: All MP4s are downloadable
+            * `preparing`: We are preparing the MP4s
+            * `disabled`: MP4 support was not requested or has been removed
+            * `errored`: There was a Mux internal error that prevented the MP4s from being created
+          enum:
+          - ready
+          - preparing
+          - disabled
+          - errored
+          type: string
+        files:
+          items:
+            $ref: '#/components/schemas/Asset_static_renditions_files'
+          type: array
+    InputSettings_overlay_settings:
+      example:
+        horizontal_margin: horizontal_margin
+        vertical_align: vertical_align
+        horizontal_align: horizontal_align
+        width: width
+        opacity: opacity
+        vertical_margin: vertical_margin
+        height: height
+      properties:
+        vertical_align:
+          type: string
+        vertical_margin:
+          type: string
+        horizontal_align:
+          type: string
+        horizontal_margin:
+          type: string
+        width:
+          type: string
+        height:
+          type: string
+        opacity:
+          type: string
+    Upload_error:
+      description: Only set if an error occurred during asset creation.
+      example:
+        type: type
+        message: message
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    accessToken:
+      description: |
+        The Mux Video API uses an Access Token and Secret Key for authentication. If you haven't already, [generate a new Access Token](https://dashboard.mux.com/settings/access-tokens) in the Access Token settings of your Mux account dashboard.
+
+        Once you have an Access Token ID and Secret, you can then simply include those as the username (id) and password (secret) in the same way you use traditional basic auth.
+      scheme: basic
+      type: http
+x-tagGroups:
+- name: Video
+  tags:
+  - Assets
+  - Live Streams
+  - URL Signing Keys
+  - Direct Uploads
+- name: Data
+  tags:
+  - Video Views
+  - Errors
+  - Filters
+  - Exports
+  - Metrics
