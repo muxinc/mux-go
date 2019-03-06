@@ -72,7 +72,8 @@ func main() {
 		fmt.Printf("Status: %s\n", asset.Status)
 		fmt.Printf("Duration: %f\n\n", asset.Duration)
 	}
-}```
+}
+```
 
 ## Exceptions & Error Handling
 
