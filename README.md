@@ -1,6 +1,6 @@
-![Mux Python Banner](github-python-sdk.png)
+TODO: Banner
 
-# Mux Python
+# Mux Go
 
 Official Mux API wrapper for go (golang) projects.
 
