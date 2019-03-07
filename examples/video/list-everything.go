@@ -17,7 +17,7 @@ func CheckError(err error) {
 
 func main() {
 
-	// Auth Setup
+	// Authentication Setup
 	auth := context.WithValue(context.Background(), muxgo.ContextBasicAuth, muxgo.BasicAuth{
 		UserName: os.Getenv("MUX_TOKEN_ID"),
 		Password: os.Getenv("MUX_TOKEN_SECRET"),
