@@ -14,6 +14,10 @@ TODO
 
 ## Installation
 
+```
+go get github.com/muxinc/mux-go
+```
+
 TODO
 
 ## Getting Started
@@ -45,20 +49,20 @@ import (
 	"fmt"
 	"os"
 
-	muxvideo ".."
+	"github.com/muxinc/mux-go"
 	"golang.org/x/net/context"
 )
 
 func main() {
 
 	// Auth Setup
-	auth := context.WithValue(context.Background(), muxvideo.ContextBasicAuth, muxvideo.BasicAuth{
+	auth := context.WithValue(context.Background(), muxgo.ContextBasicAuth, muxgo.BasicAuth{
 		UserName: os.Getenv("MUX_TOKEN_ID"),
 		Password: os.Getenv("MUX_TOKEN_SECRET"),
 	})
 
 	// API Client Init
-	client := muxvideo.NewAPIClient(muxvideo.NewConfiguration())
+	client := muxgo.NewAPIClient(muxgo.NewConfiguration())
 
 	// List Assets
 	fmt.Println("Listing Assets in account: \n")
