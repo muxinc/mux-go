@@ -66,12 +66,12 @@ func main() {
 
 	// List Assets
 	fmt.Println("Listing Assets in account: \n")
-	lasr, _, err := client.AssetsApi.ListAssets(auth, nil)
+	lar, _, err := client.AssetsApi.ListAssets(auth, nil)
 	if err != nil {
 		fmt.Printf("err: %s \n\n", err)
 		os.Exit(255)
 	}
-	for _, asset := range lasr.Data {
+	for _, asset := range lar.Data {
 		fmt.Printf("Asset ID: %s\n", asset.Id)
 		fmt.Printf("Status: %s\n", asset.Status)
 		fmt.Printf("Duration: %f\n\n", asset.Duration)
