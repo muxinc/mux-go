@@ -10,15 +10,18 @@ Not familiar with Mux? Check out https://mux.com/ for more information.
 
 ## Requirements.
 
-TODO
+```
+go get github.com/stretchr/testify/assert
+go get golang.org/x/oauth2
+go get golang.org/x/net/context
+go get github.com/antihax/optional
+```
 
 ## Installation
 
 ```
 go get github.com/muxinc/mux-go
 ```
-
-TODO
 
 ## Getting Started
 
