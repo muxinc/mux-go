@@ -43,7 +43,7 @@ func main() {
 	for _, stream := range streams.Data {
 		fmt.Printf("Live Stream ID: %s\n", stream.Id)
 		fmt.Printf("Status: %s\n", stream.Status)
-		fmt.Printf("Stream Key: %f\n\n", stream.StreamKey)
+		fmt.Printf("Stream Key: %s\n\n", stream.StreamKey)
 	}
 
 	// List Direct Uploads
@@ -52,13 +52,13 @@ func main() {
 	CheckError(err)
 	for _, upload := range uploads.Data {
 		fmt.Printf("Status: %s\n", upload.Status)
-		fmt.Printf("New Asset ID: %f\n\n", upload.AssetId)
+		fmt.Printf("New Asset ID: %s\n\n", upload.AssetId)
 	}
 
 	// List URL Signing Keys
 	fmt.Println("Listing URL Signing Keys: \n")
 	keys, _, err := client.URLSigningKeysApi.ListUrlSigningKeys(auth, nil)
 	for _, key := range keys.Data {
-		fmt.Printf("Signing Key ID: %s\n", key.Id)
+		fmt.Printf("Signing Key ID: %s\n\n", key.Id)
 	}
 }
