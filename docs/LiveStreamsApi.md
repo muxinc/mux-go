@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **CreateLiveStream**
-> LiveStreamResponse CreateLiveStream(ctx, optional)
+> LiveStreamResponse CreateLiveStream(ctx, createLiveStreamRequest)
 Create a live stream
 
 ### Required Parameters
@@ -23,14 +23,7 @@ Create a live stream
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateLiveStreamOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CreateLiveStreamOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createLiveStreamRequest** | [**optional.Interface of CreateLiveStreamRequest**](CreateLiveStreamRequest.md)|  | 
+  **createLiveStreamRequest** | [**CreateLiveStreamRequest**](CreateLiveStreamRequest.md)|  | 
 
 ### Return type
 
@@ -48,7 +41,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CreateLiveStreamPlaybackId**
-> CreatePlaybackIdResponse CreateLiveStreamPlaybackId(ctx, lIVESTREAMID, optional)
+> CreatePlaybackIdResponse CreateLiveStreamPlaybackId(ctx, lIVESTREAMID, createPlaybackIdRequest)
 Create a live stream playback ID
 
 ### Required Parameters
@@ -57,15 +50,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **lIVESTREAMID** | **string**| The live stream ID | 
- **optional** | ***CreateLiveStreamPlaybackIdOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CreateLiveStreamPlaybackIdOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **createPlaybackIdRequest** | [**optional.Interface of CreatePlaybackIdRequest**](CreatePlaybackIdRequest.md)|  | 
+  **createPlaybackIdRequest** | [**CreatePlaybackIdRequest**](CreatePlaybackIdRequest.md)|  | 
 
 ### Return type
 

@@ -24,16 +24,10 @@ type AssetsApiService service
 AssetsApiService Create an asset
 Create a new Mux Video asset. 
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateAssetOpts - Optional Parameters:
- * @param "CreateAssetRequest" (optional.Interface of CreateAssetRequest) - 
+ * @param createAssetRequest
 @return AssetResponse
 */
-
-type CreateAssetOpts struct {
-	CreateAssetRequest optional.Interface
-}
-
-func (a *AssetsApiService) CreateAsset(ctx context.Context, localVarOptionals *CreateAssetOpts) (AssetResponse, *http.Response, error) {
+func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest CreateAssetRequest) (AssetResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -68,14 +62,7 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, localVarOptionals *C
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.CreateAssetRequest.IsSet() {
-		localVarOptionalCreateAssetRequest, localVarOptionalCreateAssetRequestok := localVarOptionals.CreateAssetRequest.Value().(CreateAssetRequest)
-		if !localVarOptionalCreateAssetRequestok {
-			return localVarReturnValue, nil, reportError("createAssetRequest should be CreateAssetRequest")
-		}
-		localVarPostBody = &localVarOptionalCreateAssetRequest
-	}
-
+	localVarPostBody = &createAssetRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -126,16 +113,10 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, localVarOptionals *C
 AssetsApiService Create a playback ID
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param aSSETID The asset ID.
- * @param optional nil or *CreateAssetPlaybackIdOpts - Optional Parameters:
- * @param "CreatePlaybackIdRequest" (optional.Interface of CreatePlaybackIdRequest) - 
+ * @param createPlaybackIdRequest
 @return CreatePlaybackIdResponse
 */
-
-type CreateAssetPlaybackIdOpts struct {
-	CreatePlaybackIdRequest optional.Interface
-}
-
-func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID string, localVarOptionals *CreateAssetPlaybackIdOpts) (CreatePlaybackIdResponse, *http.Response, error) {
+func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -171,14 +152,7 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.CreatePlaybackIdRequest.IsSet() {
-		localVarOptionalCreatePlaybackIdRequest, localVarOptionalCreatePlaybackIdRequestok := localVarOptionals.CreatePlaybackIdRequest.Value().(CreatePlaybackIdRequest)
-		if !localVarOptionalCreatePlaybackIdRequestok {
-			return localVarReturnValue, nil, reportError("createPlaybackIdRequest should be CreatePlaybackIdRequest")
-		}
-		localVarPostBody = &localVarOptionalCreatePlaybackIdRequest
-	}
-
+	localVarPostBody = &createPlaybackIdRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

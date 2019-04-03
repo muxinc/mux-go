@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **AssetId** | **string** | Only set once the upload is in the &#x60;asset_created&#x60; state. | [optional] 
 **Error** | [**UploadError**](Upload_error.md) |  | [optional] 
 **CorsOrigin** | **string** | If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers. | [optional] 
+**Url** | **string** | The URL to upload the associated source media to. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

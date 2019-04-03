@@ -23,16 +23,10 @@ type LiveStreamsApiService service
 /*
 LiveStreamsApiService Create a live stream
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateLiveStreamOpts - Optional Parameters:
- * @param "CreateLiveStreamRequest" (optional.Interface of CreateLiveStreamRequest) - 
+ * @param createLiveStreamRequest
 @return LiveStreamResponse
 */
-
-type CreateLiveStreamOpts struct {
-	CreateLiveStreamRequest optional.Interface
-}
-
-func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, localVarOptionals *CreateLiveStreamOpts) (LiveStreamResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLiveStreamRequest CreateLiveStreamRequest) (LiveStreamResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -67,14 +61,7 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, localVarOp
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.CreateLiveStreamRequest.IsSet() {
-		localVarOptionalCreateLiveStreamRequest, localVarOptionalCreateLiveStreamRequestok := localVarOptionals.CreateLiveStreamRequest.Value().(CreateLiveStreamRequest)
-		if !localVarOptionalCreateLiveStreamRequestok {
-			return localVarReturnValue, nil, reportError("createLiveStreamRequest should be CreateLiveStreamRequest")
-		}
-		localVarPostBody = &localVarOptionalCreateLiveStreamRequest
-	}
-
+	localVarPostBody = &createLiveStreamRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -125,16 +112,10 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, localVarOp
 LiveStreamsApiService Create a live stream playback ID
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param lIVESTREAMID The live stream ID
- * @param optional nil or *CreateLiveStreamPlaybackIdOpts - Optional Parameters:
- * @param "CreatePlaybackIdRequest" (optional.Interface of CreatePlaybackIdRequest) - 
+ * @param createPlaybackIdRequest
 @return CreatePlaybackIdResponse
 */
-
-type CreateLiveStreamPlaybackIdOpts struct {
-	CreatePlaybackIdRequest optional.Interface
-}
-
-func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, localVarOptionals *CreateLiveStreamPlaybackIdOpts) (CreatePlaybackIdResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -170,14 +151,7 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	if localVarOptionals != nil && localVarOptionals.CreatePlaybackIdRequest.IsSet() {
-		localVarOptionalCreatePlaybackIdRequest, localVarOptionalCreatePlaybackIdRequestok := localVarOptionals.CreatePlaybackIdRequest.Value().(CreatePlaybackIdRequest)
-		if !localVarOptionalCreatePlaybackIdRequestok {
-			return localVarReturnValue, nil, reportError("createPlaybackIdRequest should be CreatePlaybackIdRequest")
-		}
-		localVarPostBody = &localVarOptionalCreatePlaybackIdRequest
-	}
-
+	localVarPostBody = &createPlaybackIdRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

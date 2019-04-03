@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **CreateAsset**
-> AssetResponse CreateAsset(ctx, optional)
+> AssetResponse CreateAsset(ctx, createAssetRequest)
 Create an asset
 
 Create a new Mux Video asset. 
@@ -26,14 +26,7 @@ Create a new Mux Video asset.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***CreateAssetOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CreateAssetOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createAssetRequest** | [**optional.Interface of CreateAssetRequest**](CreateAssetRequest.md)|  | 
+  **createAssetRequest** | [**CreateAssetRequest**](CreateAssetRequest.md)|  | 
 
 ### Return type
 
@@ -51,7 +44,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CreateAssetPlaybackId**
-> CreatePlaybackIdResponse CreateAssetPlaybackId(ctx, aSSETID, optional)
+> CreatePlaybackIdResponse CreateAssetPlaybackId(ctx, aSSETID, createPlaybackIdRequest)
 Create a playback ID
 
 ### Required Parameters
@@ -60,15 +53,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **aSSETID** | **string**| The asset ID. | 
- **optional** | ***CreateAssetPlaybackIdOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CreateAssetPlaybackIdOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **createPlaybackIdRequest** | [**optional.Interface of CreatePlaybackIdRequest**](CreatePlaybackIdRequest.md)|  | 
+  **createPlaybackIdRequest** | [**CreatePlaybackIdRequest**](CreatePlaybackIdRequest.md)|  | 
 
 ### Return type
 

@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/muxinc/mux-go"
-	"github.com/antihax/optional"
 	"golang.org/x/net/context"
 )
 
@@ -39,24 +38,18 @@ func main() {
 	client := muxgo.NewAPIClient(muxgo.NewConfiguration())
 
 	// ========== create-asset ==========
-	cao := muxgo.CreateAssetOpts{
-		CreateAssetRequest: optional.NewInterface(
-			muxgo.CreateAssetRequest{
+	car :=  muxgo.CreateAssetRequest{
 				Input: []muxgo.InputSettings{muxgo.InputSettings{Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4"}},
-			},
-		),
-	}
-	care, _, err := client.AssetsApi.CreateAsset(auth, &cao)
+			}
 
+	_, _, err := client.AssetsApi.CreateAsset(auth, car)
 	CheckError(err)
-
-	fmt.Println(care)
+	fmt.Println("create-asset OK ✅")
 
 	// ========== list-assets ==========
-	fmt.Println("Listing Assets: \n")
-	assets, _, err := client.AssetsApi.ListAssets(auth, nil)
+	_, _, err = client.AssetsApi.ListAssets(auth, nil)
 	CheckError(err)
-	fmt.Println(assets)
+	fmt.Println("list-assets OK ✅")
 
 		// ========== get-asset ==========
 		// ========== get-asset-input-info ==========

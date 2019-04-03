@@ -75,6 +75,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateAssetRequest'
+        required: true
       responses:
         200:
           content:
@@ -179,6 +180,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreatePlaybackIDRequest'
+        required: true
       responses:
         201:
           content:
@@ -315,6 +317,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateLiveStreamRequest'
+        required: true
       responses:
         201:
           content:
@@ -382,6 +385,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreatePlaybackIDRequest'
+        required: true
       responses:
         201:
           content:
@@ -1020,7 +1024,8 @@ paths:
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
-          - video_startup_preroll_request_time video_startup_time
+          - video_startup_preroll_request_time
+          - video_startup_time
           - viewer_experience_score
           type: string
         style: simple
@@ -1180,7 +1185,8 @@ paths:
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
-          - video_startup_preroll_request_time video_startup_time
+          - video_startup_preroll_request_time
+          - video_startup_time
           - viewer_experience_score
           type: string
         style: simple
@@ -1265,7 +1271,8 @@ paths:
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
-          - video_startup_preroll_request_time video_startup_time
+          - video_startup_preroll_request_time
+          - video_startup_time
           - viewer_experience_score
           type: string
         style: simple
@@ -1349,7 +1356,8 @@ paths:
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
-          - video_startup_preroll_request_time video_startup_time
+          - video_startup_preroll_request_time
+          - video_startup_time
           - viewer_experience_score
           type: string
         style: simple
@@ -1791,7 +1799,8 @@ components:
         - upscale_percentage
         - video_quality_score
         - video_startup_preroll_load_time
-        - video_startup_preroll_request_time video_startup_time
+        - video_startup_preroll_request_time
+        - video_startup_time
         - viewer_experience_score
         type: string
       style: simple
@@ -2493,6 +2502,7 @@ components:
             type: type
             message: message
           timeout: 48489
+          url: url
           status: waiting
         - cors_origin: cors_origin
           id: id
@@ -2564,6 +2574,7 @@ components:
             type: type
             message: message
           timeout: 48489
+          url: url
           status: waiting
       properties:
         data:
@@ -2753,6 +2764,7 @@ components:
             type: type
             message: message
           timeout: 48489
+          url: url
           status: waiting
       properties:
         data:
@@ -3883,6 +3895,7 @@ components:
           type: type
           message: message
         timeout: 48489
+        url: url
         status: waiting
       properties:
         id:
@@ -3911,6 +3924,9 @@ components:
           $ref: '#/components/schemas/Upload_error'
         cors_origin:
           description: If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
+          type: string
+        url:
+          description: The URL to upload the associated source media to.
           type: string
       type: object
     VideoView:
