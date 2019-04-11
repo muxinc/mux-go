@@ -159,7 +159,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 
 // prepareRequest build the request
 func (c *APIClient) prepareRequest(
-	ctx context.Context,
+	opts *APIOptions,
 	path string, method string,
 	postBody interface{},
 	headerParams map[string]string,
@@ -279,9 +279,9 @@ func (c *APIClient) prepareRequest(
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.userAgent)
 
-	if ctx != nil {
+	if opts.ctx != nil {
 		// add context to the request
-		localVarRequest = localVarRequest.WithContext(ctx)
+		localVarRequest = localVarRequest.WithContext(opts.ctx)
 	}
 
 	// Basic HTTP Authentication
@@ -434,6 +434,33 @@ func CacheExpires(r *http.Response) time.Time {
 
 func strlen(s string) int {
 	return utf8.RuneCountInString(s)
+}
+
+// APIOption sets options for API calls.
+type APIOption func(*APIOptions)
+
+// APIOptions wraps internal API call options.
+type APIOptions struct {
+	ctx    context.Context
+	params interface{}
+}
+
+// WithContext returns an APIOption that sets the context for an API call.
+func WithContext(ctx context.Context) APIOption {
+	return func(o *APIOptions) {
+		o.ctx = ctx
+	}
+}
+
+// WithParams returns an APIOption that sets the params for an API call. The params provided must be the correct type for the call or an error will be thrown by the call.
+func WithParams(params interface{}) APIOption {
+	return func(o *APIOptions) {
+		o.params = params
+	}
+}
+
+func isSet(val interface{}) bool {
+	return true
 }
 
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.

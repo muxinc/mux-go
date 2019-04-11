@@ -4,30 +4,17 @@
 package muxgo
 
 import (
-	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type VideoViewsApiService service
 
-/*
-VideoViewsApiService Get a Video View
-Returns the details of a video view
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param vIDEOVIEWID ID of the Video View
-@return VideoViewResponse
-*/
-func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID string) (VideoViewResponse, error) {
+func (a *VideoViewsApiService) GetVideoView(vIDEOVIEWID string, opts ...APIOption) (VideoViewResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -35,6 +22,10 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 		localVarFileBytes    []byte
 		localVarReturnValue  VideoViewResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/video-views/{VIDEO_VIEW_ID}"
@@ -61,7 +52,8 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -107,33 +99,19 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 	return localVarReturnValue, nil
 }
 
-/*
-VideoViewsApiService List Video Views
-Returns a list of video views
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListVideoViewsOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of items to include in the response
- * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
- * @param "ViewerId" (optional.String) -  Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
- * @param "ErrorId" (optional.Int32) -  Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
- * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
-@return ListVideoViewsResponse
-*/
-
-type ListVideoViewsOpts struct {
-	Limit          optional.Int32
-	Page           optional.Int32
-	ViewerId       optional.String
-	ErrorId        optional.Int32
-	OrderDirection optional.String
-	Filters        optional.Interface
-	Timeframe      optional.Interface
+type ListVideoViewsParams struct {
+	Limit          int32
+	Page           int32
+	ViewerId       string
+	ErrorId        int32
+	OrderDirection string
+	Filters        []string
+	Timeframe      []string
 }
 
-func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptionals *ListVideoViewsOpts) (ListVideoViewsResponse, error) {
+func (a *VideoViewsApiService) ListVideoViews(opts ...APIOption) (ListVideoViewsResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -142,6 +120,15 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 		localVarReturnValue  ListVideoViewsResponse
 	)
 
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListVideoViewsParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListVideoViewsParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/video-views"
 
@@ -149,26 +136,26 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ViewerId.IsSet() {
-		localVarQueryParams.Add("viewer_id", parameterToString(localVarOptionals.ViewerId.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.ViewerId) {
+		localVarQueryParams.Add("viewer_id", parameterToString(localVarOptionals.ViewerId, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ErrorId.IsSet() {
-		localVarQueryParams.Add("error_id", parameterToString(localVarOptionals.ErrorId.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.ErrorId) {
+		localVarQueryParams.Add("error_id", parameterToString(localVarOptionals.ErrorId, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.OrderDirection.IsSet() {
-		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderDirection) {
+		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Filters.IsSet() {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
+		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Timeframe.IsSet() {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
+		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -187,7 +174,8 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}

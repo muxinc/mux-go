@@ -4,30 +4,17 @@
 package muxgo
 
 import (
-	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type DirectUploadsApiService service
 
-/*
-DirectUploadsApiService Cancel a direct upload
-Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this request, no asset will be created. This request will only succeed if the upload is still in the &#x60;waiting&#x60; state.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uPLOADID ID of the Upload
-@return UploadResponse
-*/
-func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOADID string) (UploadResponse, error) {
+func (a *DirectUploadsApiService) CancelDirectUpload(uPLOADID string, opts ...APIOption) (UploadResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -35,6 +22,10 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 		localVarFileBytes    []byte
 		localVarReturnValue  UploadResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/uploads/{UPLOAD_ID}/cancel"
@@ -61,7 +52,8 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -107,14 +99,9 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 	return localVarReturnValue, nil
 }
 
-/*
-DirectUploadsApiService Create a new direct upload URL
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param createUploadRequest
-@return UploadResponse
-*/
-func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, createUploadRequest CreateUploadRequest) (UploadResponse, error) {
+func (a *DirectUploadsApiService) CreateDirectUpload(createUploadRequest CreateUploadRequest, opts ...APIOption) (UploadResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -122,6 +109,10 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 		localVarFileBytes    []byte
 		localVarReturnValue  UploadResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/uploads"
@@ -149,7 +140,8 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 	}
 	// body params
 	localVarPostBody = &createUploadRequest
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -195,14 +187,9 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 	return localVarReturnValue, nil
 }
 
-/*
-DirectUploadsApiService Retrieve a single direct upload's info
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uPLOADID ID of the Upload
-@return UploadResponse
-*/
-func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID string) (UploadResponse, error) {
+func (a *DirectUploadsApiService) GetDirectUpload(uPLOADID string, opts ...APIOption) (UploadResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -210,6 +197,10 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 		localVarFileBytes    []byte
 		localVarReturnValue  UploadResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/uploads/{UPLOAD_ID}"
@@ -236,7 +227,8 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -282,22 +274,14 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 	return localVarReturnValue, nil
 }
 
-/*
-DirectUploadsApiService List direct uploads
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListDirectUploadsOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of items to include in the response
- * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
-@return ListUploadsResponse
-*/
-
-type ListDirectUploadsOpts struct {
-	Limit optional.Int32
-	Page  optional.Int32
+type ListDirectUploadsParams struct {
+	Limit int32
+	Page  int32
 }
 
-func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVarOptionals *ListDirectUploadsOpts) (ListUploadsResponse, error) {
+func (a *DirectUploadsApiService) ListDirectUploads(opts ...APIOption) (ListUploadsResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -306,6 +290,15 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 		localVarReturnValue  ListUploadsResponse
 	)
 
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListDirectUploadsParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListDirectUploadsParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/uploads"
 
@@ -313,11 +306,11 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -336,7 +329,8 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}

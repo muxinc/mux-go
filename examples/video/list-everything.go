@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 
@@ -24,7 +23,7 @@ func main() {
 
 	// List Assets
 	fmt.Println("Listing Assets: \n")
-	assets, err := client.AssetsApi.ListAssets(context.Background(), nil)
+	assets, err := client.AssetsApi.ListAssets()
 	checkError(err)
 	for _, asset := range assets.Data {
 		fmt.Printf("Asset ID: %s\n", asset.Id)
@@ -34,7 +33,7 @@ func main() {
 
 	// List Live Streams
 	fmt.Println("Listing Live Streams: \n")
-	streams, err := client.LiveStreamsApi.ListLiveStreams(context.Background(), nil)
+	streams, err := client.LiveStreamsApi.ListLiveStreams()
 	checkError(err)
 	for _, stream := range streams.Data {
 		fmt.Printf("Live Stream ID: %s\n", stream.Id)
@@ -44,7 +43,7 @@ func main() {
 
 	// List Direct Uploads
 	fmt.Println("Listing Direct Uploads: \n")
-	uploads, err := client.DirectUploadsApi.ListDirectUploads(context.Background(), nil)
+	uploads, err := client.DirectUploadsApi.ListDirectUploads()
 	checkError(err)
 	for _, upload := range uploads.Data {
 		fmt.Printf("Status: %s\n", upload.Status)
@@ -53,7 +52,7 @@ func main() {
 
 	// List URL Signing Keys
 	fmt.Println("Listing URL Signing Keys: \n")
-	keys, err := client.URLSigningKeysApi.ListUrlSigningKeys(context.Background(), nil)
+	keys, err := client.URLSigningKeysApi.ListUrlSigningKeys()
 	for _, key := range keys.Data {
 		fmt.Printf("Signing Key ID: %s\n\n", key.Id)
 	}

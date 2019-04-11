@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 
@@ -34,7 +33,7 @@ func main() {
 		))
 
 	// ========== create-asset ==========
-	cr, err := client.AssetsApi.CreateAsset(context.Background(), muxgo.CreateAssetRequest{
+	cr, err := client.AssetsApi.CreateAsset(muxgo.CreateAssetRequest{
 		Input: []muxgo.InputSettings{
 			muxgo.InputSettings{
 				Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4",
@@ -46,19 +45,19 @@ func main() {
 	fmt.Printf("created asset with id: %s\n\n", cr.Data.Id)
 
 	// ========== list-assets ==========
-	lr, err := client.AssetsApi.ListAssets(context.Background(), nil)
+	lr, err := client.AssetsApi.ListAssets()
 	checkError(err)
 	fmt.Println("list-assets OK ✅")
 	fmt.Printf("loaded a list of %d assets.\n\n", len(lr.Data))
 
 	// ========== get-asset ==========
-	gr, err := client.AssetsApi.GetAsset(context.Background(), cr.Data.Id)
+	gr, err := client.AssetsApi.GetAsset(cr.Data.Id)
 	checkError(err)
 	fmt.Println("get-asset OK ✅")
 	fmt.Printf("got the asset with id %s\n\n", gr.Data.Id)
 
 	// ========== get-asset-input-info ==========
-	ir, err := client.AssetsApi.GetAssetInputInfo(context.Background(), cr.Data.Id)
+	ir, err := client.AssetsApi.GetAssetInputInfo(cr.Data.Id)
 	checkError(err)
 	fmt.Println("get-asset-input-info OK ✅")
 	fmt.Printf("%+v\n\n", ir.Data)

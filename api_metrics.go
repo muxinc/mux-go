@@ -4,45 +4,26 @@
 package muxgo
 
 import (
-	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type MetricsApiService service
 
-/*
-MetricsApiService Get metric timeseries data
-Returns timeseries data for a specific metric
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param mETRICID ID of the Metric
- * @param optional nil or *GetMetricTimeseriesDataOpts - Optional Parameters:
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
- * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
- * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "GroupBy" (optional.String) -  Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe.
-@return GetMetricTimeseriesDataResponse
-*/
-
-type GetMetricTimeseriesDataOpts struct {
-	Timeframe      optional.Interface
-	Filters        optional.Interface
-	Measurement    optional.String
-	OrderDirection optional.String
-	GroupBy        optional.String
+type GetMetricTimeseriesDataParams struct {
+	METRICID       string
+	Timeframe      []string
+	Filters        []string
+	Measurement    string
+	OrderDirection string
+	GroupBy        string
 }
 
-func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICID string, localVarOptionals *GetMetricTimeseriesDataOpts) (GetMetricTimeseriesDataResponse, error) {
+func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...APIOption) (GetMetricTimeseriesDataResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -50,6 +31,15 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 		localVarFileBytes    []byte
 		localVarReturnValue  GetMetricTimeseriesDataResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*GetMetricTimeseriesDataParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *GetMetricTimeseriesDataParams")
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/timeseries"
@@ -59,20 +49,20 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Timeframe.IsSet() {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
+		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Filters.IsSet() {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
+		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Measurement.IsSet() {
-		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
+		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.OrderDirection.IsSet() {
-		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderDirection) {
+		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.GroupBy.IsSet() {
-		localVarQueryParams.Add("group_by", parameterToString(localVarOptionals.GroupBy.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.GroupBy) {
+		localVarQueryParams.Add("group_by", parameterToString(localVarOptionals.GroupBy, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -91,7 +81,8 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -137,26 +128,16 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 	return localVarReturnValue, nil
 }
 
-/*
-MetricsApiService Get Overall values
-Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param mETRICID ID of the Metric
- * @param optional nil or *GetOverallValuesOpts - Optional Parameters:
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
- * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
-@return GetOverallValuesResponse
-*/
-
-type GetOverallValuesOpts struct {
-	Timeframe   optional.Interface
-	Filters     optional.Interface
-	Measurement optional.String
+type GetOverallValuesParams struct {
+	METRICID    string
+	Timeframe   []string
+	Filters     []string
+	Measurement string
 }
 
-func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID string, localVarOptionals *GetOverallValuesOpts) (GetOverallValuesResponse, error) {
+func (a *MetricsApiService) GetOverallValues(mETRICID string, opts ...APIOption) (GetOverallValuesResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -164,6 +145,15 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 		localVarFileBytes    []byte
 		localVarReturnValue  GetOverallValuesResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*GetOverallValuesParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *GetOverallValuesParams")
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/overall"
@@ -173,14 +163,14 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Timeframe.IsSet() {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
+		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Filters.IsSet() {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
+		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Measurement.IsSet() {
-		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
+		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -199,7 +189,8 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -245,27 +236,16 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 	return localVarReturnValue, nil
 }
 
-/*
-MetricsApiService List all metric values
-List all of the values across every breakdown for a specific metric
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListAllMetricValuesOpts - Optional Parameters:
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
- * @param "Dimension" (optional.String) -  Dimension the specified value belongs to
- * @param "Value" (optional.String) -  Value to show all available metrics for
-@return ListAllMetricValuesResponse
-*/
-
-type ListAllMetricValuesOpts struct {
-	Timeframe optional.Interface
-	Filters   optional.Interface
-	Dimension optional.String
-	Value     optional.String
+type ListAllMetricValuesParams struct {
+	Timeframe []string
+	Filters   []string
+	Dimension string
+	Value     string
 }
 
-func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOptionals *ListAllMetricValuesOpts) (ListAllMetricValuesResponse, error) {
+func (a *MetricsApiService) ListAllMetricValues(opts ...APIOption) (ListAllMetricValuesResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -274,6 +254,15 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 		localVarReturnValue  ListAllMetricValuesResponse
 	)
 
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListAllMetricValuesParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListAllMetricValuesParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/comparison"
 
@@ -281,17 +270,17 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Timeframe.IsSet() {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
+		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Filters.IsSet() {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
+		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Dimension.IsSet() {
-		localVarQueryParams.Add("dimension", parameterToString(localVarOptionals.Dimension.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Dimension) {
+		localVarQueryParams.Add("dimension", parameterToString(localVarOptionals.Dimension, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Value.IsSet() {
-		localVarQueryParams.Add("value", parameterToString(localVarOptionals.Value.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Value) {
+		localVarQueryParams.Add("value", parameterToString(localVarOptionals.Value, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -310,7 +299,8 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -356,36 +346,21 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 	return localVarReturnValue, nil
 }
 
-/*
-MetricsApiService List breakdown values
-List the breakdown values for a specific metric
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param mETRICID ID of the Metric
- * @param optional nil or *ListBreakdownValuesOpts - Optional Parameters:
- * @param "GroupBy" (optional.String) -  Breakdown value to group the results by
- * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
- * @param "Limit" (optional.Int32) -  Number of items to include in the response
- * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
- * @param "OrderBy" (optional.String) -  Value to order the results by
- * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
-@return ListBreakdownValuesResponse
-*/
-
-type ListBreakdownValuesOpts struct {
-	GroupBy        optional.String
-	Measurement    optional.String
-	Filters        optional.Interface
-	Limit          optional.Int32
-	Page           optional.Int32
-	OrderBy        optional.String
-	OrderDirection optional.String
-	Timeframe      optional.Interface
+type ListBreakdownValuesParams struct {
+	METRICID       string
+	GroupBy        string
+	Measurement    string
+	Filters        []string
+	Limit          int32
+	Page           int32
+	OrderBy        string
+	OrderDirection string
+	Timeframe      []string
 }
 
-func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID string, localVarOptionals *ListBreakdownValuesOpts) (ListBreakdownValuesResponse, error) {
+func (a *MetricsApiService) ListBreakdownValues(mETRICID string, opts ...APIOption) (ListBreakdownValuesResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -393,6 +368,15 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 		localVarFileBytes    []byte
 		localVarReturnValue  ListBreakdownValuesResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListBreakdownValuesParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListBreakdownValuesParams")
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/breakdown"
@@ -402,29 +386,29 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.GroupBy.IsSet() {
-		localVarQueryParams.Add("group_by", parameterToString(localVarOptionals.GroupBy.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.GroupBy) {
+		localVarQueryParams.Add("group_by", parameterToString(localVarOptionals.GroupBy, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Measurement.IsSet() {
-		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
+		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Filters.IsSet() {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
+		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.OrderBy.IsSet() {
-		localVarQueryParams.Add("order_by", parameterToString(localVarOptionals.OrderBy.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderBy) {
+		localVarQueryParams.Add("order_by", parameterToString(localVarOptionals.OrderBy, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.OrderDirection.IsSet() {
-		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderDirection) {
+		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Timeframe.IsSet() {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
+		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -443,7 +427,8 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -489,26 +474,16 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 	return localVarReturnValue, nil
 }
 
-/*
-MetricsApiService List Insights
-Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param mETRICID ID of the Metric
- * @param optional nil or *ListInsightsOpts - Optional Parameters:
- * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
- * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
-@return ListInsightsResponse
-*/
-
-type ListInsightsOpts struct {
-	Measurement    optional.String
-	OrderDirection optional.String
-	Timeframe      optional.Interface
+type ListInsightsParams struct {
+	METRICID       string
+	Measurement    string
+	OrderDirection string
+	Timeframe      []string
 }
 
-func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, localVarOptionals *ListInsightsOpts) (ListInsightsResponse, error) {
+func (a *MetricsApiService) ListInsights(mETRICID string, opts ...APIOption) (ListInsightsResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -516,6 +491,15 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 		localVarFileBytes    []byte
 		localVarReturnValue  ListInsightsResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListInsightsParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListInsightsParams")
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/insights"
@@ -525,14 +509,14 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Measurement.IsSet() {
-		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
+		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.OrderDirection.IsSet() {
-		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderDirection) {
+		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Timeframe.IsSet() {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe.Value(), "multi"))
+	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
+		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -551,7 +535,8 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}

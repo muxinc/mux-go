@@ -4,30 +4,17 @@
 package muxgo
 
 import (
-	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type AssetsApiService service
 
-/*
-AssetsApiService Create an asset
-Create a new Mux Video asset.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param createAssetRequest
-@return AssetResponse
-*/
-func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest CreateAssetRequest) (AssetResponse, error) {
+func (a *AssetsApiService) CreateAsset(createAssetRequest CreateAssetRequest, opts ...APIOption) (AssetResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -35,6 +22,10 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 		localVarFileBytes    []byte
 		localVarReturnValue  AssetResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets"
@@ -62,7 +53,8 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 	}
 	// body params
 	localVarPostBody = &createAssetRequest
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -108,15 +100,9 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 	return localVarReturnValue, nil
 }
 
-/*
-AssetsApiService Create a playback ID
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
- * @param createPlaybackIdRequest
-@return CreatePlaybackIdResponse
-*/
-func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, error) {
+func (a *AssetsApiService) CreateAssetPlaybackId(aSSETID string, createPlaybackIdRequest CreatePlaybackIdRequest, opts ...APIOption) (CreatePlaybackIdResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -124,6 +110,10 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 		localVarFileBytes    []byte
 		localVarReturnValue  CreatePlaybackIdResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/playback-ids"
@@ -152,7 +142,8 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 	}
 	// body params
 	localVarPostBody = &createPlaybackIdRequest
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -198,19 +189,19 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 	return localVarReturnValue, nil
 }
 
-/*
-AssetsApiService Delete an asset
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
-*/
-func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) error {
+func (a *AssetsApiService) DeleteAsset(aSSETID string, opts ...APIOption) error {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}"
@@ -237,7 +228,8 @@ func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) erro
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return err
 	}
@@ -264,20 +256,19 @@ func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) erro
 	return nil
 }
 
-/*
-AssetsApiService Delete a playback ID
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
- * @param pLAYBACKID The live stream's playback ID.
-*/
-func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) error {
+func (a *AssetsApiService) DeleteAssetPlaybackId(aSSETID string, pLAYBACKID string, opts ...APIOption) error {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}"
@@ -305,7 +296,8 @@ func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID st
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return err
 	}
@@ -332,15 +324,9 @@ func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID st
 	return nil
 }
 
-/*
-AssetsApiService Retrieve an asset
-Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
-@return AssetResponse
-*/
-func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetResponse, error) {
+func (a *AssetsApiService) GetAsset(aSSETID string, opts ...APIOption) (AssetResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -348,6 +334,10 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 		localVarFileBytes    []byte
 		localVarReturnValue  AssetResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}"
@@ -374,7 +364,8 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -420,15 +411,9 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 	return localVarReturnValue, nil
 }
 
-/*
-AssetsApiService Retrieve asset input info
-Returns a list of the input objects that were used to create the asset along with any settings that were applied to each input.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
-@return GetAssetInputInfoResponse
-*/
-func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string) (GetAssetInputInfoResponse, error) {
+func (a *AssetsApiService) GetAssetInputInfo(aSSETID string, opts ...APIOption) (GetAssetInputInfoResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -436,6 +421,10 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 		localVarFileBytes    []byte
 		localVarReturnValue  GetAssetInputInfoResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/input-info"
@@ -462,7 +451,8 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -508,15 +498,9 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 	return localVarReturnValue, nil
 }
 
-/*
-AssetsApiService Retrieve a playback ID
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
- * @param pLAYBACKID The live stream's playback ID.
-@return GetAssetPlaybackIdResponse
-*/
-func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) (GetAssetPlaybackIdResponse, error) {
+func (a *AssetsApiService) GetAssetPlaybackId(aSSETID string, pLAYBACKID string, opts ...APIOption) (GetAssetPlaybackIdResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -524,6 +508,10 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 		localVarFileBytes    []byte
 		localVarReturnValue  GetAssetPlaybackIdResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}"
@@ -551,7 +539,8 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -597,22 +586,14 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 	return localVarReturnValue, nil
 }
 
-/*
-AssetsApiService List assets
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListAssetsOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of items to include in the response
- * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
-@return ListAssetsResponse
-*/
-
-type ListAssetsOpts struct {
-	Limit optional.Int32
-	Page  optional.Int32
+type ListAssetsParams struct {
+	Limit int32
+	Page  int32
 }
 
-func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *ListAssetsOpts) (ListAssetsResponse, error) {
+func (a *AssetsApiService) ListAssets(opts ...APIOption) (ListAssetsResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -621,6 +602,15 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 		localVarReturnValue  ListAssetsResponse
 	)
 
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListAssetsParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListAssetsParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets"
 
@@ -628,11 +618,11 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -651,7 +641,8 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -697,16 +688,9 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 	return localVarReturnValue, nil
 }
 
-/*
-AssetsApiService Update MP4 support
-Allows you add or remove mp4 support for assets that were created without it. Currently there are two values supported in this request, &#x60;standard&#x60; and &#x60;none&#x60;. &#x60;none&#x60; means that an asset *does not* have mp4 support, so submitting a request with &#x60;mp4_support&#x60; set to &#x60;none&#x60; will delete the mp4 assets from the asset in question.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param aSSETID The asset ID.
- * @param updateAssetMp4SupportRequest
-@return AssetResponse
-*/
-func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID string, updateAssetMp4SupportRequest UpdateAssetMp4SupportRequest) (AssetResponse, error) {
+func (a *AssetsApiService) UpdateAssetMp4Support(aSSETID string, updateAssetMp4SupportRequest UpdateAssetMp4SupportRequest, opts ...APIOption) (AssetResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -714,6 +698,10 @@ func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID st
 		localVarFileBytes    []byte
 		localVarReturnValue  AssetResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/mp4-support"
@@ -742,7 +730,8 @@ func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID st
 	}
 	// body params
 	localVarPostBody = &updateAssetMp4SupportRequest
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}

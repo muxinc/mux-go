@@ -4,27 +4,16 @@
 package muxgo
 
 import (
-	"context"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type ExportsApiService service
 
-/*
-ExportsApiService List property video view export links
-Lists the available video view exports along with URLs to retrieve them
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return ListExportsResponse
-*/
-func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsResponse, error) {
+func (a *ExportsApiService) ListExports(opts ...APIOption) (ListExportsResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -32,6 +21,10 @@ func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsRespons
 		localVarFileBytes    []byte
 		localVarReturnValue  ListExportsResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/exports"
@@ -57,7 +50,8 @@ func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsRespons
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}

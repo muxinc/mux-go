@@ -4,29 +4,17 @@
 package muxgo
 
 import (
-	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type URLSigningKeysApiService service
 
-/*
-URLSigningKeysApiService Create a URL signing key
-Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return SigningKeyResponse
-*/
-func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (SigningKeyResponse, error) {
+func (a *URLSigningKeysApiService) CreateUrlSigningKey(opts ...APIOption) (SigningKeyResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -34,6 +22,10 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 		localVarFileBytes    []byte
 		localVarReturnValue  SigningKeyResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys"
@@ -59,7 +51,8 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -105,20 +98,19 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 	return localVarReturnValue, nil
 }
 
-/*
-URLSigningKeysApiService Delete a URL signing key
-Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param sIGNINGKEYID The ID of the signing key.
-*/
-func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGNINGKEYID string) error {
+func (a *URLSigningKeysApiService) DeleteUrlSigningKey(sIGNINGKEYID string, opts ...APIOption) error {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys/{SIGNING_KEY_ID}"
@@ -145,7 +137,8 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGN
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return err
 	}
@@ -172,15 +165,9 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGN
 	return nil
 }
 
-/*
-URLSigningKeysApiService Retrieve a URL signing key
-Retrieves the details of a URL signing key that has previously been created. Supply the unique signing key ID that was returned from your previous request, and Mux will return the corresponding signing key information. **The private key is not returned in this response.**
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param sIGNINGKEYID The ID of the signing key.
-@return SigningKeyResponse
-*/
-func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNINGKEYID string) (SigningKeyResponse, error) {
+func (a *URLSigningKeysApiService) GetUrlSigningKey(sIGNINGKEYID string, opts ...APIOption) (SigningKeyResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -188,6 +175,10 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 		localVarFileBytes    []byte
 		localVarReturnValue  SigningKeyResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys/{SIGNING_KEY_ID}"
@@ -214,7 +205,8 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -260,23 +252,14 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 	return localVarReturnValue, nil
 }
 
-/*
-URLSigningKeysApiService List URL signing keys
-Returns a list of URL signing keys.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListUrlSigningKeysOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of items to include in the response
- * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
-@return ListSigningKeysResponse
-*/
-
-type ListUrlSigningKeysOpts struct {
-	Limit optional.Int32
-	Page  optional.Int32
+type ListUrlSigningKeysParams struct {
+	Limit int32
+	Page  int32
 }
 
-func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, localVarOptionals *ListUrlSigningKeysOpts) (ListSigningKeysResponse, error) {
+func (a *URLSigningKeysApiService) ListUrlSigningKeys(opts ...APIOption) (ListSigningKeysResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -285,6 +268,15 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 		localVarReturnValue  ListSigningKeysResponse
 	)
 
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListUrlSigningKeysParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListUrlSigningKeysParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys"
 
@@ -292,11 +284,11 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -315,7 +307,8 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}

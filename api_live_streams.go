@@ -4,29 +4,17 @@
 package muxgo
 
 import (
-	"context"
 	"fmt"
-	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
 type LiveStreamsApiService service
 
-/*
-LiveStreamsApiService Create a live stream
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param createLiveStreamRequest
-@return LiveStreamResponse
-*/
-func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLiveStreamRequest CreateLiveStreamRequest) (LiveStreamResponse, error) {
+func (a *LiveStreamsApiService) CreateLiveStream(createLiveStreamRequest CreateLiveStreamRequest, opts ...APIOption) (LiveStreamResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -34,6 +22,10 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 		localVarFileBytes    []byte
 		localVarReturnValue  LiveStreamResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams"
@@ -61,7 +53,8 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 	}
 	// body params
 	localVarPostBody = &createLiveStreamRequest
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -107,15 +100,9 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 	return localVarReturnValue, nil
 }
 
-/*
-LiveStreamsApiService Create a live stream playback ID
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param lIVESTREAMID The live stream ID
- * @param createPlaybackIdRequest
-@return CreatePlaybackIdResponse
-*/
-func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, error) {
+func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(lIVESTREAMID string, createPlaybackIdRequest CreatePlaybackIdRequest, opts ...APIOption) (CreatePlaybackIdResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -123,6 +110,10 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 		localVarFileBytes    []byte
 		localVarReturnValue  CreatePlaybackIdResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids"
@@ -151,7 +142,8 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 	}
 	// body params
 	localVarPostBody = &createPlaybackIdRequest
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -197,19 +189,19 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 	return localVarReturnValue, nil
 }
 
-/*
-LiveStreamsApiService Delete a live stream
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param lIVESTREAMID The live stream ID
-*/
-func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAMID string) error {
+func (a *LiveStreamsApiService) DeleteLiveStream(lIVESTREAMID string, opts ...APIOption) error {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}"
@@ -236,7 +228,8 @@ func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAM
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return err
 	}
@@ -263,20 +256,19 @@ func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAM
 	return nil
 }
 
-/*
-LiveStreamsApiService Delete a live stream playback ID
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param lIVESTREAMID The live stream ID
- * @param pLAYBACKID The live stream's playback ID.
-*/
-func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, pLAYBACKID string) error {
+func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(lIVESTREAMID string, pLAYBACKID string, opts ...APIOption) error {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID}"
@@ -304,7 +296,8 @@ func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, 
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return err
 	}
@@ -331,15 +324,9 @@ func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, 
 	return nil
 }
 
-/*
-LiveStreamsApiService Retrieve a live stream
-Retrieves the details of a live stream that has previously been created. Supply the unique live stream ID that was returned from your previous request, and Mux will return the corresponding live stream information. The same information is returned when creating a live stream.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param lIVESTREAMID The live stream ID
-@return LiveStreamResponse
-*/
-func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID string) (LiveStreamResponse, error) {
+func (a *LiveStreamsApiService) GetLiveStream(lIVESTREAMID string, opts ...APIOption) (LiveStreamResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -347,6 +334,10 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 		localVarFileBytes    []byte
 		localVarReturnValue  LiveStreamResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}"
@@ -373,7 +364,8 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -419,22 +411,14 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 	return localVarReturnValue, nil
 }
 
-/*
-LiveStreamsApiService List live streams
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListLiveStreamsOpts - Optional Parameters:
- * @param "Limit" (optional.Int32) -  Number of items to include in the response
- * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
-@return ListLiveStreamsResponse
-*/
-
-type ListLiveStreamsOpts struct {
-	Limit optional.Int32
-	Page  optional.Int32
+type ListLiveStreamsParams struct {
+	Limit int32
+	Page  int32
 }
 
-func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOptionals *ListLiveStreamsOpts) (ListLiveStreamsResponse, error) {
+func (a *LiveStreamsApiService) ListLiveStreams(opts ...APIOption) (ListLiveStreamsResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -443,6 +427,15 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 		localVarReturnValue  ListLiveStreamsResponse
 	)
 
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListLiveStreamsParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListLiveStreamsParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams"
 
@@ -450,11 +443,11 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page.Value(), ""))
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -473,7 +466,8 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -519,15 +513,9 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 	return localVarReturnValue, nil
 }
 
-/*
-LiveStreamsApiService Reset a live stream’s stream key
-Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param lIVESTREAMID The live stream ID
-@return LiveStreamResponse
-*/
-func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID string) (LiveStreamResponse, error) {
+func (a *LiveStreamsApiService) ResetStreamKey(lIVESTREAMID string, opts ...APIOption) (LiveStreamResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -535,6 +523,10 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 		localVarFileBytes    []byte
 		localVarReturnValue  LiveStreamResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key"
@@ -561,7 +553,8 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
@@ -607,15 +600,9 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 	return localVarReturnValue, nil
 }
 
-/*
-LiveStreamsApiService Signal a live stream is finished
-(Optional) Make the recorded asset available immediately instead of waiting for the reconnect_window.
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param lIVESTREAMID The live stream ID
-@return SignalLiveStreamCompleteResponse
-*/
-func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lIVESTREAMID string) (SignalLiveStreamCompleteResponse, error) {
+func (a *LiveStreamsApiService) SignalLiveStreamComplete(lIVESTREAMID string, opts ...APIOption) (SignalLiveStreamCompleteResponse, error) {
 	var (
+		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
 		localVarFormFileName string
@@ -623,6 +610,10 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lI
 		localVarFileBytes    []byte
 		localVarReturnValue  SignalLiveStreamCompleteResponse
 	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
 
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/complete"
@@ -649,7 +640,8 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lI
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, err
 	}
