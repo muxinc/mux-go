@@ -22,8 +22,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-
-	"golang.org/x/oauth2"
 )
 
 var (
@@ -35,26 +33,18 @@ var (
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
+  httpc  *http.Client
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-
 	AssetsApi *AssetsApiService
-
 	DirectUploadsApi *DirectUploadsApiService
-
 	ErrorsApi *ErrorsApiService
-
 	ExportsApi *ExportsApiService
-
 	FiltersApi *FiltersApiService
-
 	LiveStreamsApi *LiveStreamsApiService
-
 	MetricsApi *MetricsApiService
-
 	URLSigningKeysApi *URLSigningKeysApiService
-
 	VideoViewsApi *VideoViewsApiService
 }
 
@@ -65,12 +55,11 @@ type service struct {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
-	if cfg.HTTPClient == nil {
-		cfg.HTTPClient = http.DefaultClient
-	}
-
 	c := &APIClient{}
 	c.cfg = cfg
+  c.httpc = &http.Client{
+    Timeout: cfg.timeout,
+  }
 	c.common.client = c
 
 	// API Services
@@ -165,12 +154,7 @@ func parameterToString(obj interface{}, collectionFormat string) string {
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
-	return c.cfg.HTTPClient.Do(request)
-}
-
-// Change base path to allow switching to mocks
-func (c *APIClient) ChangeBasePath(path string) {
-	c.cfg.BasePath = path
+	return c.httpc.Do(request)
 }
 
 // prepareRequest build the request
@@ -288,44 +272,23 @@ func (c *APIClient) prepareRequest(
 	}
 
 	// Override request host, if applicable
-	if c.cfg.Host != "" {
-		localVarRequest.Host = c.cfg.Host
+	if c.cfg.host != "" {
+		localVarRequest.Host = c.cfg.host
 	}
 
 	// Add the user agent to the request.
-	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
+	localVarRequest.Header.Add("User-Agent", c.cfg.userAgent)
 
 	if ctx != nil {
 		// add context to the request
 		localVarRequest = localVarRequest.WithContext(ctx)
-
-		// Walk through any authentication.
-
-		// OAuth2 authentication
-		if tok, ok := ctx.Value(ContextOAuth2).(oauth2.TokenSource); ok {
-			// We were able to grab an oauth2 token from the context
-			var latestToken *oauth2.Token
-			if latestToken, err = tok.Token(); err != nil {
-				return nil, err
-			}
-
-			latestToken.SetAuthHeader(localVarRequest)
-		}
-
-		// Basic HTTP Authentication
-		if auth, ok := ctx.Value(ContextBasicAuth).(BasicAuth); ok {
-			localVarRequest.SetBasicAuth(auth.UserName, auth.Password)
-		}
-
-		// AccessToken Authentication
-		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
-			localVarRequest.Header.Add("Authorization", "Bearer "+auth)
-		}
 	}
 
-	for header, value := range c.cfg.DefaultHeader {
-		localVarRequest.Header.Add(header, value)
-	}
+  // Basic HTTP Authentication
+  if c.cfg.username == "" || c.cfg.password == "" {
+    return nil, errors.New("unauthorized APIClient")
+  }
+  localVarRequest.SetBasicAuth(c.cfg.username, c.cfg.password)
 
 	return localVarRequest, nil
 }

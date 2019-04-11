@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 )
@@ -24,7 +23,7 @@ Lists the available video view exports along with URLs to retrieve them
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return ListExportsResponse
 */
-func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsResponse, *http.Response, error) {
+func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -35,7 +34,7 @@ func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsRespons
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/exports"
+	localVarPath := a.client.cfg.basePath + "/data/v1/exports"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -60,18 +59,18 @@ func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsRespons
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -84,12 +83,12 @@ func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsRespons
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -98,8 +97,8 @@ func (a *ExportsApiService) ListExports(ctx context.Context) (ListExportsRespons
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

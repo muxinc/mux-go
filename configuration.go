@@ -4,63 +4,47 @@
 package muxgo
 
 import (
-	"net/http"
+  "time"
 )
-
-// contextKeys are used to identify the type of value in the context.
-// Since these are string, it is possible to get a short description of the
-// context key for logging and debugging using key.String().
-
-type contextKey string
-
-func (c contextKey) String() string {
-	return "auth " + string(c)
-}
-
-var (
-	// ContextOAuth2 takes an oauth2.TokenSource as authentication for the request.
-	ContextOAuth2 = contextKey("token")
-
-	// ContextBasicAuth takes BasicAuth as authentication for the request.
-	ContextBasicAuth = contextKey("basic")
-
-	// ContextAccessToken takes a string oauth2 access token as authentication for the request.
-	ContextAccessToken = contextKey("accesstoken")
-
-	// ContextAPIKey takes an APIKey as authentication for the request
-	ContextAPIKey = contextKey("apikey")
-)
-
-// BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth
-type BasicAuth struct {
-	UserName string `json:"userName,omitempty"`
-	Password string `json:"password,omitempty"`
-}
-
-// APIKey provides API key based authentication to a request passed via context using ContextAPIKey
-type APIKey struct {
-	Key    string
-	Prefix string
-}
 
 type Configuration struct {
-	BasePath      string            `json:"basePath,omitempty"`
-	Host          string            `json:"host,omitempty"`
-	Scheme        string            `json:"scheme,omitempty"`
-	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
-	UserAgent     string            `json:"userAgent,omitempty"`
-	HTTPClient    *http.Client
+	basePath      string            `json:"basePath,omitempty"`
+	host          string            `json:"host,omitempty"`
+	userAgent     string            `json:"userAgent,omitempty"`
+  username      string
+  password      string
+  timeout       time.Duration
 }
 
-func NewConfiguration() *Configuration {
+// ConfigurationOption configures the Mux API Client.
+type ConfigurationOption func(*Configuration)
+
+func NewConfiguration(opts ...ConfigurationOption) *Configuration {
 	cfg := &Configuration{
-		BasePath:      "https://api.mux.com",
-		DefaultHeader: make(map[string]string),
-		UserAgent:     "Mux Go | 1.0.0",
+		basePath:      "https://api.mux.com",
+		userAgent:     "Mux Go | 1.0.0",
 	}
+  for _, opt := range opts {
+    opt(cfg)
+  }
 	return cfg
 }
 
-func (c *Configuration) AddDefaultHeader(key string, value string) {
-	c.DefaultHeader[key] = value
+func WithBasicAuth(username, password string) ConfigurationOption {
+  return func(c *Configuration) {
+    c.username = username
+    c.password = password
+  }
+}
+
+func WithTimeout(t time.Duration) ConfigurationOption {
+  return func(c *Configuration) {
+    c.timeout = t
+  }
+}
+
+func WithHost(host string) ConfigurationOption {
+  return func(c *Configuration) {
+    c.host = host
+  }
 }

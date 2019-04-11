@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -27,7 +26,7 @@ Cancels a direct upload and marks it as cancelled. If a pending upload finishes 
  * @param uPLOADID ID of the Upload
 @return UploadResponse
 */
-func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOADID string) (UploadResponse, *http.Response, error) {
+func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOADID string) (UploadResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
@@ -38,7 +37,7 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/uploads/{UPLOAD_ID}/cancel"
+	localVarPath := a.client.cfg.basePath + "/video/v1/uploads/{UPLOAD_ID}/cancel"
 	localVarPath = strings.Replace(localVarPath, "{"+"UPLOAD_ID"+"}", fmt.Sprintf("%v", uPLOADID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -64,18 +63,18 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -88,12 +87,12 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -102,10 +101,10 @@ func (a *DirectUploadsApiService) CancelDirectUpload(ctx context.Context, uPLOAD
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -114,7 +113,7 @@ DirectUploadsApiService Create a new direct upload URL
  * @param createUploadRequest
 @return UploadResponse
 */
-func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, createUploadRequest CreateUploadRequest) (UploadResponse, *http.Response, error) {
+func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, createUploadRequest CreateUploadRequest) (UploadResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -125,7 +124,7 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/uploads"
+	localVarPath := a.client.cfg.basePath + "/video/v1/uploads"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -152,18 +151,18 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 	localVarPostBody = &createUploadRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -176,12 +175,12 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -190,10 +189,10 @@ func (a *DirectUploadsApiService) CreateDirectUpload(ctx context.Context, create
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -202,7 +201,7 @@ DirectUploadsApiService Retrieve a single direct upload's info
  * @param uPLOADID ID of the Upload
 @return UploadResponse
 */
-func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID string) (UploadResponse, *http.Response, error) {
+func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID string) (UploadResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -213,7 +212,7 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/uploads/{UPLOAD_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/uploads/{UPLOAD_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"UPLOAD_ID"+"}", fmt.Sprintf("%v", uPLOADID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -239,18 +238,18 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -263,12 +262,12 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -277,10 +276,10 @@ func (a *DirectUploadsApiService) GetDirectUpload(ctx context.Context, uPLOADID 
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -297,7 +296,7 @@ type ListDirectUploadsOpts struct {
 	Page optional.Int32
 }
 
-func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVarOptionals *ListDirectUploadsOpts) (ListUploadsResponse, *http.Response, error) {
+func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVarOptionals *ListDirectUploadsOpts) (ListUploadsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -308,7 +307,7 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/uploads"
+	localVarPath := a.client.cfg.basePath + "/video/v1/uploads"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -339,18 +338,18 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -363,12 +362,12 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -377,8 +376,8 @@ func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVa
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

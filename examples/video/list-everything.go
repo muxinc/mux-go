@@ -1,14 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
 	"github.com/muxinc/mux-go"
-	"golang.org/x/net/context"
 )
 
-func CheckError(err error) {
+func checkError(err error) {
 	if err != nil {
 		fmt.Printf("err: %s \n\n", err)
 		os.Exit(255)
@@ -16,20 +16,16 @@ func CheckError(err error) {
 }
 
 func main() {
-
-	// Authentication Setup
-	auth := context.WithValue(context.Background(), muxgo.ContextBasicAuth, muxgo.BasicAuth{
-		UserName: os.Getenv("MUX_TOKEN_ID"),
-		Password: os.Getenv("MUX_TOKEN_SECRET"),
-	})
-
 	// API Client Init
-	client := muxgo.NewAPIClient(muxgo.NewConfiguration())
+	client := muxgo.NewAPIClient(
+		muxgo.NewConfiguration(
+			muxgo.WithBasicAuth(os.Getenv("ACCESS_TOKEN_ID"), os.Getenv("ACCESS_TOKEN_SECRET")),
+		))
 
 	// List Assets
 	fmt.Println("Listing Assets: \n")
-	assets, _, err := client.AssetsApi.ListAssets(auth, nil)
-	CheckError(err)
+	assets, err := client.AssetsApi.ListAssets(context.Background(), nil)
+	checkError(err)
 	for _, asset := range assets.Data {
 		fmt.Printf("Asset ID: %s\n", asset.Id)
 		fmt.Printf("Status: %s\n", asset.Status)
@@ -38,8 +34,8 @@ func main() {
 
 	// List Live Streams
 	fmt.Println("Listing Live Streams: \n")
-	streams, _, err := client.LiveStreamsApi.ListLiveStreams(auth, nil)
-	CheckError(err)
+	streams, err := client.LiveStreamsApi.ListLiveStreams(context.Background(), nil)
+	checkError(err)
 	for _, stream := range streams.Data {
 		fmt.Printf("Live Stream ID: %s\n", stream.Id)
 		fmt.Printf("Status: %s\n", stream.Status)
@@ -48,8 +44,8 @@ func main() {
 
 	// List Direct Uploads
 	fmt.Println("Listing Direct Uploads: \n")
-	uploads, _, err := client.DirectUploadsApi.ListDirectUploads(auth, nil)
-	CheckError(err)
+	uploads, err := client.DirectUploadsApi.ListDirectUploads(context.Background(), nil)
+	checkError(err)
 	for _, upload := range uploads.Data {
 		fmt.Printf("Status: %s\n", upload.Status)
 		fmt.Printf("New Asset ID: %s\n\n", upload.AssetId)
@@ -57,7 +53,7 @@ func main() {
 
 	// List URL Signing Keys
 	fmt.Println("Listing URL Signing Keys: \n")
-	keys, _, err := client.URLSigningKeysApi.ListUrlSigningKeys(auth, nil)
+	keys, err := client.URLSigningKeysApi.ListUrlSigningKeys(context.Background(), nil)
 	for _, key := range keys.Data {
 		fmt.Printf("Signing Key ID: %s\n\n", key.Id)
 	}

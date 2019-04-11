@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -26,7 +25,7 @@ Creates a new signing key pair. When creating a new signing key, the API will ge
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return SigningKeyResponse
 */
-func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (SigningKeyResponse, *http.Response, error) {
+func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (SigningKeyResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -37,7 +36,7 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/signing-keys"
+	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -62,18 +61,18 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -86,12 +85,12 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -100,10 +99,10 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -112,7 +111,7 @@ Deletes an existing signing key. Use with caution, as this will invalidate any e
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sIGNINGKEYID The ID of the signing key.
 */
-func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGNINGKEYID string) (*http.Response, error) {
+func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGNINGKEYID string) (error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -122,7 +121,7 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGN
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/signing-keys/{SIGNING_KEY_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys/{SIGNING_KEY_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"SIGNING_KEY_ID"+"}", fmt.Sprintf("%v", sIGNINGKEYID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -148,18 +147,18 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGN
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -167,10 +166,10 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGN
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return newErr
 	}
 
-	return localVarHttpResponse, nil
+	return nil
 }
 
 /*
@@ -180,7 +179,7 @@ Retrieves the details of a URL signing key that has previously been created. Sup
  * @param sIGNINGKEYID The ID of the signing key.
 @return SigningKeyResponse
 */
-func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNINGKEYID string) (SigningKeyResponse, *http.Response, error) {
+func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNINGKEYID string) (SigningKeyResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -191,7 +190,7 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/signing-keys/{SIGNING_KEY_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys/{SIGNING_KEY_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"SIGNING_KEY_ID"+"}", fmt.Sprintf("%v", sIGNINGKEYID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -217,18 +216,18 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -241,12 +240,12 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -255,10 +254,10 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -276,7 +275,7 @@ type ListUrlSigningKeysOpts struct {
 	Page optional.Int32
 }
 
-func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, localVarOptionals *ListUrlSigningKeysOpts) (ListSigningKeysResponse, *http.Response, error) {
+func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, localVarOptionals *ListUrlSigningKeysOpts) (ListSigningKeysResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -287,7 +286,7 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/signing-keys"
+	localVarPath := a.client.cfg.basePath + "/video/v1/signing-keys"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -318,18 +317,18 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -342,12 +341,12 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -356,8 +355,8 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, local
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

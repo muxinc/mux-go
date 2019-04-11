@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"github.com/antihax/optional"
@@ -34,7 +33,7 @@ type ListErrorsOpts struct {
 	Timeframe optional.Interface
 }
 
-func (a *ErrorsApiService) ListErrors(ctx context.Context, localVarOptionals *ListErrorsOpts) (ListErrorsResponse, *http.Response, error) {
+func (a *ErrorsApiService) ListErrors(ctx context.Context, localVarOptionals *ListErrorsOpts) (ListErrorsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -45,7 +44,7 @@ func (a *ErrorsApiService) ListErrors(ctx context.Context, localVarOptionals *Li
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/errors"
+	localVarPath := a.client.cfg.basePath + "/data/v1/errors"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -76,18 +75,18 @@ func (a *ErrorsApiService) ListErrors(ctx context.Context, localVarOptionals *Li
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -100,12 +99,12 @@ func (a *ErrorsApiService) ListErrors(ctx context.Context, localVarOptionals *Li
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -114,8 +113,8 @@ func (a *ErrorsApiService) ListErrors(ctx context.Context, localVarOptionals *Li
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
