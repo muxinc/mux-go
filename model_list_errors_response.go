@@ -4,7 +4,7 @@
 package muxgo
 
 type ListErrorsResponse struct {
-	Data []Error `json:"data,omitempty"`
-	TotalRowCount int32 `json:"total_row_count,omitempty"`
-	Timeframe []string `json:"timeframe,omitempty"`
+	Data          []Error  `json:"data,omitempty"`
+	TotalRowCount int32    `json:"total_row_count,omitempty"`
+	Timeframe     []string `json:"timeframe,omitempty"`
 }

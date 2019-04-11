@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -21,7 +21,7 @@ type URLSigningKeysApiService service
 
 /*
 URLSigningKeysApiService Create a URL signing key
-Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens. 
+Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return SigningKeyResponse
 */
@@ -107,11 +107,11 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(ctx context.Context) (Sig
 
 /*
 URLSigningKeysApiService Delete a URL signing key
-Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again. 
+Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sIGNINGKEYID The ID of the signing key.
 */
-func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGNINGKEYID string) (error) {
+func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGNINGKEYID string) error {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -174,7 +174,7 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(ctx context.Context, sIGN
 
 /*
 URLSigningKeysApiService Retrieve a URL signing key
-Retrieves the details of a URL signing key that has previously been created. Supply the unique signing key ID that was returned from your previous request, and Mux will return the corresponding signing key information. **The private key is not returned in this response.** 
+Retrieves the details of a URL signing key that has previously been created. Supply the unique signing key ID that was returned from your previous request, and Mux will return the corresponding signing key information. **The private key is not returned in this response.**
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sIGNINGKEYID The ID of the signing key.
 @return SigningKeyResponse
@@ -262,7 +262,7 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(ctx context.Context, sIGNING
 
 /*
 URLSigningKeysApiService List URL signing keys
-Returns a list of URL signing keys. 
+Returns a list of URL signing keys.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListUrlSigningKeysOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of items to include in the response
@@ -272,7 +272,7 @@ Returns a list of URL signing keys.
 
 type ListUrlSigningKeysOpts struct {
 	Limit optional.Int32
-	Page optional.Int32
+	Page  optional.Int32
 }
 
 func (a *URLSigningKeysApiService) ListUrlSigningKeys(ctx context.Context, localVarOptionals *ListUrlSigningKeysOpts) (ListSigningKeysResponse, error) {

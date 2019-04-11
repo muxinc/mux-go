@@ -4,7 +4,7 @@
 package muxgo
 
 type GetOverallValuesResponse struct {
-	Data OverallValues `json:"data,omitempty"`
-	TotalRowCount int32 `json:"total_row_count,omitempty"`
-	Timeframe []string `json:"timeframe,omitempty"`
+	Data          OverallValues `json:"data,omitempty"`
+	TotalRowCount int32         `json:"total_row_count,omitempty"`
+	Timeframe     []string      `json:"timeframe,omitempty"`
 }

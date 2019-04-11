@@ -4,9 +4,9 @@
 package muxgo
 
 type Metric struct {
-	Value float64 `json:"value,omitempty"`
-	Type string `json:"type,omitempty"`
-	Name string `json:"name,omitempty"`
-	Metric string `json:"metric,omitempty"`
-	Measurement string `json:"measurement,omitempty"`
+	Value       float64 `json:"value,omitempty"`
+	Type        string  `json:"type,omitempty"`
+	Name        string  `json:"name,omitempty"`
+	Metric      string  `json:"metric,omitempty"`
+	Measurement string  `json:"measurement,omitempty"`
 }

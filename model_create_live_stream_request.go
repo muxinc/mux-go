@@ -4,6 +4,6 @@
 package muxgo
 
 type CreateLiveStreamRequest struct {
-	PlaybackPolicy []PlaybackPolicy `json:"playback_policy,omitempty"`
+	PlaybackPolicy   []PlaybackPolicy   `json:"playback_policy,omitempty"`
 	NewAssetSettings CreateAssetRequest `json:"new_asset_settings,omitempty"`
 }

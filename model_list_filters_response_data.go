@@ -4,6 +4,6 @@
 package muxgo
 
 type ListFiltersResponseData struct {
-	Basic []string `json:"basic,omitempty"`
+	Basic    []string `json:"basic,omitempty"`
 	Advanced []string `json:"advanced,omitempty"`
 }

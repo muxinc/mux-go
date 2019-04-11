@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -21,7 +21,7 @@ type DirectUploadsApiService service
 
 /*
 DirectUploadsApiService Cancel a direct upload
-Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this request, no asset will be created. This request will only succeed if the upload is still in the &#x60;waiting&#x60; state. 
+Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this request, no asset will be created. This request will only succeed if the upload is still in the &#x60;waiting&#x60; state.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param uPLOADID ID of the Upload
 @return UploadResponse
@@ -293,7 +293,7 @@ DirectUploadsApiService List direct uploads
 
 type ListDirectUploadsOpts struct {
 	Limit optional.Int32
-	Page optional.Int32
+	Page  optional.Int32
 }
 
 func (a *DirectUploadsApiService) ListDirectUploads(ctx context.Context, localVarOptionals *ListDirectUploadsOpts) (ListUploadsResponse, error) {

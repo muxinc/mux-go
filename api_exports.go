@@ -19,7 +19,7 @@ type ExportsApiService service
 
 /*
 ExportsApiService List property video view export links
-Lists the available video view exports along with URLs to retrieve them 
+Lists the available video view exports along with URLs to retrieve them
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return ListExportsResponse
 */

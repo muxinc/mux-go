@@ -5,7 +5,7 @@ package muxgo
 
 // Input object with additional configuration
 type InputSettings struct {
-	Url string `json:"url,omitempty"`
-	Language string `json:"language,omitempty"`
+	Url             string                       `json:"url,omitempty"`
+	Language        string                       `json:"language,omitempty"`
 	OverlaySettings InputSettingsOverlaySettings `json:"overlay_settings,omitempty"`
 }

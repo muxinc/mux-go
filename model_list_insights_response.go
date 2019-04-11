@@ -4,7 +4,7 @@
 package muxgo
 
 type ListInsightsResponse struct {
-	Data []Insight `json:"data,omitempty"`
-	TotalRowCount int32 `json:"total_row_count,omitempty"`
-	Timeframe []string `json:"timeframe,omitempty"`
+	Data          []Insight `json:"data,omitempty"`
+	TotalRowCount int32     `json:"total_row_count,omitempty"`
+	Timeframe     []string  `json:"timeframe,omitempty"`
 }

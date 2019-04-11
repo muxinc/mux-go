@@ -4,10 +4,10 @@
 package muxgo
 
 type Score struct {
-	WatchTime int32 `json:"watch_time,omitempty"`
-	ViewCount int32 `json:"view_count,omitempty"`
-	Name string `json:"name,omitempty"`
-	Value float64 `json:"value,omitempty"`
-	Metric string `json:"metric,omitempty"`
-	Items []Metric `json:"items,omitempty"`
+	WatchTime int32    `json:"watch_time,omitempty"`
+	ViewCount int32    `json:"view_count,omitempty"`
+	Name      string   `json:"name,omitempty"`
+	Value     float64  `json:"value,omitempty"`
+	Metric    string   `json:"metric,omitempty"`
+	Items     []Metric `json:"items,omitempty"`
 }

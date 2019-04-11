@@ -5,5 +5,5 @@ package muxgo
 
 type InputInfo struct {
 	Settings InputSettings `json:"settings,omitempty"`
-	File InputFile `json:"file,omitempty"`
+	File     InputFile     `json:"file,omitempty"`
 }

@@ -4,7 +4,7 @@
 package muxgo
 
 type SigningKey struct {
-	Id string `json:"id,omitempty"`
-	CreatedAt string `json:"created_at,omitempty"`
+	Id         string `json:"id,omitempty"`
+	CreatedAt  string `json:"created_at,omitempty"`
 	PrivateKey string `json:"private_key,omitempty"`
 }

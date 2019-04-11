@@ -4,6 +4,6 @@
 package muxgo
 
 type AssetErrors struct {
-	Type string `json:"type,omitempty"`
+	Type     string   `json:"type,omitempty"`
 	Messages []string `json:"messages,omitempty"`
 }

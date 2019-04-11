@@ -33,19 +33,19 @@ var (
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
-  httpc  *http.Client
+	httpc  *http.Client
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	AssetsApi *AssetsApiService
-	DirectUploadsApi *DirectUploadsApiService
-	ErrorsApi *ErrorsApiService
-	ExportsApi *ExportsApiService
-	FiltersApi *FiltersApiService
-	LiveStreamsApi *LiveStreamsApiService
-	MetricsApi *MetricsApiService
+	AssetsApi         *AssetsApiService
+	DirectUploadsApi  *DirectUploadsApiService
+	ErrorsApi         *ErrorsApiService
+	ExportsApi        *ExportsApiService
+	FiltersApi        *FiltersApiService
+	LiveStreamsApi    *LiveStreamsApiService
+	MetricsApi        *MetricsApiService
 	URLSigningKeysApi *URLSigningKeysApiService
-	VideoViewsApi *VideoViewsApiService
+	VideoViewsApi     *VideoViewsApiService
 }
 
 type service struct {
@@ -57,9 +57,9 @@ type service struct {
 func NewAPIClient(cfg *Configuration) *APIClient {
 	c := &APIClient{}
 	c.cfg = cfg
-  c.httpc = &http.Client{
-    Timeout: cfg.timeout,
-  }
+	c.httpc = &http.Client{
+		Timeout: cfg.timeout,
+	}
 	c.common.client = c
 
 	// API Services
@@ -284,27 +284,27 @@ func (c *APIClient) prepareRequest(
 		localVarRequest = localVarRequest.WithContext(ctx)
 	}
 
-  // Basic HTTP Authentication
-  if c.cfg.username == "" || c.cfg.password == "" {
-    return nil, errors.New("unauthorized APIClient")
-  }
-  localVarRequest.SetBasicAuth(c.cfg.username, c.cfg.password)
+	// Basic HTTP Authentication
+	if c.cfg.username == "" || c.cfg.password == "" {
+		return nil, errors.New("unauthorized APIClient")
+	}
+	localVarRequest.SetBasicAuth(c.cfg.username, c.cfg.password)
 
 	return localVarRequest, nil
 }
 
 func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
-		if strings.Contains(contentType, "application/xml") {
-			if err = xml.Unmarshal(b, v); err != nil {
-				return err
-			}
-			return nil
-		} else if strings.Contains(contentType, "application/json") {
-			if err = json.Unmarshal(b, v); err != nil {
-				return err
-			}
-			return nil
+	if strings.Contains(contentType, "application/xml") {
+		if err = xml.Unmarshal(b, v); err != nil {
+			return err
 		}
+		return nil
+	} else if strings.Contains(contentType, "application/json") {
+		if err = json.Unmarshal(b, v); err != nil {
+			return err
+		}
+		return nil
+	}
 	return errors.New("undefined response type")
 }
 

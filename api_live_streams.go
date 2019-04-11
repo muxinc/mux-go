@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -202,7 +202,7 @@ LiveStreamsApiService Delete a live stream
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param lIVESTREAMID The live stream ID
 */
-func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAMID string) (error) {
+func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAMID string) error {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -269,7 +269,7 @@ LiveStreamsApiService Delete a live stream playback ID
  * @param lIVESTREAMID The live stream ID
  * @param pLAYBACKID The live stream's playback ID.
 */
-func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, pLAYBACKID string) (error) {
+func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, pLAYBACKID string) error {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -430,7 +430,7 @@ LiveStreamsApiService List live streams
 
 type ListLiveStreamsOpts struct {
 	Limit optional.Int32
-	Page optional.Int32
+	Page  optional.Int32
 }
 
 func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOptionals *ListLiveStreamsOpts) (ListLiveStreamsResponse, error) {

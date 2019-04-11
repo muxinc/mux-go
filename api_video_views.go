@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -21,7 +21,7 @@ type VideoViewsApiService service
 
 /*
 VideoViewsApiService Get a Video View
-Returns the details of a video view 
+Returns the details of a video view
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param vIDEOVIEWID ID of the Video View
 @return VideoViewResponse
@@ -109,7 +109,7 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 
 /*
 VideoViewsApiService List Video Views
-Returns a list of video views 
+Returns a list of video views
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListVideoViewsOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of items to include in the response
@@ -117,19 +117,19 @@ Returns a list of video views
  * @param "ViewerId" (optional.String) -  Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux.
  * @param "ErrorId" (optional.Int32) -  Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error.
  * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint. 
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
+ * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
 @return ListVideoViewsResponse
 */
 
 type ListVideoViewsOpts struct {
-	Limit optional.Int32
-	Page optional.Int32
-	ViewerId optional.String
-	ErrorId optional.Int32
+	Limit          optional.Int32
+	Page           optional.Int32
+	ViewerId       optional.String
+	ErrorId        optional.Int32
 	OrderDirection optional.String
-	Filters optional.Interface
-	Timeframe optional.Interface
+	Filters        optional.Interface
+	Timeframe      optional.Interface
 }
 
 func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptionals *ListVideoViewsOpts) (ListVideoViewsResponse, error) {

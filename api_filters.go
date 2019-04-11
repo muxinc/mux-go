@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -21,21 +21,21 @@ type FiltersApiService service
 
 /*
 FiltersApiService Lists values for a specific filter
-Lists the values for a filter along with a total count of related views 
+Lists the values for a filter along with a total count of related views
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param fILTERID ID of the Filter
  * @param optional nil or *ListFilterValuesOpts - Optional Parameters:
  * @param "Limit" (optional.Int32) -  Number of items to include in the response
  * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint. 
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
+ * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
 @return ListFilterValuesResponse
 */
 
 type ListFilterValuesOpts struct {
-	Limit optional.Int32
-	Page optional.Int32
-	Filters optional.Interface
+	Limit     optional.Int32
+	Page      optional.Int32
+	Filters   optional.Interface
 	Timeframe optional.Interface
 }
 
@@ -134,7 +134,7 @@ func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID strin
 
 /*
 FiltersApiService List Filters
-Lists all the filters broken out into basic and advanced 
+Lists all the filters broken out into basic and advanced
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return ListFiltersResponse
 */

@@ -12,6 +12,6 @@ type AssetStaticRenditionsFiles struct {
 	// The width of the static rendition's file in pixels
 	Width int32 `json:"width,omitempty"`
 	// The bitrate in bits per second
-	Bitrate int64 `json:"bitrate,omitempty"`
+	Bitrate  int64  `json:"bitrate,omitempty"`
 	Filesize string `json:"filesize,omitempty"`
 }

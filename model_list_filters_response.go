@@ -4,7 +4,7 @@
 package muxgo
 
 type ListFiltersResponse struct {
-	Data ListFiltersResponseData `json:"data,omitempty"`
-	TotalRowCount int32 `json:"total_row_count,omitempty"`
-	Timeframe []string `json:"timeframe,omitempty"`
+	Data          ListFiltersResponseData `json:"data,omitempty"`
+	TotalRowCount int32                   `json:"total_row_count,omitempty"`
+	Timeframe     []string                `json:"timeframe,omitempty"`
 }

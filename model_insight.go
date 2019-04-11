@@ -4,10 +4,10 @@
 package muxgo
 
 type Insight struct {
-	TotalWatchTime int32 `json:"total_watch_time,omitempty"`
-	TotalViews int32 `json:"total_views,omitempty"`
-	NegativeImpactScore int32 `json:"negative_impact_score,omitempty"`
-	Metric int32 `json:"metric,omitempty"`
-	FilterValue string `json:"filter_value,omitempty"`
-	FilterColumn string `json:"filter_column,omitempty"`
+	TotalWatchTime      int32  `json:"total_watch_time,omitempty"`
+	TotalViews          int32  `json:"total_views,omitempty"`
+	NegativeImpactScore int32  `json:"negative_impact_score,omitempty"`
+	Metric              int32  `json:"metric,omitempty"`
+	FilterValue         string `json:"filter_value,omitempty"`
+	FilterColumn        string `json:"filter_column,omitempty"`
 }

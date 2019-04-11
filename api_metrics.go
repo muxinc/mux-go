@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -21,12 +21,12 @@ type MetricsApiService service
 
 /*
 MetricsApiService Get metric timeseries data
-Returns timeseries data for a specific metric 
+Returns timeseries data for a specific metric
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param mETRICID ID of the Metric
  * @param optional nil or *GetMetricTimeseriesDataOpts - Optional Parameters:
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint. 
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
+ * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
  * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
  * @param "OrderDirection" (optional.String) -  Sort order.
  * @param "GroupBy" (optional.String) -  Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe.
@@ -34,11 +34,11 @@ Returns timeseries data for a specific metric
 */
 
 type GetMetricTimeseriesDataOpts struct {
-	Timeframe optional.Interface
-	Filters optional.Interface
-	Measurement optional.String
+	Timeframe      optional.Interface
+	Filters        optional.Interface
+	Measurement    optional.String
 	OrderDirection optional.String
-	GroupBy optional.String
+	GroupBy        optional.String
 }
 
 func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICID string, localVarOptionals *GetMetricTimeseriesDataOpts) (GetMetricTimeseriesDataResponse, error) {
@@ -139,19 +139,19 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 
 /*
 MetricsApiService Get Overall values
-Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric. 
+Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param mETRICID ID of the Metric
  * @param optional nil or *GetOverallValuesOpts - Optional Parameters:
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint. 
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
+ * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
  * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
 @return GetOverallValuesResponse
 */
 
 type GetOverallValuesOpts struct {
-	Timeframe optional.Interface
-	Filters optional.Interface
+	Timeframe   optional.Interface
+	Filters     optional.Interface
 	Measurement optional.String
 }
 
@@ -247,11 +247,11 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 
 /*
 MetricsApiService List all metric values
-List all of the values across every breakdown for a specific metric 
+List all of the values across every breakdown for a specific metric
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListAllMetricValuesOpts - Optional Parameters:
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint. 
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
+ * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
  * @param "Dimension" (optional.String) -  Dimension the specified value belongs to
  * @param "Value" (optional.String) -  Value to show all available metrics for
 @return ListAllMetricValuesResponse
@@ -259,9 +259,9 @@ List all of the values across every breakdown for a specific metric
 
 type ListAllMetricValuesOpts struct {
 	Timeframe optional.Interface
-	Filters optional.Interface
+	Filters   optional.Interface
 	Dimension optional.String
-	Value optional.String
+	Value     optional.String
 }
 
 func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOptionals *ListAllMetricValuesOpts) (ListAllMetricValuesResponse, error) {
@@ -358,30 +358,30 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 
 /*
 MetricsApiService List breakdown values
-List the breakdown values for a specific metric 
+List the breakdown values for a specific metric
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param mETRICID ID of the Metric
  * @param optional nil or *ListBreakdownValuesOpts - Optional Parameters:
  * @param "GroupBy" (optional.String) -  Breakdown value to group the results by
  * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
- * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint. 
+ * @param "Filters" (optional.Interface of []string) -  Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US).  Possible filter names are the same as returned by the List Filters endpoint.
  * @param "Limit" (optional.Int32) -  Number of items to include in the response
  * @param "Page" (optional.Int32) -  Offset by this many pages, of the size of `limit`
  * @param "OrderBy" (optional.String) -  Value to order the results by
  * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
 @return ListBreakdownValuesResponse
 */
 
 type ListBreakdownValuesOpts struct {
-	GroupBy optional.String
-	Measurement optional.String
-	Filters optional.Interface
-	Limit optional.Int32
-	Page optional.Int32
-	OrderBy optional.String
+	GroupBy        optional.String
+	Measurement    optional.String
+	Filters        optional.Interface
+	Limit          optional.Int32
+	Page           optional.Int32
+	OrderBy        optional.String
 	OrderDirection optional.String
-	Timeframe optional.Interface
+	Timeframe      optional.Interface
 }
 
 func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID string, localVarOptionals *ListBreakdownValuesOpts) (ListBreakdownValuesResponse, error) {
@@ -491,20 +491,20 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 
 /*
 MetricsApiService List Insights
-Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric. 
+Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param mETRICID ID of the Metric
  * @param optional nil or *ListInsightsOpts - Optional Parameters:
  * @param "Measurement" (optional.String) -  Measurement for the provided metric. If omitted, the deafult for the metric will be used.
  * @param "OrderDirection" (optional.String) -  Sort order.
- * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days. 
+ * @param "Timeframe" (optional.Interface of []string) -  Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600    * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.
 @return ListInsightsResponse
 */
 
 type ListInsightsOpts struct {
-	Measurement optional.String
+	Measurement    optional.String
 	OrderDirection optional.String
-	Timeframe optional.Interface
+	Timeframe      optional.Interface
 }
 
 func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, localVarOptionals *ListInsightsOpts) (ListInsightsResponse, error) {

@@ -5,11 +5,11 @@ package muxgo
 
 import (
 	"context"
+	"fmt"
+	"github.com/antihax/optional"
 	"io/ioutil"
 	"net/url"
 	"strings"
-	"fmt"
-	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -21,7 +21,7 @@ type AssetsApiService service
 
 /*
 AssetsApiService Create an asset
-Create a new Mux Video asset. 
+Create a new Mux Video asset.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param createAssetRequest
 @return AssetResponse
@@ -203,7 +203,7 @@ AssetsApiService Delete an asset
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param aSSETID The asset ID.
 */
-func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) (error) {
+func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) error {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -270,7 +270,7 @@ AssetsApiService Delete a playback ID
  * @param aSSETID The asset ID.
  * @param pLAYBACKID The live stream's playback ID.
 */
-func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) (error) {
+func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) error {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -608,7 +608,7 @@ AssetsApiService List assets
 
 type ListAssetsOpts struct {
 	Limit optional.Int32
-	Page optional.Int32
+	Page  optional.Int32
 }
 
 func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *ListAssetsOpts) (ListAssetsResponse, error) {

@@ -4,6 +4,6 @@
 package muxgo
 
 type VideoViewResponse struct {
-	Data VideoView `json:"data,omitempty"`
-	Timeframe []string `json:"timeframe,omitempty"`
+	Data      VideoView `json:"data,omitempty"`
+	Timeframe []string  `json:"timeframe,omitempty"`
 }

@@ -5,5 +5,5 @@ package muxgo
 
 type AssetMaster struct {
 	Status string `json:"status,omitempty"`
-	Url string `json:"url,omitempty"`
+	Url    string `json:"url,omitempty"`
 }
