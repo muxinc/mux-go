@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -40,7 +39,7 @@ type ListFilterValuesOpts struct {
 	Timeframe optional.Interface
 }
 
-func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID string, localVarOptionals *ListFilterValuesOpts) (ListFilterValuesResponse, *http.Response, error) {
+func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID string, localVarOptionals *ListFilterValuesOpts) (ListFilterValuesResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -51,7 +50,7 @@ func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID strin
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/filters/{FILTER_ID}"
+	localVarPath := a.client.cfg.basePath + "/data/v1/filters/{FILTER_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"FILTER_ID"+"}", fmt.Sprintf("%v", fILTERID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -89,18 +88,18 @@ func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID strin
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -113,12 +112,12 @@ func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID strin
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -127,10 +126,10 @@ func (a *FiltersApiService) ListFilterValues(ctx context.Context, fILTERID strin
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -139,7 +138,7 @@ Lists all the filters broken out into basic and advanced
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return ListFiltersResponse
 */
-func (a *FiltersApiService) ListFilters(ctx context.Context) (ListFiltersResponse, *http.Response, error) {
+func (a *FiltersApiService) ListFilters(ctx context.Context) (ListFiltersResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -150,7 +149,7 @@ func (a *FiltersApiService) ListFilters(ctx context.Context) (ListFiltersRespons
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/filters"
+	localVarPath := a.client.cfg.basePath + "/data/v1/filters"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -175,18 +174,18 @@ func (a *FiltersApiService) ListFilters(ctx context.Context) (ListFiltersRespons
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -199,12 +198,12 @@ func (a *FiltersApiService) ListFilters(ctx context.Context) (ListFiltersRespons
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -213,8 +212,8 @@ func (a *FiltersApiService) ListFilters(ctx context.Context) (ListFiltersRespons
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

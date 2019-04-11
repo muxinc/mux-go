@@ -1,11 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
 	"github.com/muxinc/mux-go"
-	"golang.org/x/net/context"
 )
 
 // Exercises all asset operations:
@@ -19,7 +19,7 @@ import (
 //   delete-asset-playback-id
 //   update-asset-mp4-support
 
-func CheckError(err error) {
+func checkError(err error) {
 	if err != nil {
 		fmt.Printf("err: %s \n\n", err)
 		os.Exit(255)
@@ -27,32 +27,41 @@ func CheckError(err error) {
 }
 
 func main() {
-
-	// Authentication Setup
-	auth := context.WithValue(context.Background(), muxgo.ContextBasicAuth, muxgo.BasicAuth{
-		UserName: os.Getenv("MUX_TOKEN_ID"),
-		Password: os.Getenv("MUX_TOKEN_SECRET"),
-	})
-
 	// API Client Initialization
-	client := muxgo.NewAPIClient(muxgo.NewConfiguration())
+	client := muxgo.NewAPIClient(
+		muxgo.NewConfiguration(
+			muxgo.WithBasicAuth(os.Getenv("ACCESS_TOKEN_ID"), os.Getenv("ACCESS_TOKEN_SECRET")),
+		))
 
 	// ========== create-asset ==========
-	car :=  muxgo.CreateAssetRequest{
-				Input: []muxgo.InputSettings{muxgo.InputSettings{Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4"}},
-			}
-
-	_, _, err := client.AssetsApi.CreateAsset(auth, car)
-	CheckError(err)
+	cr, err := client.AssetsApi.CreateAsset(context.Background(), muxgo.CreateAssetRequest{
+		Input: []muxgo.InputSettings{
+			muxgo.InputSettings{
+				Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4",
+			},
+		},
+	})
+	checkError(err)
 	fmt.Println("create-asset OK ✅")
+	fmt.Printf("created asset with id: %s\n\n", cr.Data.Id)
 
 	// ========== list-assets ==========
-	_, _, err = client.AssetsApi.ListAssets(auth, nil)
-	CheckError(err)
+	lr, err := client.AssetsApi.ListAssets(context.Background(), nil)
+	checkError(err)
 	fmt.Println("list-assets OK ✅")
+	fmt.Printf("loaded a list of %d assets.\n\n", len(lr.Data))
 
-		// ========== get-asset ==========
-		// ========== get-asset-input-info ==========
+	// ========== get-asset ==========
+	gr, err := client.AssetsApi.GetAsset(context.Background(), cr.Data.Id)
+	checkError(err)
+	fmt.Println("get-asset OK ✅")
+	fmt.Printf("got the asset with id %s\n\n", gr.Data.Id)
+
+	// ========== get-asset-input-info ==========
+	ir, err := client.AssetsApi.GetAssetInputInfo(context.Background(), cr.Data.Id)
+	checkError(err)
+	fmt.Println("get-asset-input-info OK ✅")
+	fmt.Printf("%+v\n\n", ir.Data)
 
 	// ========== create-asset-playback-id ==========
 
