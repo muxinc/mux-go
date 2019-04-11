@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -26,7 +25,7 @@ LiveStreamsApiService Create a live stream
  * @param createLiveStreamRequest
 @return LiveStreamResponse
 */
-func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLiveStreamRequest CreateLiveStreamRequest) (LiveStreamResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLiveStreamRequest CreateLiveStreamRequest) (LiveStreamResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -37,7 +36,7 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -64,18 +63,18 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 	localVarPostBody = &createLiveStreamRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -88,12 +87,12 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -102,10 +101,10 @@ func (a *LiveStreamsApiService) CreateLiveStream(ctx context.Context, createLive
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -115,7 +114,7 @@ LiveStreamsApiService Create a live stream playback ID
  * @param createPlaybackIdRequest
 @return CreatePlaybackIdResponse
 */
-func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -126,7 +125,7 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids"
 	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -154,18 +153,18 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 	localVarPostBody = &createPlaybackIdRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -178,12 +177,12 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -192,10 +191,10 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(ctx context.Context, 
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -203,7 +202,7 @@ LiveStreamsApiService Delete a live stream
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param lIVESTREAMID The live stream ID
 */
-func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAMID string) (*http.Response, error) {
+func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAMID string) (error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -213,7 +212,7 @@ func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAM
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams/{LIVE_STREAM_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -239,18 +238,18 @@ func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAM
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -258,10 +257,10 @@ func (a *LiveStreamsApiService) DeleteLiveStream(ctx context.Context, lIVESTREAM
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return newErr
 	}
 
-	return localVarHttpResponse, nil
+	return nil
 }
 
 /*
@@ -270,7 +269,7 @@ LiveStreamsApiService Delete a live stream playback ID
  * @param lIVESTREAMID The live stream ID
  * @param pLAYBACKID The live stream's playback ID.
 */
-func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, pLAYBACKID string) (*http.Response, error) {
+func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, lIVESTREAMID string, pLAYBACKID string) (error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -280,7 +279,7 @@ func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"PLAYBACK_ID"+"}", fmt.Sprintf("%v", pLAYBACKID), -1)
 
@@ -307,18 +306,18 @@ func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, 
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -326,10 +325,10 @@ func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(ctx context.Context, 
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return newErr
 	}
 
-	return localVarHttpResponse, nil
+	return nil
 }
 
 /*
@@ -339,7 +338,7 @@ Retrieves the details of a live stream that has previously been created. Supply 
  * @param lIVESTREAMID The live stream ID
 @return LiveStreamResponse
 */
-func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID string) (LiveStreamResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID string) (LiveStreamResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -350,7 +349,7 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams/{LIVE_STREAM_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -376,18 +375,18 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -400,12 +399,12 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -414,10 +413,10 @@ func (a *LiveStreamsApiService) GetLiveStream(ctx context.Context, lIVESTREAMID 
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -434,7 +433,7 @@ type ListLiveStreamsOpts struct {
 	Page optional.Int32
 }
 
-func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOptionals *ListLiveStreamsOpts) (ListLiveStreamsResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOptionals *ListLiveStreamsOpts) (ListLiveStreamsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -445,7 +444,7 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -476,18 +475,18 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -500,12 +499,12 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -514,10 +513,10 @@ func (a *LiveStreamsApiService) ListLiveStreams(ctx context.Context, localVarOpt
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -527,7 +526,7 @@ Reset a live stream key if you want to immediately stop the current stream key f
  * @param lIVESTREAMID The live stream ID
 @return LiveStreamResponse
 */
-func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID string) (LiveStreamResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID string) (LiveStreamResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -538,7 +537,7 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key"
 	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -564,18 +563,18 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -588,12 +587,12 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -602,10 +601,10 @@ func (a *LiveStreamsApiService) ResetStreamKey(ctx context.Context, lIVESTREAMID
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -615,7 +614,7 @@ LiveStreamsApiService Signal a live stream is finished
  * @param lIVESTREAMID The live stream ID
 @return SignalLiveStreamCompleteResponse
 */
-func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lIVESTREAMID string) (SignalLiveStreamCompleteResponse, *http.Response, error) {
+func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lIVESTREAMID string) (SignalLiveStreamCompleteResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
@@ -626,7 +625,7 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lI
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/complete"
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/complete"
 	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -652,18 +651,18 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lI
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -676,12 +675,12 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lI
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -690,8 +689,8 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(ctx context.Context, lI
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

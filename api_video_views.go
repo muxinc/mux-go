@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -27,7 +26,7 @@ Returns the details of a video view
  * @param vIDEOVIEWID ID of the Video View
 @return VideoViewResponse
 */
-func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID string) (VideoViewResponse, *http.Response, error) {
+func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID string) (VideoViewResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -38,7 +37,7 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/video-views/{VIDEO_VIEW_ID}"
+	localVarPath := a.client.cfg.basePath + "/data/v1/video-views/{VIDEO_VIEW_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"VIDEO_VIEW_ID"+"}", fmt.Sprintf("%v", vIDEOVIEWID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -64,18 +63,18 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -88,12 +87,12 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -102,10 +101,10 @@ func (a *VideoViewsApiService) GetVideoView(ctx context.Context, vIDEOVIEWID str
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -133,7 +132,7 @@ type ListVideoViewsOpts struct {
 	Timeframe optional.Interface
 }
 
-func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptionals *ListVideoViewsOpts) (ListVideoViewsResponse, *http.Response, error) {
+func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptionals *ListVideoViewsOpts) (ListVideoViewsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -144,7 +143,7 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/video-views"
+	localVarPath := a.client.cfg.basePath + "/data/v1/video-views"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -190,18 +189,18 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -214,12 +213,12 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -228,8 +227,8 @@ func (a *VideoViewsApiService) ListVideoViews(ctx context.Context, localVarOptio
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -42,7 +41,7 @@ type GetMetricTimeseriesDataOpts struct {
 	GroupBy optional.String
 }
 
-func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICID string, localVarOptionals *GetMetricTimeseriesDataOpts) (GetMetricTimeseriesDataResponse, *http.Response, error) {
+func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICID string, localVarOptionals *GetMetricTimeseriesDataOpts) (GetMetricTimeseriesDataResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -53,7 +52,7 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/metrics/{METRIC_ID}/timeseries"
+	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/timeseries"
 	localVarPath = strings.Replace(localVarPath, "{"+"METRIC_ID"+"}", fmt.Sprintf("%v", mETRICID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -94,18 +93,18 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -118,12 +117,12 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -132,10 +131,10 @@ func (a *MetricsApiService) GetMetricTimeseriesData(ctx context.Context, mETRICI
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -156,7 +155,7 @@ type GetOverallValuesOpts struct {
 	Measurement optional.String
 }
 
-func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID string, localVarOptionals *GetOverallValuesOpts) (GetOverallValuesResponse, *http.Response, error) {
+func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID string, localVarOptionals *GetOverallValuesOpts) (GetOverallValuesResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -167,7 +166,7 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/metrics/{METRIC_ID}/overall"
+	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/overall"
 	localVarPath = strings.Replace(localVarPath, "{"+"METRIC_ID"+"}", fmt.Sprintf("%v", mETRICID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -202,18 +201,18 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -226,12 +225,12 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -240,10 +239,10 @@ func (a *MetricsApiService) GetOverallValues(ctx context.Context, mETRICID strin
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -265,7 +264,7 @@ type ListAllMetricValuesOpts struct {
 	Value optional.String
 }
 
-func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOptionals *ListAllMetricValuesOpts) (ListAllMetricValuesResponse, *http.Response, error) {
+func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOptionals *ListAllMetricValuesOpts) (ListAllMetricValuesResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -276,7 +275,7 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/metrics/comparison"
+	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/comparison"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -313,18 +312,18 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -337,12 +336,12 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -351,10 +350,10 @@ func (a *MetricsApiService) ListAllMetricValues(ctx context.Context, localVarOpt
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -385,7 +384,7 @@ type ListBreakdownValuesOpts struct {
 	Timeframe optional.Interface
 }
 
-func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID string, localVarOptionals *ListBreakdownValuesOpts) (ListBreakdownValuesResponse, *http.Response, error) {
+func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID string, localVarOptionals *ListBreakdownValuesOpts) (ListBreakdownValuesResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -396,7 +395,7 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/metrics/{METRIC_ID}/breakdown"
+	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/breakdown"
 	localVarPath = strings.Replace(localVarPath, "{"+"METRIC_ID"+"}", fmt.Sprintf("%v", mETRICID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -446,18 +445,18 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -470,12 +469,12 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -484,10 +483,10 @@ func (a *MetricsApiService) ListBreakdownValues(ctx context.Context, mETRICID st
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -508,7 +507,7 @@ type ListInsightsOpts struct {
 	Timeframe optional.Interface
 }
 
-func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, localVarOptionals *ListInsightsOpts) (ListInsightsResponse, *http.Response, error) {
+func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, localVarOptionals *ListInsightsOpts) (ListInsightsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -519,7 +518,7 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/data/v1/metrics/{METRIC_ID}/insights"
+	localVarPath := a.client.cfg.basePath + "/data/v1/metrics/{METRIC_ID}/insights"
 	localVarPath = strings.Replace(localVarPath, "{"+"METRIC_ID"+"}", fmt.Sprintf("%v", mETRICID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -554,18 +553,18 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -578,12 +577,12 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -592,8 +591,8 @@ func (a *MetricsApiService) ListInsights(ctx context.Context, mETRICID string, l
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }

@@ -6,7 +6,6 @@ package muxgo
 import (
 	"context"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 	"strings"
 	"fmt"
@@ -27,7 +26,7 @@ Create a new Mux Video asset.
  * @param createAssetRequest
 @return AssetResponse
 */
-func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest CreateAssetRequest) (AssetResponse, *http.Response, error) {
+func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest CreateAssetRequest) (AssetResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -38,7 +37,7 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -65,18 +64,18 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 	localVarPostBody = &createAssetRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -89,12 +88,12 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -103,10 +102,10 @@ func (a *AssetsApiService) CreateAsset(ctx context.Context, createAssetRequest C
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -116,7 +115,7 @@ AssetsApiService Create a playback ID
  * @param createPlaybackIdRequest
 @return CreatePlaybackIdResponse
 */
-func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, *http.Response, error) {
+func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID string, createPlaybackIdRequest CreatePlaybackIdRequest) (CreatePlaybackIdResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -127,7 +126,7 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}/playback-ids"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/playback-ids"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -155,18 +154,18 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 	localVarPostBody = &createPlaybackIdRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -179,12 +178,12 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -193,10 +192,10 @@ func (a *AssetsApiService) CreateAssetPlaybackId(ctx context.Context, aSSETID st
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -204,7 +203,7 @@ AssetsApiService Delete an asset
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param aSSETID The asset ID.
 */
-func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) (*http.Response, error) {
+func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) (error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -214,7 +213,7 @@ func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) (*ht
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -240,18 +239,18 @@ func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) (*ht
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -259,10 +258,10 @@ func (a *AssetsApiService) DeleteAsset(ctx context.Context, aSSETID string) (*ht
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return newErr
 	}
 
-	return localVarHttpResponse, nil
+	return nil
 }
 
 /*
@@ -271,7 +270,7 @@ AssetsApiService Delete a playback ID
  * @param aSSETID The asset ID.
  * @param pLAYBACKID The live stream's playback ID.
 */
-func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) (*http.Response, error) {
+func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) (error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -281,7 +280,7 @@ func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID st
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"PLAYBACK_ID"+"}", fmt.Sprintf("%v", pLAYBACKID), -1)
 
@@ -308,18 +307,18 @@ func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID st
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarHttpResponse, err
+		return err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -327,10 +326,10 @@ func (a *AssetsApiService) DeleteAssetPlaybackId(ctx context.Context, aSSETID st
 			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		return localVarHttpResponse, newErr
+		return newErr
 	}
 
-	return localVarHttpResponse, nil
+	return nil
 }
 
 /*
@@ -340,7 +339,7 @@ Retrieves the details of an asset that has previously been created. Supply the u
  * @param aSSETID The asset ID.
 @return AssetResponse
 */
-func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetResponse, *http.Response, error) {
+func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -351,7 +350,7 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -377,18 +376,18 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -401,12 +400,12 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -415,10 +414,10 @@ func (a *AssetsApiService) GetAsset(ctx context.Context, aSSETID string) (AssetR
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -428,7 +427,7 @@ Returns a list of the input objects that were used to create the asset along wit
  * @param aSSETID The asset ID.
 @return GetAssetInputInfoResponse
 */
-func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string) (GetAssetInputInfoResponse, *http.Response, error) {
+func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string) (GetAssetInputInfoResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -439,7 +438,7 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}/input-info"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/input-info"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -465,18 +464,18 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -489,12 +488,12 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -503,10 +502,10 @@ func (a *AssetsApiService) GetAssetInputInfo(ctx context.Context, aSSETID string
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -516,7 +515,7 @@ AssetsApiService Retrieve a playback ID
  * @param pLAYBACKID The live stream's playback ID.
 @return GetAssetPlaybackIdResponse
 */
-func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) (GetAssetPlaybackIdResponse, *http.Response, error) {
+func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID string, pLAYBACKID string) (GetAssetPlaybackIdResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -527,7 +526,7 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"PLAYBACK_ID"+"}", fmt.Sprintf("%v", pLAYBACKID), -1)
 
@@ -554,18 +553,18 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -578,12 +577,12 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -592,10 +591,10 @@ func (a *AssetsApiService) GetAssetPlaybackId(ctx context.Context, aSSETID strin
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -612,7 +611,7 @@ type ListAssetsOpts struct {
 	Page optional.Int32
 }
 
-func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *ListAssetsOpts) (ListAssetsResponse, *http.Response, error) {
+func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *ListAssetsOpts) (ListAssetsResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -623,7 +622,7 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -654,18 +653,18 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -678,12 +677,12 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -692,10 +691,10 @@ func (a *AssetsApiService) ListAssets(ctx context.Context, localVarOptionals *Li
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
 
 /*
@@ -706,7 +705,7 @@ Allows you add or remove mp4 support for assets that were created without it. Cu
  * @param updateAssetMp4SupportRequest
 @return AssetResponse
 */
-func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID string, updateAssetMp4SupportRequest UpdateAssetMp4SupportRequest) (AssetResponse, *http.Response, error) {
+func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID string, updateAssetMp4SupportRequest UpdateAssetMp4SupportRequest) (AssetResponse, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
@@ -717,7 +716,7 @@ func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID st
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/video/v1/assets/{ASSET_ID}/mp4-support"
+	localVarPath := a.client.cfg.basePath + "/video/v1/assets/{ASSET_ID}/mp4-support"
 	localVarPath = strings.Replace(localVarPath, "{"+"ASSET_ID"+"}", fmt.Sprintf("%v", aSSETID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -745,18 +744,18 @@ func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID st
 	localVarPostBody = &updateAssetMp4SupportRequest
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return localVarReturnValue, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
 	localVarHttpResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
+		return localVarReturnValue, err
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
@@ -769,12 +768,12 @@ func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID st
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHttpResponse, newErr
+				return localVarReturnValue, newErr
 			}
 			newErr.model = v
-			return localVarReturnValue, localVarHttpResponse, newErr
+			return localVarReturnValue, newErr
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -783,8 +782,8 @@ func (a *AssetsApiService) UpdateAssetMp4Support(ctx context.Context, aSSETID st
 			body:  localVarBody,
 			error: err.Error(),
 		}
-		return localVarReturnValue, localVarHttpResponse, newErr
+		return localVarReturnValue, newErr
 	}
 
-	return localVarReturnValue, localVarHttpResponse, nil
+	return localVarReturnValue, nil
 }
