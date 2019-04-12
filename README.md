@@ -1,4 +1,4 @@
-TODO: Banner
+<img src="https://banner.mux.dev/?image=go">
 
 # Mux Go
 
