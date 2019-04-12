@@ -50,7 +50,7 @@ func main() {
 	// API Client Init
 	client := muxgo.NewAPIClient(
 		muxgo.NewConfiguration(
-			muxgo.WithBasicAuth(os.Getenv("ACCESS_TOKEN_ID"), os.Getenv("ACCESS_TOKEN_SECRET")),
+			muxgo.WithBasicAuth(os.Getenv("MUX_TOKEN_ID"), os.Getenv("MUX_TOKEN_SECRET")),
 		))
 
 	// List Assets
