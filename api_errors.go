@@ -16,6 +16,7 @@ type ListErrorsParams struct {
 	Timeframe []string
 }
 
+// ListErrors optionally accepts an `APIOption` of `WithParams(&ListErrorsParams{...})`.
 func (a *ErrorsApiService) ListErrors(opts ...APIOption) (ListErrorsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)

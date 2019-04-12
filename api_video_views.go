@@ -109,6 +109,7 @@ type ListVideoViewsParams struct {
 	Timeframe      []string
 }
 
+// ListVideoViews optionally accepts an `APIOption` of `WithParams(&ListVideoViewsParams{...})`.
 func (a *VideoViewsApiService) ListVideoViews(opts ...APIOption) (ListVideoViewsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)

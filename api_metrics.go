@@ -21,6 +21,7 @@ type GetMetricTimeseriesDataParams struct {
 	GroupBy        string
 }
 
+// GetMetricTimeseriesData optionally accepts an `APIOption` of `WithParams(&GetMetricTimeseriesDataParams{...})`.
 func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...APIOption) (GetMetricTimeseriesDataResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
@@ -135,6 +136,7 @@ type GetOverallValuesParams struct {
 	Measurement string
 }
 
+// GetOverallValues optionally accepts an `APIOption` of `WithParams(&GetOverallValuesParams{...})`.
 func (a *MetricsApiService) GetOverallValues(mETRICID string, opts ...APIOption) (GetOverallValuesResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
@@ -243,6 +245,7 @@ type ListAllMetricValuesParams struct {
 	Value     string
 }
 
+// ListAllMetricValues optionally accepts an `APIOption` of `WithParams(&ListAllMetricValuesParams{...})`.
 func (a *MetricsApiService) ListAllMetricValues(opts ...APIOption) (ListAllMetricValuesResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
@@ -358,6 +361,7 @@ type ListBreakdownValuesParams struct {
 	Timeframe      []string
 }
 
+// ListBreakdownValues optionally accepts an `APIOption` of `WithParams(&ListBreakdownValuesParams{...})`.
 func (a *MetricsApiService) ListBreakdownValues(mETRICID string, opts ...APIOption) (ListBreakdownValuesResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
@@ -481,6 +485,7 @@ type ListInsightsParams struct {
 	Timeframe      []string
 }
 
+// ListInsights optionally accepts an `APIOption` of `WithParams(&ListInsightsParams{...})`.
 func (a *MetricsApiService) ListInsights(mETRICID string, opts ...APIOption) (ListInsightsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
