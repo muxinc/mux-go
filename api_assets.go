@@ -591,7 +591,7 @@ type ListAssetsParams struct {
 	Page  int32
 }
 
-// ListAssets optionally accepts an `APIOption` of `WithParams(&ListAssetsParams{...})`.
+// ListAssets optionally accepts the APIOption of WithParams(*ListAssetsParams).
 func (a *AssetsApiService) ListAssets(opts ...APIOption) (ListAssetsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)

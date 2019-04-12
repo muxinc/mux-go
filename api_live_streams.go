@@ -416,7 +416,7 @@ type ListLiveStreamsParams struct {
 	Page  int32
 }
 
-// ListLiveStreams optionally accepts an `APIOption` of `WithParams(&ListLiveStreamsParams{...})`.
+// ListLiveStreams optionally accepts the APIOption of WithParams(*ListLiveStreamsParams).
 func (a *LiveStreamsApiService) ListLiveStreams(opts ...APIOption) (ListLiveStreamsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)

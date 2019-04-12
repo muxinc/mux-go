@@ -279,7 +279,7 @@ type ListDirectUploadsParams struct {
 	Page  int32
 }
 
-// ListDirectUploads optionally accepts an `APIOption` of `WithParams(&ListDirectUploadsParams{...})`.
+// ListDirectUploads optionally accepts the APIOption of WithParams(*ListDirectUploadsParams).
 func (a *DirectUploadsApiService) ListDirectUploads(opts ...APIOption) (ListUploadsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)

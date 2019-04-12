@@ -20,7 +20,7 @@ type ListFilterValuesParams struct {
 	Timeframe []string
 }
 
-// ListFilterValues optionally accepts an `APIOption` of `WithParams(&ListFilterValuesParams{...})`.
+// ListFilterValues optionally accepts the APIOption of WithParams(*ListFilterValuesParams).
 func (a *FiltersApiService) ListFilterValues(fILTERID string, opts ...APIOption) (ListFilterValuesResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)

@@ -257,7 +257,7 @@ type ListUrlSigningKeysParams struct {
 	Page  int32
 }
 
-// ListUrlSigningKeys optionally accepts an `APIOption` of `WithParams(&ListUrlSigningKeysParams{...})`.
+// ListUrlSigningKeys optionally accepts the APIOption of WithParams(*ListUrlSigningKeysParams).
 func (a *URLSigningKeysApiService) ListUrlSigningKeys(opts ...APIOption) (ListSigningKeysResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
