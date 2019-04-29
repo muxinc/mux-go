@@ -20,8 +20,13 @@ func main() {
 		))
 
 	// ========== list-errors ==========
-	e, err := client.ErrorsApi.ListErrors()
+	lep := muxgo.ListErrorsParams{Filters: []string{"browser:Chrome"}, Timeframe: []string{"7:days"}}
+	e, err := client.ErrorsApi.ListErrors(muxgo.WithParams(&lep))
 	common.AssertNoError(err)
 	common.AssertNotNil(e.Data)
+	if len(e.Data) < 1 {
+		fmt.Println("Didn't find any errors :( ")
+		os.Exit(255)
+	}
 	fmt.Println("list-errors ✅")
 }
