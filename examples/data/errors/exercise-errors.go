@@ -8,6 +8,9 @@ import (
 	"github.com/muxinc/mux-go/examples/common"
 )
 
+// Exercises all error operations:
+//   list-errors
+
 func main() {
 
 	// API Client Initialization
@@ -19,6 +22,6 @@ func main() {
 	// ========== list-errors ==========
 	e, err := client.ErrorsApi.ListErrors()
 	common.AssertNoError(err)
-	fmt.Println(e)
+	common.AssertNotNil(e.Data)
 	fmt.Println("list-errors ✅")
 }
