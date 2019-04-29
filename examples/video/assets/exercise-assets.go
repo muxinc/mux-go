@@ -112,5 +112,4 @@ func main() {
 	_, err = client.AssetsApi.GetAsset(asset.Data.Id)
 	common.AssertNotNil(err)
 	fmt.Println("delete-asset OK ✅")
-
 }

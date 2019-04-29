@@ -51,5 +51,4 @@ func main() {
 		common.AssertStringEqualsValue(u.Data.Id, uc.Data.Id)
 		common.AssertStringEqualsValue(uc.Data.Status, "cancelled")
 		fmt.Println("cancel-direct-upload ✅")
-
 }
