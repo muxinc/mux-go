@@ -4,7 +4,7 @@
 package muxgo
 
 type ListAllMetricValuesResponse struct {
-	Data          []Score  `json:"data,omitempty"`
-	TotalRowCount int32    `json:"total_row_count,omitempty"`
-	Timeframe     []string `json:"timeframe,omitempty"`
+	Data          []Score `json:"data,omitempty"`
+	TotalRowCount int64   `json:"total_row_count,omitempty"`
+	Timeframe     []int64 `json:"timeframe,omitempty"`
 }

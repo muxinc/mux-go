@@ -5,5 +5,5 @@ package muxgo
 
 type FilterValue struct {
 	Value      string `json:"value,omitempty"`
-	TotalCount int32  `json:"total_count,omitempty"`
+	TotalCount int64  `json:"total_count,omitempty"`
 }

@@ -50,10 +50,18 @@ func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...API
 	localVarFormParams := url.Values{}
 
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Timeframe {
+			localVarQueryParams.Add("timeframe[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Filters {
+			localVarQueryParams.Add("filters[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
 		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
@@ -164,10 +172,18 @@ func (a *MetricsApiService) GetOverallValues(mETRICID string, opts ...APIOption)
 	localVarFormParams := url.Values{}
 
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Timeframe {
+			localVarQueryParams.Add("timeframe[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Filters {
+			localVarQueryParams.Add("filters[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
 		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
@@ -272,10 +288,18 @@ func (a *MetricsApiService) ListAllMetricValues(opts ...APIOption) (ListAllMetri
 	localVarFormParams := url.Values{}
 
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Timeframe {
+			localVarQueryParams.Add("timeframe[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Filters {
+			localVarQueryParams.Add("filters[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Dimension) {
 		localVarQueryParams.Add("dimension", parameterToString(localVarOptionals.Dimension, ""))
@@ -394,7 +418,11 @@ func (a *MetricsApiService) ListBreakdownValues(mETRICID string, opts ...APIOpti
 		localVarQueryParams.Add("measurement", parameterToString(localVarOptionals.Measurement, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Filters {
+			localVarQueryParams.Add("filters[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
 		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
@@ -409,7 +437,11 @@ func (a *MetricsApiService) ListBreakdownValues(mETRICID string, opts ...APIOpti
 		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Timeframe {
+			localVarQueryParams.Add("timeframe[]", v)
+		}
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
@@ -517,7 +549,11 @@ func (a *MetricsApiService) ListInsights(mETRICID string, opts ...APIOption) (Li
 		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Timeframe {
+			localVarQueryParams.Add("timeframe[]", v)
+		}
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

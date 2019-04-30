@@ -55,10 +55,18 @@ func (a *FiltersApiService) ListFilterValues(fILTERID string, opts ...APIOption)
 		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
-		localVarQueryParams.Add("filters[]", parameterToString(localVarOptionals.Filters, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Filters {
+			localVarQueryParams.Add("filters[]", v)
+		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
-		localVarQueryParams.Add("timeframe[]", parameterToString(localVarOptionals.Timeframe, "multi"))
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Timeframe {
+			localVarQueryParams.Add("timeframe[]", v)
+		}
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

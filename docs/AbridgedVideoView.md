@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **ViewerOsFamily** | **string** |  | [optional] 
 **ViewerApplicationName** | **string** |  | [optional] 
 **VideoTitle** | **string** |  | [optional] 
-**TotalRowCount** | **int32** |  | [optional] 
+**TotalRowCount** | **int64** |  | [optional] 
 **PlayerErrorMessage** | **string** |  | [optional] 
 **PlayerErrorCode** | **string** |  | [optional] 
 **ErrorTypeId** | **int32** |  | [optional] 

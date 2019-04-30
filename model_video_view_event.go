@@ -4,8 +4,8 @@
 package muxgo
 
 type VideoViewEvent struct {
-	ViewerTime   int32  `json:"viewer_time,omitempty"`
-	PlaybackTime int32  `json:"playback_time,omitempty"`
+	ViewerTime   int64  `json:"viewer_time,omitempty"`
+	PlaybackTime int64  `json:"playback_time,omitempty"`
 	Name         string `json:"name,omitempty"`
-	EventTime    int32  `json:"event_time,omitempty"`
+	EventTime    int64  `json:"event_time,omitempty"`
 }
