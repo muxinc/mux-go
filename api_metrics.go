@@ -13,7 +13,6 @@ import (
 type MetricsApiService service
 
 type GetMetricTimeseriesDataParams struct {
-	METRICID       string
 	Timeframe      []string
 	Filters        []string
 	Measurement    string
@@ -130,7 +129,6 @@ func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...API
 }
 
 type GetOverallValuesParams struct {
-	METRICID    string
 	Timeframe   []string
 	Filters     []string
 	Measurement string
@@ -350,7 +348,6 @@ func (a *MetricsApiService) ListAllMetricValues(opts ...APIOption) (ListAllMetri
 }
 
 type ListBreakdownValuesParams struct {
-	METRICID       string
 	GroupBy        string
 	Measurement    string
 	Filters        []string
@@ -479,7 +476,6 @@ func (a *MetricsApiService) ListBreakdownValues(mETRICID string, opts ...APIOpti
 }
 
 type ListInsightsParams struct {
-	METRICID       string
 	Measurement    string
 	OrderDirection string
 	Timeframe      []string

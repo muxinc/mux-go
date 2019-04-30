@@ -13,7 +13,6 @@ import (
 type FiltersApiService service
 
 type ListFilterValuesParams struct {
-	FILTERID  string
 	Limit     int32
 	Page      int32
 	Filters   []string
