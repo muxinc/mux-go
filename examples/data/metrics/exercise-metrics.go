@@ -45,12 +45,11 @@ func main() {
 	fmt.Println("list-insights ✅")
 
 	// ========== get-metric-timeseries-data ==========
-	// This is currently broken because of issues with the mixed-type-tuple we return from the API.
-	// tsopts := muxgo.GetMetricTimeseriesDataParams{Timeframe: []string{"7:days"}}
-	// ts, err := client.MetricsApi.GetMetricTimeseriesData("video_startup_time", muxgo.WithParams(&tsopts))
-	// common.AssertNoError(err)
-	// common.AssertNotNil(ts.Data)
-	fmt.Println("get-metic-timeseries-data ❌ (Known to be broken)")
+	tsopts := muxgo.GetMetricTimeseriesDataParams{Timeframe: []string{"7:days"}}
+	ts, err := client.MetricsApi.GetMetricTimeseriesData("video_startup_time", muxgo.WithParams(&tsopts))
+	common.AssertNoError(err)
+	common.AssertNotNil(ts.Data)
+	fmt.Println("get-metic-timeseries-data ✅")
 
 	// ========== list-all-metric-values ==========
 	lamv, err := client.MetricsApi.ListAllMetricValues()
