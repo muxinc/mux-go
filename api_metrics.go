@@ -113,7 +113,7 @@ func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...API
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v GetMetricTimeseriesDataResponse
-			err = a.client.decodeForGetMetricTimeseriesData(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, newErr
@@ -124,7 +124,7 @@ func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...API
 		return localVarReturnValue, newErr
 	}
 
-	err = a.client.decodeForGetMetricTimeseriesData(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
