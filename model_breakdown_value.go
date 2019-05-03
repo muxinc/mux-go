@@ -4,9 +4,9 @@
 package muxgo
 
 type BreakdownValue struct {
-	Views          int32   `json:"views,omitempty"`
+	Views          int64   `json:"views,omitempty"`
 	Value          float64 `json:"value,omitempty"`
-	TotalWatchTime int32   `json:"total_watch_time,omitempty"`
+	TotalWatchTime int64   `json:"total_watch_time,omitempty"`
 	NegativeImpact int32   `json:"negative_impact,omitempty"`
 	Field          string  `json:"field,omitempty"`
 }

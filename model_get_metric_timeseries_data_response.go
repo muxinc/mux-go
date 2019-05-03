@@ -3,8 +3,53 @@
 
 package muxgo
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 type GetMetricTimeseriesDataResponse struct {
 	Data          [][]string `json:"data,omitempty"`
-	TotalRowCount int32      `json:"total_row_count,omitempty"`
-	Timeframe     []string   `json:"timeframe,omitempty"`
+	TotalRowCount int64      `json:"total_row_count,omitempty"`
+	Timeframe     []int64    `json:"timeframe,omitempty"`
+}
+
+// !!! 🐉 Here be dragons 🐉 !!!
+// We use a custom Unmarshal to work around one awkward API call where we can't model the response
+// from the API elegantly since go doesn't have heterogeneous arrays. This isn't perfect, or memory
+// friendly, but it works.
+func (this *GetMetricTimeseriesDataResponse) UnmarshalJSON(data []byte) error {
+
+	// Unmarshal JSON into a string => interface{} map
+	var result map[string]interface{}
+	json.Unmarshal(data, &result)
+
+	// Build up a new list of each of the datapoints from data as [][]string, nil checking as we go
+	datapoints := [][]string{}
+	for _, node := range result["data"].([]interface{}) {
+		nodeAsArray := node.([]interface{})
+		d := make([]string, 3)
+		d[0] = nodeAsArray[0].(string)
+		if nodeAsArray[1] != nil {
+			d[1] = fmt.Sprintf("%f", nodeAsArray[1].(float64))
+		}
+		if nodeAsArray[2] != nil {
+			d[2] = fmt.Sprintf("%f", nodeAsArray[2].(float64))
+		}
+		datapoints = append(datapoints, d)
+	}
+
+	// Build the array of timeframe
+	timeframes := []int64{}
+	for _, time := range result["timeframe"].([]interface{}) {
+		timefloat := time.(float64)
+		timeframes = append(timeframes, int64(timefloat))
+	}
+
+	// Set the fields on the response object to what we've pieced together
+	this.Data = datapoints
+	this.Timeframe = timeframes
+	this.TotalRowCount = int64(result["total_row_count"].(float64))
+
+	return nil
 }

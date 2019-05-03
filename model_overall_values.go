@@ -5,7 +5,7 @@ package muxgo
 
 type OverallValues struct {
 	Value          float64 `json:"value,omitempty"`
-	TotalWatchTime int32   `json:"total_watch_time,omitempty"`
-	TotalViews     int32   `json:"total_views,omitempty"`
+	TotalWatchTime int64   `json:"total_watch_time,omitempty"`
+	TotalViews     int64   `json:"total_views,omitempty"`
 	GlobalValue    float64 `json:"global_value,omitempty"`
 }

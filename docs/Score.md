@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**WatchTime** | **int32** |  | [optional] 
-**ViewCount** | **int32** |  | [optional] 
+**WatchTime** | **int64** |  | [optional] 
+**ViewCount** | **int64** |  | [optional] 
 **Name** | **string** |  | [optional] 
 **Value** | **float64** |  | [optional] 
 **Metric** | **string** |  | [optional] 

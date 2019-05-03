@@ -3,10 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TotalWatchTime** | **int32** |  | [optional] 
-**TotalViews** | **int32** |  | [optional] 
-**NegativeImpactScore** | **int32** |  | [optional] 
-**Metric** | **int32** |  | [optional] 
+**TotalWatchTime** | **int64** |  | [optional] 
+**TotalViews** | **int64** |  | [optional] 
+**NegativeImpactScore** | **float32** |  | [optional] 
+**Metric** | **float64** |  | [optional] 
 **FilterValue** | **string** |  | [optional] 
 **FilterColumn** | **string** |  | [optional] 
 

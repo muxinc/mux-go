@@ -409,7 +409,7 @@ func WithParams(params interface{}) APIOption {
 }
 
 func isSet(val interface{}) bool {
-	return true
+	return !(val == nil || reflect.DeepEqual(val, reflect.Zero(reflect.TypeOf(val)).Interface()))
 }
 
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.

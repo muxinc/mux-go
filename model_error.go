@@ -4,12 +4,12 @@
 package muxgo
 
 type Error struct {
-	Id          int32   `json:"id,omitempty"`
+	Id          int64   `json:"id,omitempty"`
 	Percentage  float64 `json:"percentage,omitempty"`
 	Notes       string  `json:"notes,omitempty"`
 	Message     string  `json:"message,omitempty"`
 	LastSeen    string  `json:"last_seen,omitempty"`
 	Description string  `json:"description,omitempty"`
-	Count       int32   `json:"count,omitempty"`
-	Code        int32   `json:"code,omitempty"`
+	Count       int64   `json:"count,omitempty"`
+	Code        int64   `json:"code,omitempty"`
 }
