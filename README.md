@@ -10,12 +10,6 @@ Official Mux API wrapper for golang projects, supporting both Mux Data and Mux V
 
 Not familiar with Mux? Check out https://mux.com/ for more information.
 
-## Important: Mux Go is in Beta!
-
-We haven't quite finished testing Mux Go yet, but we wanted to make sure that you could experiment with it as soon as possible. As such there might be rough edges, upcoming API changes (don't worry, we'll semver breaking changes), or bugs!
-
-Let us know if you find any issues!
-
 ## Installation
 
 ```
