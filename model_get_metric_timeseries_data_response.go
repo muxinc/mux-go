@@ -28,7 +28,7 @@ func (this *GetMetricTimeseriesDataResponse) UnmarshalJSON(data []byte) error {
 	datapoints := [][]string{}
 	for _, node := range result["data"].([]interface{}) {
 		nodeAsArray := node.([]interface{})
-		d := []string{"", "", ""}
+		d := make([]string, 3)
 		d[0] = nodeAsArray[0].(string)
 		if nodeAsArray[1] != nil {
 			d[1] = fmt.Sprintf("%f", nodeAsArray[1].(float64))
