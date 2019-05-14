@@ -80,7 +80,7 @@ If you run into problems, [please raise a GitHub issue,](https://github.com/muxi
 
 ## Contributing
 
-Please do not submit PRs against this package. It is generated from our OpenAPI definitions - [Please open an issue instead!](https://github.com/muxinc/mux-python/issues)
+Please do not submit PRs against this package. It is generated from our OpenAPI definitions - [Please open an issue instead!](https://github.com/muxinc/mux-go/issues)
 
 ## License
 
