@@ -14,4 +14,5 @@ type LiveStream struct {
 	NewAssetSettings Asset        `json:"new_asset_settings,omitempty"`
 	Passthrough      string       `json:"passthrough,omitempty"`
 	ReconnectWindow  float64      `json:"reconnect_window,omitempty"`
+	ReducedLatency   bool         `json:"reduced_latency,omitempty"`
 }
