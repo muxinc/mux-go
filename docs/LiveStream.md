@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **NewAssetSettings** | [**Asset**](Asset.md) |  | [optional] 
 **Passthrough** | **string** |  | [optional] 
 **ReconnectWindow** | **float64** |  | [optional] 
+**ReducedLatency** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
