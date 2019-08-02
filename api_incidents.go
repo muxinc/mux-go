@@ -218,6 +218,14 @@ func (a *IncidentsApiService) ListIncidents(opts ...APIOption) (ListIncidentsRes
 	return localVarReturnValue, nil
 }
 
+type ListRelatedIncidentsParams struct {
+	Limit          int32
+	Page           int32
+	OrderBy        string
+	OrderDirection string
+}
+
+// ListRelatedIncidents optionally accepts the APIOption of WithParams(*ListRelatedIncidentsParams).
 func (a *IncidentsApiService) ListRelatedIncidents(iNCIDENTID string, opts ...APIOption) (ListRelatedIncidentsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
@@ -233,6 +241,11 @@ func (a *IncidentsApiService) ListRelatedIncidents(iNCIDENTID string, opts ...AP
 		opt(localVarAPIOptions)
 	}
 
+	localVarOptionals, ok := localVarAPIOptions.params.(*ListRelatedIncidentsParams)
+	if localVarAPIOptions.params != nil && !ok {
+		return localVarReturnValue, reportError("provided params were not of type *ListRelatedIncidentsParams")
+	}
+
 	// create path and map variables
 	localVarPath := a.client.cfg.basePath + "/data/v1/incidents/{INCIDENT_ID}/related"
 	localVarPath = strings.Replace(localVarPath, "{"+"INCIDENT_ID"+"}", fmt.Sprintf("%v", iNCIDENTID), -1)
@@ -241,6 +254,18 @@ func (a *IncidentsApiService) ListRelatedIncidents(iNCIDENTID string, opts ...AP
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
+		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderBy) {
+		localVarQueryParams.Add("order_by", parameterToString(localVarOptionals.OrderBy, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.OrderDirection) {
+		localVarQueryParams.Add("order_direction", parameterToString(localVarOptionals.OrderDirection, ""))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}
 

@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListRelatedIncidents**
-> ListRelatedIncidentsResponse ListRelatedIncidents(ctx, iNCIDENTID)
+> ListRelatedIncidentsResponse ListRelatedIncidents(ctx, iNCIDENTID, optional)
 List Related Incidents
 
 Returns all the incidents that seem related to a specific incident 
@@ -89,6 +89,18 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **iNCIDENTID** | **string**| ID of the Incident | 
+ **optional** | ***ListRelatedIncidentsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a ListRelatedIncidentsOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
+ **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **orderBy** | **optional.String**| Value to order the results by | 
+ **orderDirection** | **optional.String**| Sort order. | 
 
 ### Return type
 
