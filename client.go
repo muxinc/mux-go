@@ -439,6 +439,7 @@ func (e GenericOpenAPIError) Model() interface{} {
 
 // Generic 400 error
 type BadRequestError struct {
+	body  []byte
 	error string
 }
 
@@ -448,6 +449,7 @@ func (e BadRequestError) Error() string {
 
 // 401 Error
 type UnauthorizedError struct {
+	body  []byte
 	error string
 }
 
@@ -455,8 +457,13 @@ func (e UnauthorizedError) Error() string {
 	return e.error
 }
 
+func (e UnauthorizedError) Body() []byte {
+	return e.body
+}
+
 // 403 Error
 type ForbiddenError struct {
+	body  []byte
 	error string
 }
 
@@ -464,8 +471,13 @@ func (e ForbiddenError) Error() string {
 	return e.error
 }
 
+func (e ForbiddenError) Body() []byte {
+	return e.body
+}
+
 // 404 Error
 type NotFoundError struct {
+	body  []byte
 	error string
 }
 
@@ -473,8 +485,13 @@ func (e NotFoundError) Error() string {
 	return e.error
 }
 
+func (e NotFoundError) Body() []byte {
+	return e.body
+}
+
 // 429 Error
 type TooManyRequestsError struct {
+	body  []byte
 	error string
 }
 
@@ -482,13 +499,27 @@ func (e TooManyRequestsError) Error() string {
 	return e.error
 }
 
+func (e TooManyRequestsError) Body() []byte {
+	return e.body
+}
+
 // 5XX Error
 type ServiceError struct {
-	error string
+	body   []byte
+	status int
+	error  string
 }
 
 func (e ServiceError) Error() string {
 	return e.error
+}
+
+func (e ServiceError) Body() []byte {
+	return e.body
+}
+
+func (e ServiceError) Code() int {
+	return e.status
 }
 
 // Helper to check for common non-200 errors
@@ -500,19 +531,19 @@ func CheckForHttpError(code int, body []byte) error {
 
 	switch code {
 	case 400:
-		return BadRequestError{"Bad Request"}
+		return BadRequestError{body: body, error: "Bad Request"}
 	case 401:
-		return UnauthorizedError{"Unauthorized"}
+		return UnauthorizedError{body: body, error: "Unauthorized"}
 	case 403:
-		return ForbiddenError{"Forbidden"}
+		return ForbiddenError{body: body, error: "Forbidden"}
 	case 404:
-		return NotFoundError{"Not Found"}
+		return NotFoundError{body: body, error: "Not Found"}
 	case 429:
-		return TooManyRequestsError{"Slow Down"}
+		return TooManyRequestsError{body: body, error: "Too Many Requests"}
 	}
 
 	if code >= 500 && code <= 599 {
-		return ServiceError{"Service Error"}
+		return ServiceError{body: body, status: code, error: "Service Error"}
 	}
 
 	return GenericOpenAPIError{body: body, error: "Generic Error"}
