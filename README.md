@@ -72,11 +72,11 @@ func main() {
 
 ## Exceptions & Error Handling
 
-All API calls return an err as their final return value. Below is documented the errors you might want to check for.
+All API calls return an err as their final return value. Below is documented the errors you might want to check for. You can check `error.Body` on all errors to see the full HTTP response.
 
 ### BadRequestError
 
-`BadRequestError` is returned when a you make a bad request to Mux, this likely means you've passed in an invalid parameter to the API call. Check `error.Body` to see the full HTTP response.
+`BadRequestError` is returned when a you make a bad request to Mux, this likely means you've passed in an invalid parameter to the API call. 
 
 ### UnauthorizedError
 
