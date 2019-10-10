@@ -70,22 +70,10 @@ func (a *LiveStreamsApiService) CreateLiveStream(createLiveStreamRequest CreateL
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 201 {
-			var v LiveStreamResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -159,22 +147,10 @@ func (a *LiveStreamsApiService) CreateLiveStreamPlaybackId(lIVESTREAMID string, 
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 201 {
-			var v CreatePlaybackIdResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -245,12 +221,10 @@ func (a *LiveStreamsApiService) DeleteLiveStream(lIVESTREAMID string, opts ...AP
 		return err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		return newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -313,12 +287,10 @@ func (a *LiveStreamsApiService) DeleteLiveStreamPlaybackId(lIVESTREAMID string, 
 		return err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		return newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -381,22 +353,10 @@ func (a *LiveStreamsApiService) GetLiveStream(lIVESTREAMID string, opts ...APIOp
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v LiveStreamResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -484,22 +444,10 @@ func (a *LiveStreamsApiService) ListLiveStreams(opts ...APIOption) (ListLiveStre
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v ListLiveStreamsResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -571,22 +519,10 @@ func (a *LiveStreamsApiService) ResetStreamKey(lIVESTREAMID string, opts ...APIO
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 201 {
-			var v LiveStreamResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -658,22 +594,10 @@ func (a *LiveStreamsApiService) SignalLiveStreamComplete(lIVESTREAMID string, op
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v SignalLiveStreamCompleteResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))

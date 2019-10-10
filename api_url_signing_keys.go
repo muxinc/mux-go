@@ -68,22 +68,10 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(opts ...APIOption) (Signi
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 201 {
-			var v SigningKeyResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -154,12 +142,10 @@ func (a *URLSigningKeysApiService) DeleteUrlSigningKey(sIGNINGKEYID string, opts
 		return err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		return newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -222,22 +208,10 @@ func (a *URLSigningKeysApiService) GetUrlSigningKey(sIGNINGKEYID string, opts ..
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v SigningKeyResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -325,22 +299,10 @@ func (a *URLSigningKeysApiService) ListUrlSigningKeys(opts ...APIOption) (ListSi
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v ListSigningKeysResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))

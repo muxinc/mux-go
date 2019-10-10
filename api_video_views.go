@@ -69,22 +69,10 @@ func (a *VideoViewsApiService) GetVideoView(vIDEOVIEWID string, opts ...APIOptio
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v VideoViewResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -200,22 +188,10 @@ func (a *VideoViewsApiService) ListVideoViews(opts ...APIOption) (ListVideoViews
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v ListVideoViewsResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))

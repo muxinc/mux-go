@@ -433,3 +433,88 @@ func (e GenericOpenAPIError) Body() []byte {
 func (e GenericOpenAPIError) Model() interface{} {
 	return e.model
 }
+
+// Below are the custom Mux API Error types, so that users of the SDK can identify
+// what issue they're running into more easily.
+
+// Generic 400 error
+type BadRequestError struct {
+	error string
+}
+
+func (e BadRequestError) Error() string {
+	return e.error
+}
+
+// 401 Error
+type UnauthorizedError struct {
+	error string
+}
+
+func (e UnauthorizedError) Error() string {
+	return e.error
+}
+
+// 403 Error
+type ForbiddenError struct {
+	error string
+}
+
+func (e ForbiddenError) Error() string {
+	return e.error
+}
+
+// 404 Error
+type NotFoundError struct {
+	error string
+}
+
+func (e NotFoundError) Error() string {
+	return e.error
+}
+
+// 429 Error
+type TooManyRequestsError struct {
+	error string
+}
+
+func (e TooManyRequestsError) Error() string {
+	return e.error
+}
+
+// 5XX Error
+type ServiceError struct {
+	error string
+}
+
+func (e ServiceError) Error() string {
+	return e.error
+}
+
+// Helper to check for common non-200 errors
+func CheckForHttpError(code int, body []byte) error {
+
+	if code >= 200 && code <= 299 {
+		return nil
+	}
+
+	switch code {
+	case 400:
+		return BadRequestError{"Bad Request"}
+	case 401:
+		return UnauthorizedError{"Unauthorized"}
+	case 403:
+		return ForbiddenError{"Forbidden"}
+	case 404:
+		return NotFoundError{"Not Found"}
+	case 429:
+		return TooManyRequestsError{"Slow Down"}
+	}
+
+	if code >= 500 && code <= 599 {
+		return ServiceError{"Service Error"}
+	}
+
+	// return GenericOpenAPIError{"Generic Error"};
+	return nil
+}

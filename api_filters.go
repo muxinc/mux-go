@@ -102,22 +102,10 @@ func (a *FiltersApiService) ListFilterValues(fILTERID string, opts ...APIOption)
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v ListFilterValuesResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
@@ -188,22 +176,10 @@ func (a *FiltersApiService) ListFilters(opts ...APIOption) (ListFiltersResponse,
 		return localVarReturnValue, err
 	}
 
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v ListFiltersResponse
-			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, newErr
-		}
-		return localVarReturnValue, newErr
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
