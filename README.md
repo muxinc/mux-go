@@ -70,6 +70,38 @@ func main() {
 }
 ```
 
+## Exceptions & Error Handling
+
+All API calls return an err as their final return value. Below is documented the errors you might want to check for.
+
+### BadRequestError
+
+`BadRequestError` is returned when a you make a bad request to Mux, this likely means you've passed in an invalid parameter to the API call. Check `error.Body` to see the full HTTP response.
+
+### UnauthorizedError
+
+`UnauthorizedError` is returned when Mux cannot authenticate your request. [You should check you have configured your credentials correctly.](#authentication)
+
+### ForbiddenError
+
+`ForbiddenError` is returned you don't have permission to access that resource. [You should check you have configured your credentials correctly.](#authentication)
+
+### NotFoundError
+
+`NotFoundError` is returned when a resource is not found. This is useful when trying to get an entity by its ID.
+
+### TooManyRequestsError
+
+`TooManyRequestsError` is returned when you exceed the manimum request that Mux allows. Please get in touch with [support@mux.com](mailto:support@mux.com) if you need to talk about this limit.
+
+### ServiceError
+
+`ServiceError` is returned when Mux returns a HTTP 5XX Status Code. If you encounter this reproducibly, please get in touch with [support@mux.com](mailto:support@mux.com).
+
+### GenericOpenAPIError
+
+`GenericOpenAPIError` is a fallback Error which may be returned in some edge cases. This will be deprecated in a later release but remains present for API compatibility.
+
 ## Documentation
 
 [Be sure to check out the documentation in the `docs` directory.](docs/)
