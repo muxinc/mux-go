@@ -70,7 +70,7 @@ func main() {
 }
 ```
 
-## Exceptions & Error Handling
+## Errors & Error Handling
 
 All API calls return an err as their final return value. Below is documented the errors you might want to check for. You can check `error.Body` on all errors to see the full HTTP response.
 
