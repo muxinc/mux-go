@@ -515,6 +515,5 @@ func CheckForHttpError(code int, body []byte) error {
 		return ServiceError{"Service Error"}
 	}
 
-	// return GenericOpenAPIError{"Generic Error"};
-	return nil
+	return GenericOpenAPIError{body: body, error: "Generic Error"}
 }
