@@ -47,6 +47,7 @@ func AssertNotNil(o interface{}) {
 	}
 }
 
+// Inverse of above
 func AssertNil(o interface{}) {
 	if o == nil {
 		return
