@@ -11,5 +11,6 @@ type CreateAssetRequest struct {
 	Passthrough    string           `json:"passthrough,omitempty"`
 	Mp4Support     string           `json:"mp4_support,omitempty"`
 	// Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
-	NormalizeAudio bool `json:"normalize_audio,omitempty"`
+	NormalizeAudio bool   `json:"normalize_audio,omitempty"`
+	MasterAccess   string `json:"master_access,omitempty"`
 }
