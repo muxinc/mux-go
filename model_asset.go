@@ -23,5 +23,6 @@ type Asset struct {
 	Master              AssetMaster           `json:"master,omitempty"`
 	MasterAccess        string                `json:"master_access,omitempty"`
 	Mp4Support          string                `json:"mp4_support,omitempty"`
+	NormalizeAudio      bool                  `json:"normalize_audio,omitempty"`
 	StaticRenditions    AssetStaticRenditions `json:"static_renditions,omitempty"`
 }

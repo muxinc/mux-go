@@ -22,7 +22,7 @@ type ConfigurationOption func(*Configuration)
 func NewConfiguration(opts ...ConfigurationOption) *Configuration {
 	cfg := &Configuration{
 		basePath:  "https://api.mux.com",
-		userAgent: "Mux Go | 0.3.0",
+		userAgent: "Mux Go | 0.4.0",
 	}
 	for _, opt := range opts {
 		opt(cfg)
