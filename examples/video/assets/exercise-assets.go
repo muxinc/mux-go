@@ -107,10 +107,10 @@ func main() {
 	}
 	fmt.Println("delete-asset-playback-id OK ✅")
 
-	// // ========== delete-asset ==========
-	// err = client.AssetsApi.DeleteAsset(asset.Data.Id)
-	// common.AssertNoError(err)
-	// _, err = client.AssetsApi.GetAsset(asset.Data.Id)
-	// common.AssertNotNil(err)
-	// fmt.Println("delete-asset OK ✅")
+	// ========== delete-asset ==========
+	err = client.AssetsApi.DeleteAsset(asset.Data.Id)
+	common.AssertNoError(err)
+	_, err = client.AssetsApi.GetAsset(asset.Data.Id)
+	common.AssertNotNil(err)
+	fmt.Println("delete-asset OK ✅")
 }
