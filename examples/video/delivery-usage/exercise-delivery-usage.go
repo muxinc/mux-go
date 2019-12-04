@@ -23,7 +23,7 @@ func main() {
 
 		// ========== list-delivery-usage ==========
 		// OK, so here's the deal. Until we have actual meaningful data flowing into an account this is
-		// really hard to to test, so instead I just create a timeframe that's falid and call the API.
+		// really hard to to test, so instead I just create a timeframe that's valid and call the API.
 		// We've manually verified this works during development.
 		// To use specific times:
 		// p := muxgo.ListDeliveryUsageParams{Timeframe: []string{"1574175600", "1574305200"}}
