@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **PlaybackIds** | [**[]PlaybackId**](PlaybackID.md) |  | [optional] 
 **NewAssetSettings** | [**Asset**](Asset.md) |  | [optional] 
 **Passthrough** | **string** |  | [optional] 
-**ReconnectWindow** | **float64** |  | [optional] 
+**ReconnectWindow** | **float32** |  | [optional] 
 **ReducedLatency** | **bool** |  | [optional] 
 **SimulcastTargets** | [**[]SimulcastTarget**](SimulcastTarget.md) |  | [optional] 
 

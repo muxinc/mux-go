@@ -13,7 +13,7 @@ type LiveStream struct {
 	PlaybackIds      []PlaybackId      `json:"playback_ids,omitempty"`
 	NewAssetSettings Asset             `json:"new_asset_settings,omitempty"`
 	Passthrough      string            `json:"passthrough,omitempty"`
-	ReconnectWindow  float64           `json:"reconnect_window,omitempty"`
+	ReconnectWindow  float32           `json:"reconnect_window,omitempty"`
 	ReducedLatency   bool              `json:"reduced_latency,omitempty"`
 	SimulcastTargets []SimulcastTarget `json:"simulcast_targets,omitempty"`
 }
