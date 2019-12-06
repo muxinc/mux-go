@@ -35,6 +35,7 @@ func main() {
 				Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4",
 			},
 		},
+		NormalizeAudio: true,
 	})
 	common.AssertNoError(err)
 	common.AssertNotNil(asset.Data)

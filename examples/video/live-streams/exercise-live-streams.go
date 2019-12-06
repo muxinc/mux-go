@@ -8,7 +8,7 @@ import (
 	"github.com/muxinc/mux-go/examples/common"
 )
 
-// Exercises all direct upload operations:
+// Exercises all live stream operations:
 //   create-live-stream
 //   list-live-streams
 //   get-live-stream
@@ -17,6 +17,9 @@ import (
 //   delete-live-stream-playback-id
 //   reset-stream-key
 //   signal-live-stream-complete
+//   create-live-stream-simulcast-target
+//   get-live-stream-simulcast-target
+//   delete-live-stream-simulcast-target
 
 func main() {
 
@@ -47,6 +50,30 @@ func main() {
 		common.AssertNotNil(gs.Data)
 		common.AssertStringEqualsValue(s.Data.Id, gs.Data.Id)
 		fmt.Println("get-live-stream OK ✅")
+
+		// ========== create-live-stream-simulcast-target ==========
+		cst := muxgo.CreateSimulcastTargetRequest{Passthrough: "foo", StreamKey: "bar", Url: "rtmp://this-is-a.test"}
+		nst, err := client.LiveStreamsApi.CreateLiveStreamSimulcastTarget(s.Data.Id, cst)
+		common.AssertNoError(err)
+		common.AssertNotNil(nst.Data)
+		fmt.Println("create-live-stream-simulcast-target OK ✅")
+
+		// ========== get-live-stream-simulcast-target ==========
+		st, err := client.LiveStreamsApi.GetLiveStreamSimulcastTarget(s.Data.Id, nst.Data.Id)
+		common.AssertNoError(err)
+		common.AssertNotNil(st.Data)
+		common.AssertStringEqualsValue(nst.Data.Id, st.Data.Id)
+		fmt.Println("get-live-stream-simulcast-target OK ✅")
+
+		// ========== delete-live-stream-simulcast-target ==========
+		err = client.LiveStreamsApi.DeleteLiveStreamSimulcastTarget(s.Data.Id, nst.Data.Id)
+		common.AssertNoError(err)
+		// Check it actually got deleted
+		snost, err := client.LiveStreamsApi.GetLiveStream(s.Data.Id)
+		common.AssertNoError(err)
+		common.AssertNotNil(snost.Data)
+		common.AssertNil(snost.Data.SimulcastTargets)
+		fmt.Println("delete-live-stream-simulcast-target OK ✅")
 		
 		// ========== create-live-stream-playback-id ==========
 		cpbidr := muxgo.CreatePlaybackIdRequest{Policy: muxgo.SIGNED}
