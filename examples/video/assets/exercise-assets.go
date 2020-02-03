@@ -34,12 +34,21 @@ func main() {
 			muxgo.InputSettings{
 				Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4",
 			},
+			muxgo.InputSettings{
+				Url: "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-fr.vtt",
+				TextType : "subtitles",
+				Type: "text",
+				LanguageCode: "fr",
+				ClosedCaptions: false,
+				Name: "French",
+			},
 		},
 		NormalizeAudio: true,
 	})
 	common.AssertNoError(err)
 	common.AssertNotNil(asset.Data)
 	fmt.Println("create-asset OK ✅")
+	os.Exit(1)
 
 	// ========== list-assets ==========
 	lr, err := client.AssetsApi.ListAssets()
@@ -95,6 +104,32 @@ func main() {
 	common.AssertStringEqualsValue(asset.Data.Id, mp4.Data.Id)
 	common.AssertStringEqualsValue(mp4.Data.Mp4Support, "standard")
 	fmt.Println("update-asset-mp4-support OK ✅")
+
+	// ========== create-asset-track ==========
+	cat := muxgo.CreateAssetTrack{
+		Url: "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-en.vtt",
+		TextType : "subtitles",
+		Type: "text",
+		LanguageCode: "en",
+		ClosedCaptions: false,
+		Name: "English",
+	}
+	s, err := client.AssetsApi.CreateAssetTrack(asset.Data.Id, cat)
+	fmt.Println(s)
+	common.AssertNoError(err)
+	common.AssertNotNil(s.Data)
+	common.AssertNotNil(s.Data.Id)
+	common.AssertStringEqualsValue(s.Data.Name, "English")
+	a2s, err := client.AssetsApi.GetAsset(asset.Data.Id)
+	common.AssertIntEqualsValue(len(a2s.Data.Tracks), 4) // Audio, Video, French that we ingested with the asset, and the English we added here!
+	fmt.Println("create-asset-track OK ✅")
+
+	// ========== delete-asset-track ==========
+	err = client.AssetsApi.DeleteAssetTrack(asset.Data.Id, s.Data.Id)
+	common.AssertNoError(err)
+	a1s, err := client.AssetsApi.GetAsset(asset.Data.Id)
+	common.AssertIntEqualsValue(len(a1s.Data.Tracks), 3) // Audio, Video, French that we ingested with the asset	
+	fmt.Println("delete-asset-track OK ✅")
 
 	// ========== delete-asset-playback-id ==========
 	err = client.AssetsApi.DeleteAssetPlaybackId(asset.Data.Id, capre.Data.Id)
