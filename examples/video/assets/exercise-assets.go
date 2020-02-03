@@ -48,7 +48,6 @@ func main() {
 	common.AssertNoError(err)
 	common.AssertNotNil(asset.Data)
 	fmt.Println("create-asset OK ✅")
-	os.Exit(1)
 
 	// ========== list-assets ==========
 	lr, err := client.AssetsApi.ListAssets()
@@ -106,7 +105,7 @@ func main() {
 	fmt.Println("update-asset-mp4-support OK ✅")
 
 	// ========== create-asset-track ==========
-	cat := muxgo.CreateAssetTrack{
+	cat := muxgo.CreateTrackRequest{
 		Url: "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-en.vtt",
 		TextType : "subtitles",
 		Type: "text",
@@ -115,7 +114,6 @@ func main() {
 		Name: "English",
 	}
 	s, err := client.AssetsApi.CreateAssetTrack(asset.Data.Id, cat)
-	fmt.Println(s)
 	common.AssertNoError(err)
 	common.AssertNotNil(s.Data)
 	common.AssertNotNil(s.Data.Id)
