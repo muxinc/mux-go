@@ -6,8 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAsset**](AssetsApi.md#CreateAsset) | **Post** /video/v1/assets | Create an asset
 [**CreateAssetPlaybackId**](AssetsApi.md#CreateAssetPlaybackId) | **Post** /video/v1/assets/{ASSET_ID}/playback-ids | Create a playback ID
+[**CreateAssetTrack**](AssetsApi.md#CreateAssetTrack) | **Post** /video/v1/assets/{ASSET_ID}/tracks | Create an asset track
 [**DeleteAsset**](AssetsApi.md#DeleteAsset) | **Delete** /video/v1/assets/{ASSET_ID} | Delete an asset
 [**DeleteAssetPlaybackId**](AssetsApi.md#DeleteAssetPlaybackId) | **Delete** /video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID} | Delete a playback ID
+[**DeleteAssetTrack**](AssetsApi.md#DeleteAssetTrack) | **Delete** /video/v1/assets/{ASSET_ID}/tracks/{TRACK_ID} | Delete an asset track
 [**GetAsset**](AssetsApi.md#GetAsset) | **Get** /video/v1/assets/{ASSET_ID} | Retrieve an asset
 [**GetAssetInputInfo**](AssetsApi.md#GetAssetInputInfo) | **Get** /video/v1/assets/{ASSET_ID}/input-info | Retrieve asset input info
 [**GetAssetPlaybackId**](AssetsApi.md#GetAssetPlaybackId) | **Get** /video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID} | Retrieve a playback ID
@@ -70,6 +72,33 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **CreateAssetTrack**
+> CreateTrackResponse CreateAssetTrack(ctx, aSSETID, createTrackRequest)
+Create an asset track
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **aSSETID** | **string**| The asset ID. | 
+  **createTrackRequest** | [**CreateTrackRequest**](CreateTrackRequest.md)|  | 
+
+### Return type
+
+[**CreateTrackResponse**](CreateTrackResponse.md)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **DeleteAsset**
 > DeleteAsset(ctx, aSSETID)
 Delete an asset
@@ -107,6 +136,33 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **aSSETID** | **string**| The asset ID. | 
   **pLAYBACKID** | **string**| The live stream&#39;s playback ID. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteAssetTrack**
+> DeleteAssetTrack(ctx, aSSETID, tRACKID)
+Delete an asset track
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **aSSETID** | **string**| The asset ID. | 
+  **tRACKID** | **string**| The track ID. | 
 
 ### Return type
 

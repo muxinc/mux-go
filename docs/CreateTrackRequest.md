@@ -1,13 +1,12 @@
-# InputSettings
+# CreateTrackRequest
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Url** | **string** |  | [optional] 
-**OverlaySettings** | [**InputSettingsOverlaySettings**](InputSettings_overlay_settings.md) |  | [optional] 
-**Type** | **string** |  | [optional] 
-**TextType** | **string** |  | [optional] 
-**LanguageCode** | **string** |  | [optional] 
+**Url** | **string** |  | 
+**Type** | **string** |  | 
+**TextType** | **string** |  | 
+**LanguageCode** | **string** |  | 
 **Name** | **string** |  | [optional] 
 **ClosedCaptions** | **bool** |  | [optional] 
 **Passthrough** | **string** |  | [optional] 

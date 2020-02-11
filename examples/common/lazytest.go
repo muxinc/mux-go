@@ -83,3 +83,10 @@ func AssertStringNotEqualsValue(a string, b string) {
 		os.Exit(255)
 	}
 }
+
+func AssertIntEqualsValue(a int, b int) {
+	if a != b {
+		fmt.Println("Ints weren't equal!")
+		os.Exit(255)
+	}
+}

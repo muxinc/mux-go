@@ -12,6 +12,9 @@ type Track struct {
 	MaxFrameRate     float64 `json:"max_frame_rate,omitempty"`
 	MaxChannels      int64   `json:"max_channels,omitempty"`
 	MaxChannelLayout string  `json:"max_channel_layout,omitempty"`
-	TextTrackType    string  `json:"text_track_type,omitempty"`
-	Language         string  `json:"language,omitempty"`
+	TextType         string  `json:"text_type,omitempty"`
+	LanguageCode     string  `json:"language_code,omitempty"`
+	Name             string  `json:"name,omitempty"`
+	ClosedCaptions   bool    `json:"closed_captions,omitempty"`
+	Passthrough      string  `json:"passthrough,omitempty"`
 }
