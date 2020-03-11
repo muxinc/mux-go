@@ -5,20 +5,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go"
 	"github.com/muxinc/mux-go/examples/common"
 )
-
-// Exercises all asset operations:
-//   get-asset
-//   delete-asset
-//   create-asset
-//   list-assets
-//   get-asset-input-info
-//   create-asset-playback-id
-//   get-asset-playback-id
-//   delete-asset-playback-id
-//   update-asset-mp4-support
 
 func main() {
 
@@ -35,12 +24,12 @@ func main() {
 				Url: "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4",
 			},
 			muxgo.InputSettings{
-				Url: "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-fr.vtt",
-				TextType : "subtitles",
-				Type: "text",
-				LanguageCode: "fr",
+				Url:            "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-fr.vtt",
+				TextType:       "subtitles",
+				Type:           "text",
+				LanguageCode:   "fr",
 				ClosedCaptions: false,
-				Name: "French",
+				Name:           "French",
 			},
 		},
 		NormalizeAudio: true,
@@ -104,14 +93,23 @@ func main() {
 	common.AssertStringEqualsValue(mp4.Data.Mp4Support, "standard")
 	fmt.Println("update-asset-mp4-support OK ✅")
 
+	// ========== update-asset-master-access ==========
+	mr := muxgo.UpdateAssetMasterAccessRequest{"temporary"}
+	mas, err := client.AssetsApi.UpdateAssetMasterAccess(asset.Data.Id, mr)
+	common.AssertNoError(err)
+	common.AssertNotNil(mas.Data)
+	common.AssertStringEqualsValue(asset.Data.Id, mas.Data.Id)
+	common.AssertStringEqualsValue(mas.Data.MasterAccess, "temporary")
+	fmt.Println("update-asset-master-access OK ✅")
+
 	// ========== create-asset-track ==========
 	cat := muxgo.CreateTrackRequest{
-		Url: "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-en.vtt",
-		TextType : "subtitles",
-		Type: "text",
-		LanguageCode: "en",
+		Url:            "https://tears-of-steel-subtitles.s3.amazonaws.com/tears-en.vtt",
+		TextType:       "subtitles",
+		Type:           "text",
+		LanguageCode:   "en",
 		ClosedCaptions: false,
-		Name: "English",
+		Name:           "English",
 	}
 	s, err := client.AssetsApi.CreateAssetTrack(asset.Data.Id, cat)
 	common.AssertNoError(err)
@@ -126,7 +124,7 @@ func main() {
 	err = client.AssetsApi.DeleteAssetTrack(asset.Data.Id, s.Data.Id)
 	common.AssertNoError(err)
 	a1s, err := client.AssetsApi.GetAsset(asset.Data.Id)
-	common.AssertIntEqualsValue(len(a1s.Data.Tracks), 3) // Audio, Video, French that we ingested with the asset	
+	common.AssertIntEqualsValue(len(a1s.Data.Tracks), 3) // Audio, Video, French that we ingested with the asset
 	fmt.Println("delete-asset-track OK ✅")
 
 	// ========== delete-asset-playback-id ==========
