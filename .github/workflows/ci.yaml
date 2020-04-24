@@ -15,16 +15,24 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Install Go
-        uses: actions/setup-go@v2
         with:
-          go-version: ^1.13
-      - name: Install Dependencies
-        run: go get -v -t -d ./...
+          fetch-depth: 1
+          path: go/src/github.com/muxinc/mux-go
+      - name: Install Go
+        uses: actions/setup-go@v1
       - name: Install Dep
         run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-      - name: Dep Ensure
-        run: dep ensure
+        env: 
+          GOPATH: /home/runner/go
+      - name: Debug
+        run: |
+          pwd
+          echo ${HOME}
+          echo ${GITHUB_WORKSPACE}
+          echo ${GOPATH}
+          echo ${GOROOT}
+      # - name: Dep Ensure
+      #   run: dep ensure
       # - name: Run Integration Tests
       #   env:
       #     MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
