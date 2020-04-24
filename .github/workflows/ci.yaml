@@ -36,7 +36,9 @@ jobs:
         env: 
           GOPATH: /home/runner/go
       - name: Dep Ensure
-        run: dep ensure
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          dep ensure
         env: 
           GOPATH: /home/runner/go
       # - name: Run Integration Tests
