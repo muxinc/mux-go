@@ -49,6 +49,8 @@ jobs:
           go run examples/video/assets/exercise-assets.go
         env: 
           GOPATH: /home/runner/work/mux-go/mux-go/go
+          MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
+          MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
       # - name: Run Integration Tests
       #   env:
       #     MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
