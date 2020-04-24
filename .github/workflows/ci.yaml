@@ -26,13 +26,11 @@ jobs:
         run: |
           mkdir -p /home/runner/work/mux-go/mux-go/go/bin
           curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        env: 
       - name: Install Go Dependencies
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           dep ensure
-        env: 
       - name: Run Integration Tests
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
