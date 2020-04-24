@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go"
 	"github.com/muxinc/mux-go/examples/common"
 )
 

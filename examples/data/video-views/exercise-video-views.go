@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go"
 	"github.com/muxinc/mux-go/examples/common"
 )
 
@@ -21,7 +21,7 @@ func main() {
 		))
 
 	// ========== list-video-views ==========
-	p := muxgo.ListVideoViewsParams{Filters: []string{"country:GB", "browser:Chrome"}, Timeframe: []string{"7:days"}}
+	p := muxgo.ListVideoViewsParams{Filters: []string{"country:US", "browser:Safari"}, Timeframe: []string{"7:days"}}
 	vs, err := client.VideoViewsApi.ListVideoViews(muxgo.WithParams(&p))
 	common.AssertNoError(err)
 	common.AssertNotNil(vs.Data)

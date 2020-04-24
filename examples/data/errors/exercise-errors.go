@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go"
 	"github.com/muxinc/mux-go/examples/common"
 )
 
@@ -20,7 +20,7 @@ func main() {
 		))
 
 	// ========== list-errors ==========
-	lep := muxgo.ListErrorsParams{Filters: []string{"browser:Chrome"}, Timeframe: []string{"7:days"}}
+	lep := muxgo.ListErrorsParams{Filters: []string{"browser:Safari"}, Timeframe: []string{"7:days"}}
 	e, err := client.ErrorsApi.ListErrors(muxgo.WithParams(&lep))
 	common.AssertNoError(err)
 	common.AssertNotNil(e.Data)

@@ -1,5 +1,7 @@
 ![Mux Go Banner](https://banner.mux.dev/?image=go)
 
+![](https://github.com/muxinc/mux-go/workflows/Integration%20Test/badge.svg)
+
 # Mux Go
 
 Official Mux API wrapper for golang projects, supporting both Mux Data and Mux Video.

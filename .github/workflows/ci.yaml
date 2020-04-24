@@ -1,0 +1,43 @@
+name: Integration Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: 
+
+# I appreciate this isn't the cleanest workflow, but it's the neatest I can get it while we're
+# still using dep to manage dependencies. If we move to go modules this can be cleaned up a lot.
+# I'd love to use a nicer checkout path, but GitHub actions won't let you use anything above
+# /home/runner/work/mux-go/mux-go/, so /home/runner/work/mux-go/mux-go/go it is!
+
+jobs:
+  build:
+    name: Integration Test
+    runs-on: ubuntu-latest
+    env:
+      GOPATH: /home/runner/work/mux-go/mux-go/go
+      CHECKOUT_LOCATION: /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ${{env.CHECKOUT_LOCATION}}
+      - name: Install Go
+        uses: actions/setup-go@v2
+      - name: Install Dep
+        run: |
+          mkdir -p $GOPATH/bin
+          curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      - name: Install Go Dependencies
+        run: |
+          cd $CHECKOUT_LOCATION
+          export PATH=$PATH:$(go env GOPATH)/bin
+          dep ensure
+      - name: Run Integration Tests
+        run: |
+          cd $CHECKOUT_LOCATION
+          bash test.sh
+        env: 
+          MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
+          MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
