@@ -20,6 +20,8 @@ jobs:
           path: go/src/github.com/muxinc/mux-go
       - name: Install Go
         uses: actions/setup-go@v1
+      - name: Make gobin dir
+        run: mkdir -p /home/runner/go/bin
       - name: Install Dep
         run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         env: 
