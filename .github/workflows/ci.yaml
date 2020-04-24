@@ -37,7 +37,11 @@ jobs:
           GOPATH: /home/runner/go
       - name: Dep Ensure
         run: |
-          cd $GOPATH/src/github.com/muxinc/mux-go
+          ls
+          ls go
+          ls go/src/
+          ls go/src/github.com
+          cd go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           dep ensure
         env: 
