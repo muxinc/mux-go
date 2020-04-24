@@ -19,30 +19,21 @@ jobs:
           fetch-depth: 1
           path: /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
       - name: Install Go
-        uses: actions/setup-go@v1
-      - name: Make gobin dir
-        run: mkdir -p /home/runner/work/mux-go/mux-go/go/bin
+        uses: actions/setup-go@v2
       - name: Install Dep
-        run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        env: 
-          GOPATH: /home/runner/work/mux-go/mux-go/go
-      - name: Debug
         run: |
-          pwd
-          echo ${HOME}
-          echo ${GITHUB_WORKSPACE}
-          echo ${GOPATH}
-          echo ${GOROOT}
+          mkdir -p /home/runner/work/mux-go/mux-go/go/bin
+          curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         env: 
           GOPATH: /home/runner/work/mux-go/mux-go/go
-      - name: Dep Ensure
+      - name: Install Go Dependencies
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           dep ensure
         env: 
           GOPATH: /home/runner/work/mux-go/mux-go/go
-      - name: Run a test.. hopefully
+      - name: Run Integration Tests
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
@@ -51,8 +42,3 @@ jobs:
           GOPATH: /home/runner/work/mux-go/mux-go/go
           MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
           MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
-      # - name: Run Integration Tests
-      #   env:
-      #     MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
-      #     MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
-      #   run: bash test.sh
