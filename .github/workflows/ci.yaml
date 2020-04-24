@@ -46,7 +46,7 @@ jobs:
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
-          go run examples/video/assets/exercise-assets.go
+          bash test.sh
         env: 
           GOPATH: /home/runner/work/mux-go/mux-go/go
           MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
