@@ -42,6 +42,13 @@ jobs:
           dep ensure
         env: 
           GOPATH: /home/runner/work/mux-go/mux-go/go
+      - name: Run a test.. hopefully
+        run: |
+          cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
+          export PATH=$PATH:$(go env GOPATH)/bin
+          go run examples/video/assets/exercise-assets.go
+        env: 
+          GOPATH: /home/runner/work/mux-go/mux-go/go
       # - name: Run Integration Tests
       #   env:
       #     MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
