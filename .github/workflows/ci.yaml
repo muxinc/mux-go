@@ -17,15 +17,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
-          path: /home/runner/go/src/github.com/muxinc/mux-go
+          path: /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
       - name: Install Go
         uses: actions/setup-go@v1
       - name: Make gobin dir
-        run: mkdir -p /home/runner/go/bin
+        run: mkdir -p /home/runner/work/mux-go/mux-go/go/bin
       - name: Install Dep
         run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         env: 
-          GOPATH: /home/runner/go
+          GOPATH: /home/runner/work/mux-go/mux-go/go
       - name: Debug
         run: |
           pwd
@@ -34,14 +34,14 @@ jobs:
           echo ${GOPATH}
           echo ${GOROOT}
         env: 
-          GOPATH: /home/runner/go
+          GOPATH: /home/runner/work/mux-go/mux-go/go
       - name: Dep Ensure
         run: |
-          cd /home/runner/go/src/github.com/muxinc/mux-go
+          cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           dep ensure
         env: 
-          GOPATH: /home/runner/go
+          GOPATH: /home/runner/work/mux-go/mux-go/go
       # - name: Run Integration Tests
       #   env:
       #     MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
