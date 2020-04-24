@@ -10,6 +10,8 @@ on: push
 
 jobs:
   build:
+    env:
+      GOPATH: /home/runner/work/mux-go/mux-go/go
     name: Integration Test
     runs-on: ubuntu-latest
     steps:
@@ -25,20 +27,17 @@ jobs:
           mkdir -p /home/runner/work/mux-go/mux-go/go/bin
           curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
         env: 
-          GOPATH: /home/runner/work/mux-go/mux-go/go
       - name: Install Go Dependencies
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           dep ensure
         env: 
-          GOPATH: /home/runner/work/mux-go/mux-go/go
       - name: Run Integration Tests
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           bash test.sh
         env: 
-          GOPATH: /home/runner/work/mux-go/mux-go/go
           MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
           MUX_TOKEN_SECRET: ${{ secrets.MUX_TOKEN_SECRET }}
