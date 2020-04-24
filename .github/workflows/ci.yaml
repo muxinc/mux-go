@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
-          path: go/src/github.com/muxinc/mux-go
+          path: /home/runner/go/src/github.com/muxinc/mux-go
       - name: Install Go
         uses: actions/setup-go@v1
       - name: Make gobin dir
@@ -37,11 +37,7 @@ jobs:
           GOPATH: /home/runner/go
       - name: Dep Ensure
         run: |
-          ls
-          ls go
-          ls go/src/
-          ls go/src/github.com
-          cd go/src/github.com/muxinc/mux-go
+          cd /home/runner/go/src/github.com/muxinc/mux-go
           export PATH=$PATH:$(go env GOPATH)/bin
           dep ensure
         env: 
