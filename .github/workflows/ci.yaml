@@ -11,6 +11,8 @@ on: push
 jobs:
   build:
     env:
+      # I'd love to use a cleaner path, but GitHub actions won't let you use anything above
+      # /home/runner/work/mux-go/mux-go/, so /home/runner/work/mux-go/mux-go/go it is!
       GOPATH: /home/runner/work/mux-go/mux-go/go
     name: Integration Test
     runs-on: ubuntu-latest
@@ -34,7 +36,6 @@ jobs:
       - name: Run Integration Tests
         run: |
           cd /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
-          export PATH=$PATH:$(go env GOPATH)/bin
           bash test.sh
         env: 
           MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
