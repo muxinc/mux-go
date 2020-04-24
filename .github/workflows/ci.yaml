@@ -21,7 +21,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 1
           path: ${{env.CHECKOUT_LOCATION}}
       - name: Install Go
         uses: actions/setup-go@v2
