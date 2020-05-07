@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **AspectRatio** | **string** |  | [optional] 
 **PlaybackIds** | [**[]PlaybackId**](PlaybackID.md) |  | [optional] 
 **Tracks** | [**[]Track**](Track.md) |  | [optional] 
-**Demo** | **bool** |  | [optional] 
 **Errors** | [**AssetErrors**](Asset_errors.md) |  | [optional] 
 **PerTitleEncode** | **bool** |  | [optional] 
 **IsLive** | **bool** |  | [optional] 
@@ -24,6 +23,7 @@ Name | Type | Description | Notes
 **Mp4Support** | **string** |  | [optional] [default to MP4_SUPPORT_NONE]
 **NormalizeAudio** | **bool** |  | [optional] [default to false]
 **StaticRenditions** | [**AssetStaticRenditions**](Asset_static_renditions.md) |  | [optional] 
+**Test** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
