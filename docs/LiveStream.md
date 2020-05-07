@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **ReconnectWindow** | **float32** |  | [optional] 
 **ReducedLatency** | **bool** |  | [optional] 
 **SimulcastTargets** | [**[]SimulcastTarget**](SimulcastTarget.md) |  | [optional] 
+**Test** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

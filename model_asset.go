@@ -14,7 +14,6 @@ type Asset struct {
 	AspectRatio         string                `json:"aspect_ratio,omitempty"`
 	PlaybackIds         []PlaybackId          `json:"playback_ids,omitempty"`
 	Tracks              []Track               `json:"tracks,omitempty"`
-	Demo                bool                  `json:"demo,omitempty"`
 	Errors              AssetErrors           `json:"errors,omitempty"`
 	PerTitleEncode      bool                  `json:"per_title_encode,omitempty"`
 	IsLive              bool                  `json:"is_live,omitempty"`
@@ -25,4 +24,5 @@ type Asset struct {
 	Mp4Support          string                `json:"mp4_support,omitempty"`
 	NormalizeAudio      bool                  `json:"normalize_audio,omitempty"`
 	StaticRenditions    AssetStaticRenditions `json:"static_renditions,omitempty"`
+	Test                bool                  `json:"test,omitempty"`
 }

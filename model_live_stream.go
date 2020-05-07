@@ -16,4 +16,5 @@ type LiveStream struct {
 	ReconnectWindow  float32           `json:"reconnect_window,omitempty"`
 	ReducedLatency   bool              `json:"reduced_latency,omitempty"`
 	SimulcastTargets []SimulcastTarget `json:"simulcast_targets,omitempty"`
+	Test             bool              `json:"test,omitempty"`
 }
