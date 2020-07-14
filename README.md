@@ -1,6 +1,7 @@
 ![Mux Go Banner](https://banner.mux.dev/?image=go)
 
 ![](https://github.com/muxinc/mux-go/workflows/Integration%20Test/badge.svg)
+[![GoDoc](https://godoc.org/github.com/muxinc/mux-go?status.svg)](https://godoc.org/github.com/muxinc/mux-go)
 
 # Mux Go
 
