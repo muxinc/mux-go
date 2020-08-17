@@ -12,6 +12,7 @@ type Asset struct {
 	MaxStoredResolution string                `json:"max_stored_resolution,omitempty"`
 	MaxStoredFrameRate  float64               `json:"max_stored_frame_rate,omitempty"`
 	AspectRatio         string                `json:"aspect_ratio,omitempty"`
+	PlaybackPolicies    []PlaybackPolicy      `json:"playback_policies,omitempty"`
 	PlaybackIds         []PlaybackId          `json:"playback_ids,omitempty"`
 	Tracks              []Track               `json:"tracks,omitempty"`
 	Errors              AssetErrors           `json:"errors,omitempty"`
