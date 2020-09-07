@@ -11,7 +11,7 @@ type AbridgedVideoView struct {
 	TotalRowCount         int64  `json:"total_row_count,omitempty"`
 	PlayerErrorMessage    string `json:"player_error_message,omitempty"`
 	PlayerErrorCode       string `json:"player_error_code,omitempty"`
-	ErrorTypeId           int32  `json:"error_type_id,omitempty"`
+	ErrorTypeId           int64  `json:"error_type_id,omitempty"`
 	CountryCode           string `json:"country_code,omitempty"`
 	ViewStart             string `json:"view_start,omitempty"`
 	ViewEnd               string `json:"view_end,omitempty"`

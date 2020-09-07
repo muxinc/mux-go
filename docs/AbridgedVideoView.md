@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **TotalRowCount** | **int64** |  | [optional] 
 **PlayerErrorMessage** | **string** |  | [optional] 
 **PlayerErrorCode** | **string** |  | [optional] 
-**ErrorTypeId** | **int32** |  | [optional] 
+**ErrorTypeId** | **int64** |  | [optional] 
 **CountryCode** | **string** |  | [optional] 
 **ViewStart** | **string** |  | [optional] 
 **ViewEnd** | **string** |  | [optional] 
