@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **RecentAssetIds** | **[]string** |  | [optional] 
 **Status** | **string** |  | [optional] 
 **PlaybackIds** | [**[]PlaybackId**](PlaybackID.md) |  | [optional] 
-**NewAssetSettings** | [**Asset**](Asset.md) |  | [optional] 
+**NewAssetSettings** | [**CreateAssetRequest**](CreateAssetRequest.md) |  | [optional] 
 **Passthrough** | **string** |  | [optional] 
 **ReconnectWindow** | **float32** |  | [optional] 
 **ReducedLatency** | **bool** |  | [optional] 
