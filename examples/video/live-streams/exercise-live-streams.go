@@ -107,6 +107,21 @@ func main() {
 		common.AssertNoError(err)
 		fmt.Println("signal-live-stream-complete OK ✅")
 
+
+		// ========== disable-live-stream ==========
+		_, err = client.LiveStreamsApi.DisableLiveStream(s.Data.Id)
+		common.AssertNoError(err)
+		dls, err := client.LiveStreamsApi.GetLiveStream(s.Data.Id)
+		common.AssertStringEqualsValue(dls.Data.Status, "disabled")
+		fmt.Println("disable-live-stream OK ✅")
+
+		// ========== enable-live-stream ==========
+		_, err = client.LiveStreamsApi.EnableLiveStream(s.Data.Id)
+		common.AssertNoError(err)
+		els, err := client.LiveStreamsApi.GetLiveStream(s.Data.Id)
+		common.AssertStringEqualsValue(els.Data.Status, "idle")
+		fmt.Println("enable-live-stream OK ✅")
+
 		// ========== delete-live-stream ==========
 		err = client.LiveStreamsApi.DeleteLiveStream(s.Data.Id)
 		common.AssertNoError(err)
