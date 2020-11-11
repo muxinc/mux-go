@@ -24,5 +24,8 @@ type Asset struct {
 	Mp4Support          string                `json:"mp4_support,omitempty"`
 	NormalizeAudio      bool                  `json:"normalize_audio,omitempty"`
 	StaticRenditions    AssetStaticRenditions `json:"static_renditions,omitempty"`
-	Test                bool                  `json:"test,omitempty"`
+	// An array of individual live stream recording sessions. A recording session is created on each encoder connection during the live stream
+	RecordingTimes          []AssetRecordingTimes        `json:"recording_times,omitempty"`
+	NonStandardInputReasons AssetNonStandardInputReasons `json:"non_standard_input_reasons,omitempty"`
+	Test                    bool                         `json:"test,omitempty"`
 }
