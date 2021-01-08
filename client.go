@@ -39,12 +39,15 @@ type APIClient struct {
 	// API Services
 	AssetsApi         *AssetsApiService
 	DeliveryUsageApi  *DeliveryUsageApiService
+	DimensionsApi     *DimensionsApiService
 	DirectUploadsApi  *DirectUploadsApiService
 	ErrorsApi         *ErrorsApiService
 	ExportsApi        *ExportsApiService
 	FiltersApi        *FiltersApiService
+	IncidentsApi      *IncidentsApiService
 	LiveStreamsApi    *LiveStreamsApiService
 	MetricsApi        *MetricsApiService
+	RealTimeApi       *RealTimeApiService
 	URLSigningKeysApi *URLSigningKeysApiService
 	VideoViewsApi     *VideoViewsApiService
 }
@@ -65,12 +68,15 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.AssetsApi = (*AssetsApiService)(&c.common)
 	c.DeliveryUsageApi = (*DeliveryUsageApiService)(&c.common)
+	c.DimensionsApi = (*DimensionsApiService)(&c.common)
 	c.DirectUploadsApi = (*DirectUploadsApiService)(&c.common)
 	c.ErrorsApi = (*ErrorsApiService)(&c.common)
 	c.ExportsApi = (*ExportsApiService)(&c.common)
 	c.FiltersApi = (*FiltersApiService)(&c.common)
+	c.IncidentsApi = (*IncidentsApiService)(&c.common)
 	c.LiveStreamsApi = (*LiveStreamsApiService)(&c.common)
 	c.MetricsApi = (*MetricsApiService)(&c.common)
+	c.RealTimeApi = (*RealTimeApiService)(&c.common)
 	c.URLSigningKeysApi = (*URLSigningKeysApiService)(&c.common)
 	c.VideoViewsApi = (*VideoViewsApiService)(&c.common)
 
