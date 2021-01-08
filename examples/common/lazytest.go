@@ -90,3 +90,10 @@ func AssertIntEqualsValue(a int, b int) {
 		os.Exit(255)
 	}
 }
+
+func AssertIntGreaterThanZero(a int) {
+	if a <= 0 {
+		fmt.Println("Int was <= 0!")
+		os.Exit(255)
+	}
+}
