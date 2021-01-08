@@ -6,8 +6,8 @@ package muxgo
 type RealTimeHistogramTimeseriesDatapoint struct {
 	Timestamp     string                                    `json:"timestamp,omitempty"`
 	Sum           int64                                     `json:"sum,omitempty"`
-	P95           int64                                     `json:"p95,omitempty"`
-	Median        int64                                     `json:"median,omitempty"`
+	P95           float64                                   `json:"p95,omitempty"`
+	Median        float64                                   `json:"median,omitempty"`
 	MaxPercentage float64                                   `json:"max_percentage,omitempty"`
 	BucketValues  []RealTimeHistogramTimeseriesBucketValues `json:"bucket_values,omitempty"`
 	Average       float64                                   `json:"average,omitempty"`
