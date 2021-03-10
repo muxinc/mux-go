@@ -3,12 +3,20 @@
 
 package muxgo
 
+// An object that describes how the image file referenced in url should be placed over the video (i.e. watermarking).
 type InputSettingsOverlaySettings struct {
-	VerticalAlign    string `json:"vertical_align,omitempty"`
-	VerticalMargin   string `json:"vertical_margin,omitempty"`
-	HorizontalAlign  string `json:"horizontal_align,omitempty"`
+	// Where the vertical positioning of the overlay/watermark should begin from. Defaults to `\"top\"`
+	VerticalAlign string `json:"vertical_align,omitempty"`
+	// The distance from the vertical_align starting point and the image's closest edge. Can be expressed as a percent (\"10%\") or as a pixel value (\"100px\"). Negative values will move the overlay offscreen. In the case of 'middle', a positive value will shift the overlay towards the bottom and and a negative value will shift it towards the top.
+	VerticalMargin string `json:"vertical_margin,omitempty"`
+	// Where the horizontal positioning of the overlay/watermark should begin from.
+	HorizontalAlign string `json:"horizontal_align,omitempty"`
+	// The distance from the horizontal_align starting point and the image's closest edge. Can be expressed as a percent (\"10%\") or as a pixel value (\"100px\"). Negative values will move the overlay offscreen. In the case of 'center', a positive value will shift the image towards the right and and a negative value will shift it towards the left.
 	HorizontalMargin string `json:"horizontal_margin,omitempty"`
-	Width            string `json:"width,omitempty"`
-	Height           string `json:"height,omitempty"`
-	Opacity          string `json:"opacity,omitempty"`
+	// How wide the overlay should appear. Can be expressed as a percent (\"10%\") or as a pixel value (\"100px\"). If both width and height are left blank the width will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If height is supplied with no width, the width will scale proportionally to the height.
+	Width string `json:"width,omitempty"`
+	// How tall the overlay should appear. Can be expressed as a percent (\"10%\") or as a pixel value (\"100px\"). If both width and height are left blank the height will be the true pixels of the image, applied as if the video has been scaled to fit a 1920x1080 frame. If width is supplied with no height, the height will scale proportionally to the width.
+	Height string `json:"height,omitempty"`
+	// How opaque the overlay should appear, expressed as a percent. (Default 100%)
+	Opacity string `json:"opacity,omitempty"`
 }

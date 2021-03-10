@@ -47,6 +47,7 @@ type APIClient struct {
 	IncidentsApi      *IncidentsApiService
 	LiveStreamsApi    *LiveStreamsApiService
 	MetricsApi        *MetricsApiService
+	PlaybackIDApi     *PlaybackIDApiService
 	RealTimeApi       *RealTimeApiService
 	URLSigningKeysApi *URLSigningKeysApiService
 	VideoViewsApi     *VideoViewsApiService
@@ -76,6 +77,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IncidentsApi = (*IncidentsApiService)(&c.common)
 	c.LiveStreamsApi = (*LiveStreamsApiService)(&c.common)
 	c.MetricsApi = (*MetricsApiService)(&c.common)
+	c.PlaybackIDApi = (*PlaybackIDApiService)(&c.common)
 	c.RealTimeApi = (*RealTimeApiService)(&c.common)
 	c.URLSigningKeysApi = (*URLSigningKeysApiService)(&c.common)
 	c.VideoViewsApi = (*VideoViewsApiService)(&c.common)
