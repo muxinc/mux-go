@@ -84,6 +84,16 @@ func main() {
 	common.AssertStringEqualsValue(capre.Data.Id, pbre.Data.Id)
 	fmt.Println("get-asset-playback-id OK ✅")
 
+	// ========== get-asset-or-livestream-id =========
+	playbackId := pbre.Data.Id
+	pbResp, err := client.PlaybackIDApi.GetAssetOrLivestreamId(playbackId)
+	common.AssertNoError(err)
+	common.AssertNotNil(pbResp.Data)
+	common.AssertStringEqualsValue(pbResp.Data.Object.Id, asset.Data.Id)
+	common.AssertStringEqualsValue(pbResp.Data.Object.Type, "asset")
+	fmt.Println("get-asset-or-livestream-id OK ✅")
+
+
 	// ========== update-asset-mp4-support ==========
 	mp4r := muxgo.UpdateAssetMp4SupportRequest{"standard"}
 	mp4, err := client.AssetsApi.UpdateAssetMp4Support(asset.Data.Id, mp4r)
