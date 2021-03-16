@@ -5,9 +5,13 @@ package muxgo
 
 // An array of objects that each describe an input file to be used to create the asset. As a shortcut, `input` can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
 type InputSettings struct {
-	// The web address of the subtitle text track file that Mux should download and use to create the track. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) format for ingesting Subtitles and Closed Captions.
+	// The web address of the file that Mux should download and use. * For subtitles text tracks, the url is the location of subtitle/captions file. Mux supports [SubRip Text (SRT)](https://en.wikipedia.org/wiki/SubRip) and [Web Video Text Tracks](https://www.w3.org/TR/webvtt1/) format for ingesting Subtitles and Closed Captions. * For Watermarking or Overlay, the url is the location of the watermark image. * When creating clips from existing Mux assets, the url is defined with `mux://assets/{asset_id}` template where `asset_id` is the Asset Identifier for creating the clip from.
 	Url             string                       `json:"url,omitempty"`
 	OverlaySettings InputSettingsOverlaySettings `json:"overlay_settings,omitempty"`
+	// The time offset in seconds from the beginning of the video indicating the clip's starting marker. The default value is 0 when not included.
+	StartTime float64 `json:"start_time,omitempty"`
+	// The time offset in seconds from the beginning of the video, indicating the clip's ending marker. The default value is the duration of the video when not included.
+	EndTime float64 `json:"end_time,omitempty"`
 	// This parameter is required for the `text` track type.
 	Type string `json:"type,omitempty"`
 	// Type of text track. This parameter only supports subtitles value. For more information on Subtitles / Closed Captions, [see this blog post](https://mux.com/blog/subtitles-captions-webvtt-hls-and-those-magic-flags/). This parameter is required for `text` track type.

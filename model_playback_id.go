@@ -4,6 +4,7 @@
 package muxgo
 
 type PlaybackId struct {
+	// Unique identifier for the PlaybackID
 	Id     string         `json:"id,omitempty"`
 	Policy PlaybackPolicy `json:"policy,omitempty"`
 }
