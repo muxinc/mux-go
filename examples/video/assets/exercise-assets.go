@@ -69,6 +69,20 @@ func main() {
 	fmt.Println("get-asset OK ✅")
 	fmt.Println("get-asset-input-info OK ✅")
 
+	// ========== clipping ==========
+	clipAsset, err := client.AssetsApi.CreateAsset(muxgo.CreateAssetRequest{
+		Input: []muxgo.InputSettings{
+			muxgo.InputSettings{
+				Url: "mux://assets/" + asset.Data.Id,
+				StartTime: 0,
+				EndTime: 5,
+			},
+		},
+	})
+	common.AssertNoError(err)
+	common.AssertNotNil(clipAsset.Data.Id)
+	fmt.Println("clipping OK ✅")
+
 	// ========== create-asset-playback-id ==========
 	capr := muxgo.CreatePlaybackIdRequest{muxgo.PUBLIC}
 	capre, err := client.AssetsApi.CreateAssetPlaybackId(asset.Data.Id, capr)
