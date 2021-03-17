@@ -69,6 +69,20 @@ func main() {
 	fmt.Println("get-asset OK ✅")
 	fmt.Println("get-asset-input-info OK ✅")
 
+	// ========== clipping ==========
+	clipAsset, err := client.AssetsApi.CreateAsset(muxgo.CreateAssetRequest{
+		Input: []muxgo.InputSettings{
+			muxgo.InputSettings{
+				Url: "mux://assets/" + asset.Data.Id,
+				StartTime: 0,
+				EndTime: 5,
+			},
+		},
+	})
+	common.AssertNoError(err)
+	common.AssertNotNil(clipAsset.Data.Id)
+	fmt.Println("clipping OK ✅")
+
 	// ========== create-asset-playback-id ==========
 	capr := muxgo.CreatePlaybackIdRequest{muxgo.PUBLIC}
 	capre, err := client.AssetsApi.CreateAssetPlaybackId(asset.Data.Id, capr)
@@ -83,6 +97,16 @@ func main() {
 	common.AssertNotNil(pbre.Data)
 	common.AssertStringEqualsValue(capre.Data.Id, pbre.Data.Id)
 	fmt.Println("get-asset-playback-id OK ✅")
+
+	// ========== get-asset-or-livestream-id =========
+	playbackId := pbre.Data.Id
+	pbResp, err := client.PlaybackIDApi.GetAssetOrLivestreamId(playbackId)
+	common.AssertNoError(err)
+	common.AssertNotNil(pbResp.Data)
+	common.AssertStringEqualsValue(pbResp.Data.Object.Id, asset.Data.Id)
+	common.AssertStringEqualsValue(pbResp.Data.Object.Type, "asset")
+	fmt.Println("get-asset-or-livestream-id OK ✅")
+
 
 	// ========== update-asset-mp4-support ==========
 	mp4r := muxgo.UpdateAssetMp4SupportRequest{"standard"}

@@ -4,22 +4,22 @@
 package muxgo
 
 type AssetNonStandardInputReasons struct {
-	// The video codec used on the input file
+	// The video codec used on the input file.
 	VideoCodec string `json:"video_codec,omitempty"`
-	// The audio codec used on the input file
+	// The audio codec used on the input file.
 	AudioCodec string `json:"audio_codec,omitempty"`
-	// The video key frame Interval (also called as Group of Picture or GOP) of the input file
+	// The video key frame Interval (also called as Group of Picture or GOP) of the input file.
 	VideoGopSize string `json:"video_gop_size,omitempty"`
-	// The video frame rate of the input file
+	// The video frame rate of the input file.
 	VideoFrameRate string `json:"video_frame_rate,omitempty"`
-	// The video resolution of the input file
+	// The video resolution of the input file.
 	VideoResolution string `json:"video_resolution,omitempty"`
-	// The video pixel aspect ratio of the input file
+	// The video pixel aspect ratio of the input file.
 	PixelAspectRatio string `json:"pixel_aspect_ratio,omitempty"`
-	// Video Edit List reason indicates that the input file's video track contains a complex Edit Decision List
+	// Video Edit List reason indicates that the input file's video track contains a complex Edit Decision List.
 	VideoEditList string `json:"video_edit_list,omitempty"`
-	// Audio Edit List reason indicates that the input file's audio track contains a complex Edit Decision List
+	// Audio Edit List reason indicates that the input file's audio track contains a complex Edit Decision List.
 	AudioEditList string `json:"audio_edit_list,omitempty"`
-	// A catch-all reason when the input file in created with non-standard encoding parameters
+	// A catch-all reason when the input file in created with non-standard encoding parameters.
 	UnexpectedMediaFileParameters string `json:"unexpected_media_file_parameters,omitempty"`
 }

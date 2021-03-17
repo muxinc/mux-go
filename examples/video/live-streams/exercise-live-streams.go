@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go"
 	"github.com/muxinc/mux-go/examples/common"
 )
 
@@ -50,6 +50,15 @@ func main() {
 		common.AssertNotNil(gs.Data)
 		common.AssertStringEqualsValue(s.Data.Id, gs.Data.Id)
 		fmt.Println("get-live-stream OK ✅")
+
+		// ========== get-asset-or-livestream-id =========
+		playbackId := s.Data.PlaybackIds[0].Id
+		pbResp, err := client.PlaybackIDApi.GetAssetOrLivestreamId(playbackId)
+		common.AssertNoError(err)
+		common.AssertNotNil(pbResp.Data)
+		common.AssertStringEqualsValue(pbResp.Data.Object.Id, s.Data.Id)
+		common.AssertStringEqualsValue(pbResp.Data.Object.Type, "live_stream")
+		fmt.Println("get-asset-or-livestream-id OK ✅")
 
 		// ========== create-live-stream-simulcast-target ==========
 		cst := muxgo.CreateSimulcastTargetRequest{Passthrough: "foo", StreamKey: "bar", Url: "rtmp://this-is-a.test"}

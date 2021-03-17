@@ -104,6 +104,8 @@ Name | Type | Description  | Notes
 > DeleteAsset(ctx, aSSETID)
 Delete an asset
 
+Deletes a video asset and all its data 
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -266,6 +268,8 @@ Name | Type | Description  | Notes
 # **ListAssets**
 > ListAssetsResponse ListAssets(ctx, optional)
 List assets
+
+List all Mux assets. 
 
 ### Required Parameters
 

@@ -8,8 +8,8 @@ import (
 )
 
 type AssetRecordingTimes struct {
-	// The time at which the recording for the live stream started. The time value is Unix epoch time represented in ISO 8601 format
+	// The time at which the recording for the live stream started. The time value is Unix epoch time represented in ISO 8601 format.
 	StartedAt time.Time `json:"started_at,omitempty"`
-	// The duration of the live stream recorded. The time value is in seconds
+	// The duration of the live stream recorded. The time value is in seconds.
 	Duration float64 `json:"duration,omitempty"`
 }

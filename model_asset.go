@@ -4,28 +4,42 @@
 package muxgo
 
 type Asset struct {
-	Id                  string                `json:"id,omitempty"`
-	CreatedAt           string                `json:"created_at,omitempty"`
-	DeletedAt           string                `json:"deleted_at,omitempty"`
-	Status              string                `json:"status,omitempty"`
-	Duration            float64               `json:"duration,omitempty"`
-	MaxStoredResolution string                `json:"max_stored_resolution,omitempty"`
-	MaxStoredFrameRate  float64               `json:"max_stored_frame_rate,omitempty"`
-	AspectRatio         string                `json:"aspect_ratio,omitempty"`
-	PlaybackIds         []PlaybackId          `json:"playback_ids,omitempty"`
-	Tracks              []Track               `json:"tracks,omitempty"`
-	Errors              AssetErrors           `json:"errors,omitempty"`
-	PerTitleEncode      bool                  `json:"per_title_encode,omitempty"`
-	IsLive              bool                  `json:"is_live,omitempty"`
-	Passthrough         string                `json:"passthrough,omitempty"`
-	LiveStreamId        string                `json:"live_stream_id,omitempty"`
-	Master              AssetMaster           `json:"master,omitempty"`
-	MasterAccess        string                `json:"master_access,omitempty"`
-	Mp4Support          string                `json:"mp4_support,omitempty"`
-	NormalizeAudio      bool                  `json:"normalize_audio,omitempty"`
-	StaticRenditions    AssetStaticRenditions `json:"static_renditions,omitempty"`
+	// Unique identifier for the Asset.
+	Id string `json:"id,omitempty"`
+	// Time at which the object was created. Measured in seconds since the Unix epoch.
+	CreatedAt string `json:"created_at,omitempty"`
+	DeletedAt string `json:"deleted_at,omitempty"`
+	// The status of the asset.
+	Status string `json:"status,omitempty"`
+	// The duration of the asset in seconds (max duration for a single asset is 24 hours).
+	Duration float64 `json:"duration,omitempty"`
+	// The maximum resolution that has been stored for the asset. The asset may be delivered at lower resolutions depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored.
+	MaxStoredResolution string `json:"max_stored_resolution,omitempty"`
+	// The maximum frame rate that has been stored for the asset. The asset may be delivered at lower frame rates depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. This field may return -1 if the frame rate of the input cannot be reliably determined.
+	MaxStoredFrameRate float64 `json:"max_stored_frame_rate,omitempty"`
+	// The aspect ratio of the asset in the form of `width:height`, for example `16:9`.
+	AspectRatio    string       `json:"aspect_ratio,omitempty"`
+	PlaybackIds    []PlaybackId `json:"playback_ids,omitempty"`
+	Tracks         []Track      `json:"tracks,omitempty"`
+	Errors         AssetErrors  `json:"errors,omitempty"`
+	PerTitleEncode bool         `json:"per_title_encode,omitempty"`
+	// Whether the asset is created from a live stream and the live stream is currently `active` and not in `idle` state.
+	IsLive bool `json:"is_live,omitempty"`
+	// Arbitrary metadata set for the asset. Max 255 characters.
+	Passthrough string `json:"passthrough,omitempty"`
+	// Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream.
+	LiveStreamId string      `json:"live_stream_id,omitempty"`
+	Master       AssetMaster `json:"master,omitempty"`
+	MasterAccess string      `json:"master_access,omitempty"`
+	Mp4Support   string      `json:"mp4_support,omitempty"`
+	// Asset Identifier of the video used as the source for creating the clip.
+	SourceAssetId string `json:"source_asset_id,omitempty"`
+	// Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
+	NormalizeAudio   bool                  `json:"normalize_audio,omitempty"`
+	StaticRenditions AssetStaticRenditions `json:"static_renditions,omitempty"`
 	// An array of individual live stream recording sessions. A recording session is created on each encoder connection during the live stream
 	RecordingTimes          []AssetRecordingTimes        `json:"recording_times,omitempty"`
 	NonStandardInputReasons AssetNonStandardInputReasons `json:"non_standard_input_reasons,omitempty"`
-	Test                    bool                         `json:"test,omitempty"`
+	// Indicates this asset is a test asset if the value is `true`. A Test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test assets are watermarked with the Mux logo, limited to 10 seconds, and deleted after 24 hrs.
+	Test bool `json:"test,omitempty"`
 }

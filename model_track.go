@@ -4,17 +4,30 @@
 package muxgo
 
 type Track struct {
-	Id               string  `json:"id,omitempty"`
-	Type             string  `json:"type,omitempty"`
-	Duration         float64 `json:"duration,omitempty"`
-	MaxWidth         int64   `json:"max_width,omitempty"`
-	MaxHeight        int64   `json:"max_height,omitempty"`
-	MaxFrameRate     float64 `json:"max_frame_rate,omitempty"`
-	MaxChannels      int64   `json:"max_channels,omitempty"`
-	MaxChannelLayout string  `json:"max_channel_layout,omitempty"`
-	TextType         string  `json:"text_type,omitempty"`
-	LanguageCode     string  `json:"language_code,omitempty"`
-	Name             string  `json:"name,omitempty"`
-	ClosedCaptions   bool    `json:"closed_captions,omitempty"`
-	Passthrough      string  `json:"passthrough,omitempty"`
+	// Unique identifier for the Track
+	Id string `json:"id,omitempty"`
+	// The type of track
+	Type string `json:"type,omitempty"`
+	// The duration in seconds of the track media. This parameter is not set for the `text` type track. This field is optional and may not be set. The top level `duration` field of an asset will always be set.
+	Duration float64 `json:"duration,omitempty"`
+	// The maximum width in pixels available for the track. Only set for the `video` type track.
+	MaxWidth int64 `json:"max_width,omitempty"`
+	// The maximum height in pixels available for the track. Only set for the `video` type track.
+	MaxHeight int64 `json:"max_height,omitempty"`
+	// The maximum frame rate available for the track. Only set for the `video` type track. This field may return `-1` if the frame rate of the input cannot be reliably determined.
+	MaxFrameRate float64 `json:"max_frame_rate,omitempty"`
+	// The maximum number of audio channels the track supports. Only set for the `audio` type track.
+	MaxChannels int64 `json:"max_channels,omitempty"`
+	// Only set for the `audio` type track.
+	MaxChannelLayout string `json:"max_channel_layout,omitempty"`
+	// This parameter is set only for the `text` type track.
+	TextType string `json:"text_type,omitempty"`
+	// The language code value represents [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is set for `text` type and `subtitles` text type track.
+	LanguageCode string `json:"language_code,omitempty"`
+	// The name of the track containing a human-readable description. The hls manifest will associate a subtitle text track with this value. For example, the value is \"English\" for subtitles text track for the `language_code` value of `en-US`. This parameter is set for the `text` type and `subtitles` text type track.
+	Name string `json:"name,omitempty"`
+	// Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This parameter is set for the `text` type and `subtitles` text type track.
+	ClosedCaptions bool `json:"closed_captions,omitempty"`
+	// Arbitrary metadata set for the track either when creating the asset or track. This parameter is set for `text` type and `subtitles` text type track. Max 255 characters.
+	Passthrough string `json:"passthrough,omitempty"`
 }

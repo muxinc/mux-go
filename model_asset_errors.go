@@ -4,6 +4,8 @@
 package muxgo
 
 type AssetErrors struct {
-	Type     string   `json:"type,omitempty"`
+	// The type of error that occurred for this asset.
+	Type string `json:"type,omitempty"`
+	// Error messages with more details.
 	Messages []string `json:"messages,omitempty"`
 }
