@@ -25,15 +25,11 @@ jobs:
           path: ${{env.CHECKOUT_LOCATION}}
       - name: Install Go
         uses: actions/setup-go@v2
-      - name: Install Dep
-        run: |
-          mkdir -p $GOPATH/bin
-          curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - name: Install Go Dependencies
         run: |
           cd $CHECKOUT_LOCATION
           export PATH=$PATH:$(go env GOPATH)/bin
-          dep ensure
+          go install
       - name: Run Integration Tests
         run: |
           cd $CHECKOUT_LOCATION
