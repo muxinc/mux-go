@@ -1,0 +1,7 @@
+node_modules/
+tmp/
+
+*.log
+*.bak
+
+template-changes.diff
