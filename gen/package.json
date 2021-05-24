@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "scripts": {
+        "oas": "openapi-generator-cli",
+        "current-version": "jq -r .artifactVersion < ./generator-config.json",
+        "compute-next-version:patch": "semver $(yarn run --silent current-version) -i patch",
+        "compute-next-version:minor": "semver $(yarn run --silent current-version) -i minor",
+        "compute-next-version:major": "semver $(yarn run --silent current-version) -i major",
+        "bump-version:patch": "jq -r \".gemVersion = \\\"$(yarn run -s compute-next-version:patch)\\\"\" < ./generator-config.json > ./generator-config.tmp.json && cp ./generator-config.json ./generator-config.json.bak && mv ./generator-config.tmp.json ./generator-config.json",
+        "build": ""
+    },
+    "dependencies": {
+        "@openapitools/openapi-generator-cli": "2.2.2",
+        "node-jq": "1.12.0",
+        "semver": "7.3.4"
+    }
+}
