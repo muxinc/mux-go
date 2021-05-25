@@ -10,18 +10,58 @@ Method | HTTP request | Description
 [**ListDirectUploads**](DirectUploadsApi.md#ListDirectUploads) | **Get** /video/v1/uploads | List direct uploads
 
 
-# **CancelDirectUpload**
-> UploadResponse CancelDirectUpload(ctx, uPLOADID)
+
+## CancelDirectUpload
+
+> UploadResponse CancelDirectUpload(ctx, uPLOADID).Execute()
+
 Cancel a direct upload
 
-Cancels a direct upload and marks it as cancelled. If a pending upload finishes after this request, no asset will be created. This request will only succeed if the upload is still in the `waiting` state. 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uPLOADID := "abcd1234" // string | ID of the Upload
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectUploadsApi.CancelDirectUpload(context.Background(), uPLOADID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectUploadsApi.CancelDirectUpload``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CancelDirectUpload`: UploadResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectUploadsApi.CancelDirectUpload`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **uPLOADID** | **string**| ID of the Upload | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uPLOADID** | **string** | ID of the Upload | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCancelDirectUploadRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -33,21 +73,59 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **CreateDirectUpload**
-> UploadResponse CreateDirectUpload(ctx, createUploadRequest)
+
+## CreateDirectUpload
+
+> UploadResponse CreateDirectUpload(ctx).CreateUploadRequest(createUploadRequest).Execute()
+
 Create a new direct upload URL
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createUploadRequest := *openapiclient.NewCreateUploadRequest(*openapiclient.NewCreateAssetRequest()) // CreateUploadRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectUploadsApi.CreateDirectUpload(context.Background()).CreateUploadRequest(createUploadRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectUploadsApi.CreateDirectUpload``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateDirectUpload`: UploadResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectUploadsApi.CreateDirectUpload`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateDirectUploadRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **createUploadRequest** | [**CreateUploadRequest**](CreateUploadRequest.md)|  | 
+ **createUploadRequest** | [**CreateUploadRequest**](CreateUploadRequest.md) |  | 
 
 ### Return type
 
@@ -59,21 +137,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetDirectUpload**
-> UploadResponse GetDirectUpload(ctx, uPLOADID)
+
+## GetDirectUpload
+
+> UploadResponse GetDirectUpload(ctx, uPLOADID).Execute()
+
 Retrieve a single direct upload's info
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uPLOADID := "abcd1234" // string | ID of the Upload
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectUploadsApi.GetDirectUpload(context.Background(), uPLOADID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectUploadsApi.GetDirectUpload``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetDirectUpload`: UploadResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectUploadsApi.GetDirectUpload`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **uPLOADID** | **string**| ID of the Upload | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uPLOADID** | **string** | ID of the Upload | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDirectUploadRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -85,29 +205,61 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ListDirectUploads**
-> ListUploadsResponse ListDirectUploads(ctx, optional)
+
+## ListDirectUploads
+
+> ListUploadsResponse ListDirectUploads(ctx).Limit(limit).Page(page).Execute()
+
 List direct uploads
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | Number of items to include in the response (optional) (default to 25)
+    page := int32(56) // int32 | Offset by this many pages, of the size of `limit` (optional) (default to 1)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DirectUploadsApi.ListDirectUploads(context.Background()).Limit(limit).Page(page).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DirectUploadsApi.ListDirectUploads``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListDirectUploads`: ListUploadsResponse
+    fmt.Fprintf(os.Stdout, "Response from `DirectUploadsApi.ListDirectUploads`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListDirectUploadsRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListDirectUploadsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a ListDirectUploadsOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
- **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **limit** | **int32** | Number of items to include in the response | [default to 25]
+ **page** | **int32** | Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
 
 ### Return type
 
@@ -119,8 +271,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

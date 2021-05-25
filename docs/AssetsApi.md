@@ -18,18 +18,54 @@ Method | HTTP request | Description
 [**UpdateAssetMp4Support**](AssetsApi.md#UpdateAssetMp4Support) | **Put** /video/v1/assets/{ASSET_ID}/mp4-support | Update MP4 support
 
 
-# **CreateAsset**
-> AssetResponse CreateAsset(ctx, createAssetRequest)
+
+## CreateAsset
+
+> AssetResponse CreateAsset(ctx).CreateAssetRequest(createAssetRequest).Execute()
+
 Create an asset
 
-Create a new Mux Video asset. 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createAssetRequest := *openapiclient.NewCreateAssetRequest() // CreateAssetRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.CreateAsset(context.Background()).CreateAssetRequest(createAssetRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.CreateAsset``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateAsset`: AssetResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.CreateAsset`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateAssetRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **createAssetRequest** | [**CreateAssetRequest**](CreateAssetRequest.md)|  | 
+ **createAssetRequest** | [**CreateAssetRequest**](CreateAssetRequest.md) |  | 
 
 ### Return type
 
@@ -41,26 +77,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **CreateAssetPlaybackId**
-> CreatePlaybackIdResponse CreateAssetPlaybackId(ctx, aSSETID, createPlaybackIdRequest)
+
+## CreateAssetPlaybackId
+
+> CreatePlaybackIDResponse CreateAssetPlaybackId(ctx, aSSETID).CreatePlaybackIDRequest(createPlaybackIDRequest).Execute()
+
 Create a playback ID
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    createPlaybackIDRequest := *openapiclient.NewCreatePlaybackIDRequest() // CreatePlaybackIDRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.CreateAssetPlaybackId(context.Background(), aSSETID).CreatePlaybackIDRequest(createPlaybackIDRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.CreateAssetPlaybackId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateAssetPlaybackId`: CreatePlaybackIDResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.CreateAssetPlaybackId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **createPlaybackIdRequest** | [**CreatePlaybackIdRequest**](CreatePlaybackIdRequest.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateAssetPlaybackIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **createPlaybackIDRequest** | [**CreatePlaybackIDRequest**](CreatePlaybackIDRequest.md) |  | 
 
 ### Return type
 
-[**CreatePlaybackIdResponse**](CreatePlaybackIDResponse.md)
+[**CreatePlaybackIDResponse**](CreatePlaybackIDResponse.md)
 
 ### Authorization
 
@@ -68,22 +147,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **CreateAssetTrack**
-> CreateTrackResponse CreateAssetTrack(ctx, aSSETID, createTrackRequest)
+
+## CreateAssetTrack
+
+> CreateTrackResponse CreateAssetTrack(ctx, aSSETID).CreateTrackRequest(createTrackRequest).Execute()
+
 Create an asset track
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    createTrackRequest := *openapiclient.NewCreateTrackRequest("Url_example", "Type_example", "TextType_example", "LanguageCode_example") // CreateTrackRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.CreateAssetTrack(context.Background(), aSSETID).CreateTrackRequest(createTrackRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.CreateAssetTrack``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateAssetTrack`: CreateTrackResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.CreateAssetTrack`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **createTrackRequest** | [**CreateTrackRequest**](CreateTrackRequest.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateAssetTrackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **createTrackRequest** | [**CreateTrackRequest**](CreateTrackRequest.md) |  | 
 
 ### Return type
 
@@ -95,23 +217,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteAsset**
-> DeleteAsset(ctx, aSSETID)
+
+## DeleteAsset
+
+> DeleteAsset(ctx, aSSETID).Execute()
+
 Delete an asset
 
-Deletes a video asset and all its data 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.DeleteAsset(context.Background(), aSSETID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.DeleteAsset``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAssetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -123,22 +285,64 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteAssetPlaybackId**
-> DeleteAssetPlaybackId(ctx, aSSETID, pLAYBACKID)
+
+## DeleteAssetPlaybackId
+
+> DeleteAssetPlaybackId(ctx, aSSETID, pLAYBACKID).Execute()
+
 Delete a playback ID
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    pLAYBACKID := "pLAYBACKID_example" // string | The live stream's playback ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.DeleteAssetPlaybackId(context.Background(), aSSETID, pLAYBACKID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.DeleteAssetPlaybackId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **pLAYBACKID** | **string**| The live stream&#39;s playback ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+**pLAYBACKID** | **string** | The live stream&#39;s playback ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAssetPlaybackIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -150,22 +354,64 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteAssetTrack**
-> DeleteAssetTrack(ctx, aSSETID, tRACKID)
+
+## DeleteAssetTrack
+
+> DeleteAssetTrack(ctx, aSSETID, tRACKID).Execute()
+
 Delete an asset track
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    tRACKID := "tRACKID_example" // string | The track ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.DeleteAssetTrack(context.Background(), aSSETID, tRACKID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.DeleteAssetTrack``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **tRACKID** | **string**| The track ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+**tRACKID** | **string** | The track ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAssetTrackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -177,23 +423,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetAsset**
-> AssetResponse GetAsset(ctx, aSSETID)
+
+## GetAsset
+
+> AssetResponse GetAsset(ctx, aSSETID).Execute()
+
 Retrieve an asset
 
-Retrieves the details of an asset that has previously been created. Supply the unique asset ID that was returned from your previous request, and Mux will return the corresponding asset information. The same information is returned when creating an asset.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.GetAsset(context.Background(), aSSETID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.GetAsset``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAsset`: AssetResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.GetAsset`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAssetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -205,23 +493,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetAssetInputInfo**
-> GetAssetInputInfoResponse GetAssetInputInfo(ctx, aSSETID)
+
+## GetAssetInputInfo
+
+> GetAssetInputInfoResponse GetAssetInputInfo(ctx, aSSETID).Execute()
+
 Retrieve asset input info
 
-Returns a list of the input objects that were used to create the asset along with any settings that were applied to each input.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.GetAssetInputInfo(context.Background(), aSSETID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.GetAssetInputInfo``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAssetInputInfo`: GetAssetInputInfoResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.GetAssetInputInfo`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAssetInputInfoRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -233,26 +563,70 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetAssetPlaybackId**
-> GetAssetPlaybackIdResponse GetAssetPlaybackId(ctx, aSSETID, pLAYBACKID)
+
+## GetAssetPlaybackId
+
+> GetAssetPlaybackIDResponse GetAssetPlaybackId(ctx, aSSETID, pLAYBACKID).Execute()
+
 Retrieve a playback ID
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    pLAYBACKID := "pLAYBACKID_example" // string | The live stream's playback ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.GetAssetPlaybackId(context.Background(), aSSETID, pLAYBACKID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.GetAssetPlaybackId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAssetPlaybackId`: GetAssetPlaybackIDResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.GetAssetPlaybackId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **pLAYBACKID** | **string**| The live stream&#39;s playback ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+**pLAYBACKID** | **string** | The live stream&#39;s playback ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAssetPlaybackIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
-[**GetAssetPlaybackIdResponse**](GetAssetPlaybackIDResponse.md)
+[**GetAssetPlaybackIDResponse**](GetAssetPlaybackIDResponse.md)
 
 ### Authorization
 
@@ -260,31 +634,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ListAssets**
-> ListAssetsResponse ListAssets(ctx, optional)
+
+## ListAssets
+
+> ListAssetsResponse ListAssets(ctx).Limit(limit).Page(page).Execute()
+
 List assets
 
-List all Mux assets. 
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | Number of items to include in the response (optional) (default to 25)
+    page := int32(56) // int32 | Offset by this many pages, of the size of `limit` (optional) (default to 1)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.ListAssets(context.Background()).Limit(limit).Page(page).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.ListAssets``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListAssets`: ListAssetsResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.ListAssets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAssetsRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListAssetsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a ListAssetsOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
- **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **limit** | **int32** | Number of items to include in the response | [default to 25]
+ **page** | **int32** | Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
 
 ### Return type
 
@@ -296,24 +702,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **UpdateAssetMasterAccess**
-> AssetResponse UpdateAssetMasterAccess(ctx, aSSETID, updateAssetMasterAccessRequest)
+
+## UpdateAssetMasterAccess
+
+> AssetResponse UpdateAssetMasterAccess(ctx, aSSETID).UpdateAssetMasterAccessRequest(updateAssetMasterAccessRequest).Execute()
+
 Update master access
 
-Allows you add temporary access to the master (highest-quality) version of the asset in MP4 format. A URL will be created that can be used to download the master version for 24 hours. After 24 hours Master Access will revert to \"none\". This master version is not optimized for web and not meant to be streamed, only downloaded for purposes like archiving or editing the video offline.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    updateAssetMasterAccessRequest := *openapiclient.NewUpdateAssetMasterAccessRequest() // UpdateAssetMasterAccessRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.UpdateAssetMasterAccess(context.Background(), aSSETID).UpdateAssetMasterAccessRequest(updateAssetMasterAccessRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.UpdateAssetMasterAccess``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateAssetMasterAccess`: AssetResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.UpdateAssetMasterAccess`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **updateAssetMasterAccessRequest** | [**UpdateAssetMasterAccessRequest**](UpdateAssetMasterAccessRequest.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateAssetMasterAccessRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **updateAssetMasterAccessRequest** | [**UpdateAssetMasterAccessRequest**](UpdateAssetMasterAccessRequest.md) |  | 
 
 ### Return type
 
@@ -325,24 +774,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **UpdateAssetMp4Support**
-> AssetResponse UpdateAssetMp4Support(ctx, aSSETID, updateAssetMp4SupportRequest)
+
+## UpdateAssetMp4Support
+
+> AssetResponse UpdateAssetMp4Support(ctx, aSSETID).UpdateAssetMP4SupportRequest(updateAssetMP4SupportRequest).Execute()
+
 Update MP4 support
 
-Allows you add or remove mp4 support for assets that were created without it. Currently there are two values supported in this request, `standard` and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    aSSETID := "aSSETID_example" // string | The asset ID.
+    updateAssetMP4SupportRequest := *openapiclient.NewUpdateAssetMP4SupportRequest() // UpdateAssetMP4SupportRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AssetsApi.UpdateAssetMp4Support(context.Background(), aSSETID).UpdateAssetMP4SupportRequest(updateAssetMP4SupportRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.UpdateAssetMp4Support``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateAssetMp4Support`: AssetResponse
+    fmt.Fprintf(os.Stdout, "Response from `AssetsApi.UpdateAssetMp4Support`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **aSSETID** | **string**| The asset ID. | 
-  **updateAssetMp4SupportRequest** | [**UpdateAssetMp4SupportRequest**](UpdateAssetMp4SupportRequest.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**aSSETID** | **string** | The asset ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateAssetMp4SupportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **updateAssetMP4SupportRequest** | [**UpdateAssetMP4SupportRequest**](UpdateAssetMP4SupportRequest.md) |  | 
 
 ### Return type
 
@@ -354,8 +846,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
