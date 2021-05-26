@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ## GetRealtimeHistogramTimeseries
 
-> GetRealTimeHistogramTimeseriesResponse GetRealtimeHistogramTimeseries(ctx, rEALTIMEMETRICID).Filters(filters).Execute()
+> GetRealTimeHistogramTimeseriesResponse GetRealtimeHistogramTimeseries(ctx, rEALTIMEHISTOGRAMMETRICID).Filters(filters).Execute()
 
 Get Real-Time Histogram Timeseries
 
@@ -113,12 +113,12 @@ import (
 )
 
 func main() {
-    rEALTIMEMETRICID := "current-concurrent-viewers" // string | ID of the Realtime Metric
+    rEALTIMEHISTOGRAMMETRICID := "video-startup-time" // string | ID of the Realtime Histogram Metric
     filters := []string{"Inner_example"} // []string | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US). Possible filter names are the same as returned by the List Filters endpoint.  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RealTimeApi.GetRealtimeHistogramTimeseries(context.Background(), rEALTIMEMETRICID).Filters(filters).Execute()
+    resp, r, err := api_client.RealTimeApi.GetRealtimeHistogramTimeseries(context.Background(), rEALTIMEHISTOGRAMMETRICID).Filters(filters).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RealTimeApi.GetRealtimeHistogramTimeseries``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,7 +134,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rEALTIMEMETRICID** | **string** | ID of the Realtime Metric | 
+**rEALTIMEHISTOGRAMMETRICID** | **string** | ID of the Realtime Histogram Metric | 
 
 ### Other Parameters
 
