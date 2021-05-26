@@ -186,7 +186,7 @@ func (a *RealTimeApiService) GetRealtimeBreakdownExecute(r ApiGetRealtimeBreakdo
 type ApiGetRealtimeHistogramTimeseriesRequest struct {
 	ctx _context.Context
 	ApiService *RealTimeApiService
-	rEALTIMEMETRICID string
+	rEALTIMEHISTOGRAMMETRICID string
 	filters *[]string
 }
 
@@ -204,14 +204,14 @@ func (r ApiGetRealtimeHistogramTimeseriesRequest) Execute() (GetRealTimeHistogra
  * Gets histogram timeseries information for a specific metric.
 
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param rEALTIMEMETRICID ID of the Realtime Metric
+ * @param rEALTIMEHISTOGRAMMETRICID ID of the Realtime Histogram Metric
  * @return ApiGetRealtimeHistogramTimeseriesRequest
  */
-func (a *RealTimeApiService) GetRealtimeHistogramTimeseries(ctx _context.Context, rEALTIMEMETRICID string) ApiGetRealtimeHistogramTimeseriesRequest {
+func (a *RealTimeApiService) GetRealtimeHistogramTimeseries(ctx _context.Context, rEALTIMEHISTOGRAMMETRICID string) ApiGetRealtimeHistogramTimeseriesRequest {
 	return ApiGetRealtimeHistogramTimeseriesRequest{
 		ApiService: a,
 		ctx: ctx,
-		rEALTIMEMETRICID: rEALTIMEMETRICID,
+		rEALTIMEHISTOGRAMMETRICID: rEALTIMEHISTOGRAMMETRICID,
 	}
 }
 
@@ -235,7 +235,7 @@ func (a *RealTimeApiService) GetRealtimeHistogramTimeseriesExecute(r ApiGetRealt
 	}
 
 	localVarPath := localBasePath + "/data/v1/realtime/metrics/{REALTIME_HISTOGRAM_METRIC_ID}/histogram-timeseries"
-	localVarPath = strings.Replace(localVarPath, "{"+"REALTIME_METRIC_ID"+"}", _neturl.PathEscape(parameterToString(r.rEALTIMEMETRICID, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"REALTIME_HISTOGRAM_METRIC_ID"+"}", _neturl.PathEscape(parameterToString(r.rEALTIMEHISTOGRAMMETRICID, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
