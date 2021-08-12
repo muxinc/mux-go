@@ -45,6 +45,8 @@ docs/DisableLiveStreamResponse.md
 docs/EnableLiveStreamResponse.md
 docs/Error.md
 docs/ErrorsApi.md
+docs/ExportDate.md
+docs/ExportFile.md
 docs/ExportsApi.md
 docs/FilterValue.md
 docs/FiltersApi.md
@@ -91,6 +93,7 @@ docs/ListRealTimeMetricsResponse.md
 docs/ListRelatedIncidentsResponse.md
 docs/ListSigningKeysResponse.md
 docs/ListUploadsResponse.md
+docs/ListVideoViewExportsResponse.md
 docs/ListVideoViewsResponse.md
 docs/LiveStream.md
 docs/LiveStreamResponse.md
@@ -150,6 +153,8 @@ model_dimension_value.go
 model_disable_live_stream_response.go
 model_enable_live_stream_response.go
 model_error.go
+model_export_date.go
+model_export_file.go
 model_filter_value.go
 model_get_asset_input_info_response.go
 model_get_asset_or_live_stream_id_response.go
@@ -193,6 +198,7 @@ model_list_real_time_metrics_response.go
 model_list_related_incidents_response.go
 model_list_signing_keys_response.go
 model_list_uploads_response.go
+model_list_video_view_exports_response.go
 model_list_video_views_response.go
 model_live_stream.go
 model_live_stream_response.go

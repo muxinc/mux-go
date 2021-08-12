@@ -644,7 +644,7 @@ Name | Type | Description  | Notes
 
 ## ListAssets
 
-> ListAssetsResponse ListAssets(ctx).Limit(limit).Page(page).Execute()
+> ListAssetsResponse ListAssets(ctx).Limit(limit).Page(page).LiveStreamId(liveStreamId).UploadId(uploadId).Execute()
 
 List assets
 
@@ -665,10 +665,12 @@ import (
 func main() {
     limit := int32(56) // int32 | Number of items to include in the response (optional) (default to 25)
     page := int32(56) // int32 | Offset by this many pages, of the size of `limit` (optional) (default to 1)
+    liveStreamId := "liveStreamId_example" // string | Filter response to return all the assets for this live stream only (optional)
+    uploadId := "uploadId_example" // string | Filter response to return an asset created from this direct upload only (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AssetsApi.ListAssets(context.Background()).Limit(limit).Page(page).Execute()
+    resp, r, err := api_client.AssetsApi.ListAssets(context.Background()).Limit(limit).Page(page).LiveStreamId(liveStreamId).UploadId(uploadId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AssetsApi.ListAssets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -691,6 +693,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | Number of items to include in the response | [default to 25]
  **page** | **int32** | Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **liveStreamId** | **string** | Filter response to return all the assets for this live stream only | 
+ **uploadId** | **string** | Filter response to return an asset created from this direct upload only | 
 
 ### Return type
 

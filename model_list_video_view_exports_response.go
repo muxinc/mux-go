@@ -15,34 +15,34 @@ import (
 	"encoding/json"
 )
 
-// ListInsightsResponse struct for ListInsightsResponse
-type ListInsightsResponse struct {
-	Data *[]Insight `json:"data,omitempty"`
-	TotalRowCount *int64 `json:"total_row_count,omitempty"`
-	Timeframe *[]int64 `json:"timeframe,omitempty"`
+// ListVideoViewExportsResponse struct for ListVideoViewExportsResponse
+type ListVideoViewExportsResponse struct {
+	Data *[]ExportDate `json:"data,omitempty"`
+	TotalRowCount *int32 `json:"total_row_count,omitempty"`
+	Timeframe *[]int32 `json:"timeframe,omitempty"`
 }
 
-// NewListInsightsResponse instantiates a new ListInsightsResponse object
+// NewListVideoViewExportsResponse instantiates a new ListVideoViewExportsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListInsightsResponse() *ListInsightsResponse {
-	this := ListInsightsResponse{}
+func NewListVideoViewExportsResponse() *ListVideoViewExportsResponse {
+	this := ListVideoViewExportsResponse{}
 	return &this
 }
 
-// NewListInsightsResponseWithDefaults instantiates a new ListInsightsResponse object
+// NewListVideoViewExportsResponseWithDefaults instantiates a new ListVideoViewExportsResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewListInsightsResponseWithDefaults() *ListInsightsResponse {
-	this := ListInsightsResponse{}
+func NewListVideoViewExportsResponseWithDefaults() *ListVideoViewExportsResponse {
+	this := ListVideoViewExportsResponse{}
 	return &this
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *ListInsightsResponse) GetData() []Insight {
+func (o *ListVideoViewExportsResponse) GetData() []ExportDate {
 	if o == nil || o.Data == nil {
-		var ret []Insight
+		var ret []ExportDate
 		return ret
 	}
 	return *o.Data
@@ -50,7 +50,7 @@ func (o *ListInsightsResponse) GetData() []Insight {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListInsightsResponse) GetDataOk() (*[]Insight, bool) {
+func (o *ListVideoViewExportsResponse) GetDataOk() (*[]ExportDate, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -58,7 +58,7 @@ func (o *ListInsightsResponse) GetDataOk() (*[]Insight, bool) {
 }
 
 // HasData returns a boolean if a field has been set.
-func (o *ListInsightsResponse) HasData() bool {
+func (o *ListVideoViewExportsResponse) HasData() bool {
 	if o != nil && o.Data != nil {
 		return true
 	}
@@ -66,15 +66,15 @@ func (o *ListInsightsResponse) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given []Insight and assigns it to the Data field.
-func (o *ListInsightsResponse) SetData(v []Insight) {
+// SetData gets a reference to the given []ExportDate and assigns it to the Data field.
+func (o *ListVideoViewExportsResponse) SetData(v []ExportDate) {
 	o.Data = &v
 }
 
 // GetTotalRowCount returns the TotalRowCount field value if set, zero value otherwise.
-func (o *ListInsightsResponse) GetTotalRowCount() int64 {
+func (o *ListVideoViewExportsResponse) GetTotalRowCount() int32 {
 	if o == nil || o.TotalRowCount == nil {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.TotalRowCount
@@ -82,7 +82,7 @@ func (o *ListInsightsResponse) GetTotalRowCount() int64 {
 
 // GetTotalRowCountOk returns a tuple with the TotalRowCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListInsightsResponse) GetTotalRowCountOk() (*int64, bool) {
+func (o *ListVideoViewExportsResponse) GetTotalRowCountOk() (*int32, bool) {
 	if o == nil || o.TotalRowCount == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *ListInsightsResponse) GetTotalRowCountOk() (*int64, bool) {
 }
 
 // HasTotalRowCount returns a boolean if a field has been set.
-func (o *ListInsightsResponse) HasTotalRowCount() bool {
+func (o *ListVideoViewExportsResponse) HasTotalRowCount() bool {
 	if o != nil && o.TotalRowCount != nil {
 		return true
 	}
@@ -98,15 +98,15 @@ func (o *ListInsightsResponse) HasTotalRowCount() bool {
 	return false
 }
 
-// SetTotalRowCount gets a reference to the given int64 and assigns it to the TotalRowCount field.
-func (o *ListInsightsResponse) SetTotalRowCount(v int64) {
+// SetTotalRowCount gets a reference to the given int32 and assigns it to the TotalRowCount field.
+func (o *ListVideoViewExportsResponse) SetTotalRowCount(v int32) {
 	o.TotalRowCount = &v
 }
 
 // GetTimeframe returns the Timeframe field value if set, zero value otherwise.
-func (o *ListInsightsResponse) GetTimeframe() []int64 {
+func (o *ListVideoViewExportsResponse) GetTimeframe() []int32 {
 	if o == nil || o.Timeframe == nil {
-		var ret []int64
+		var ret []int32
 		return ret
 	}
 	return *o.Timeframe
@@ -114,7 +114,7 @@ func (o *ListInsightsResponse) GetTimeframe() []int64 {
 
 // GetTimeframeOk returns a tuple with the Timeframe field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListInsightsResponse) GetTimeframeOk() (*[]int64, bool) {
+func (o *ListVideoViewExportsResponse) GetTimeframeOk() (*[]int32, bool) {
 	if o == nil || o.Timeframe == nil {
 		return nil, false
 	}
@@ -122,7 +122,7 @@ func (o *ListInsightsResponse) GetTimeframeOk() (*[]int64, bool) {
 }
 
 // HasTimeframe returns a boolean if a field has been set.
-func (o *ListInsightsResponse) HasTimeframe() bool {
+func (o *ListVideoViewExportsResponse) HasTimeframe() bool {
 	if o != nil && o.Timeframe != nil {
 		return true
 	}
@@ -130,12 +130,12 @@ func (o *ListInsightsResponse) HasTimeframe() bool {
 	return false
 }
 
-// SetTimeframe gets a reference to the given []int64 and assigns it to the Timeframe field.
-func (o *ListInsightsResponse) SetTimeframe(v []int64) {
+// SetTimeframe gets a reference to the given []int32 and assigns it to the Timeframe field.
+func (o *ListVideoViewExportsResponse) SetTimeframe(v []int32) {
 	o.Timeframe = &v
 }
 
-func (o ListInsightsResponse) MarshalJSON() ([]byte, error) {
+func (o ListVideoViewExportsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
@@ -149,38 +149,38 @@ func (o ListInsightsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableListInsightsResponse struct {
-	value *ListInsightsResponse
+type NullableListVideoViewExportsResponse struct {
+	value *ListVideoViewExportsResponse
 	isSet bool
 }
 
-func (v NullableListInsightsResponse) Get() *ListInsightsResponse {
+func (v NullableListVideoViewExportsResponse) Get() *ListVideoViewExportsResponse {
 	return v.value
 }
 
-func (v *NullableListInsightsResponse) Set(val *ListInsightsResponse) {
+func (v *NullableListVideoViewExportsResponse) Set(val *ListVideoViewExportsResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableListInsightsResponse) IsSet() bool {
+func (v NullableListVideoViewExportsResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableListInsightsResponse) Unset() {
+func (v *NullableListVideoViewExportsResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableListInsightsResponse(val *ListInsightsResponse) *NullableListInsightsResponse {
-	return &NullableListInsightsResponse{value: val, isSet: true}
+func NewNullableListVideoViewExportsResponse(val *ListVideoViewExportsResponse) *NullableListVideoViewExportsResponse {
+	return &NullableListVideoViewExportsResponse{value: val, isSet: true}
 }
 
-func (v NullableListInsightsResponse) MarshalJSON() ([]byte, error) {
+func (v NullableListVideoViewExportsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableListInsightsResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableListVideoViewExportsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
