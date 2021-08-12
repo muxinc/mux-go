@@ -36,7 +36,7 @@ func main() {
     mETRICID := "video_startup_time" // string | ID of the Metric
     timeframe := []string{"Inner_example"} // []string | Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600   * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.  (optional)
     filters := []string{"Inner_example"} // []string | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US). Possible filter names are the same as returned by the List Filters endpoint.  (optional)
-    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the deafult for the metric will be used. (optional)
+    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the default for the metric will be used. (optional)
     orderDirection := "orderDirection_example" // string | Sort order. (optional)
     groupBy := "groupBy_example" // string | Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe. (optional)
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
  **timeframe** | **[]string** | Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
  **filters** | **[]string** | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
- **measurement** | **string** | Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **measurement** | **string** | Measurement for the provided metric. If omitted, the default for the metric will be used. | 
  **orderDirection** | **string** | Sort order. | 
  **groupBy** | **string** | Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe. | 
 
@@ -116,7 +116,7 @@ func main() {
     mETRICID := "video_startup_time" // string | ID of the Metric
     timeframe := []string{"Inner_example"} // []string | Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600   * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.  (optional)
     filters := []string{"Inner_example"} // []string | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US). Possible filter names are the same as returned by the List Filters endpoint.  (optional)
-    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the deafult for the metric will be used. (optional)
+    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the default for the metric will be used. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
  **timeframe** | **[]string** | Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
  **filters** | **[]string** | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
- **measurement** | **string** | Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **measurement** | **string** | Measurement for the provided metric. If omitted, the default for the metric will be used. | 
 
 ### Return type
 
@@ -263,7 +263,7 @@ import (
 func main() {
     mETRICID := "video_startup_time" // string | ID of the Metric
     groupBy := "groupBy_example" // string | Breakdown value to group the results by (optional)
-    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the deafult for the metric will be used. (optional)
+    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the default for the metric will be used. (optional)
     filters := []string{"Inner_example"} // []string | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]=operating_system:windows&filters[]=country:US). Possible filter names are the same as returned by the List Filters endpoint.  (optional)
     limit := int32(56) // int32 | Number of items to include in the response (optional) (default to 25)
     page := int32(56) // int32 | Offset by this many pages, of the size of `limit` (optional) (default to 1)
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **groupBy** | **string** | Breakdown value to group the results by | 
- **measurement** | **string** | Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **measurement** | **string** | Measurement for the provided metric. If omitted, the default for the metric will be used. | 
  **filters** | **[]string** | Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
  **limit** | **int32** | Number of items to include in the response | [default to 25]
  **page** | **int32** | Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
@@ -348,7 +348,7 @@ import (
 
 func main() {
     mETRICID := "video_startup_time" // string | ID of the Metric
-    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the deafult for the metric will be used. (optional)
+    measurement := "measurement_example" // string | Measurement for the provided metric. If omitted, the default for the metric will be used. (optional)
     orderDirection := "orderDirection_example" // string | Sort order. (optional)
     timeframe := []string{"Inner_example"} // []string | Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]=). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]=1498867200&timeframe[]=1498953600   * duration string e.g. timeframe[]=24:hours or timeframe[]=7:days.  (optional)
 
@@ -380,7 +380,7 @@ Other parameters are passed through a pointer to a apiListInsightsRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **measurement** | **string** | Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **measurement** | **string** | Measurement for the provided metric. If omitted, the default for the metric will be used. | 
  **orderDirection** | **string** | Sort order. | 
  **timeframe** | **[]string** | Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
 

@@ -116,6 +116,14 @@ Name | Type | Description | Notes
 **QualityScore** | Pointer to **string** |  | [optional] 
 **PlayerSoftwareVersion** | Pointer to **string** |  | [optional] 
 **PlayerMuxPluginName** | Pointer to **string** |  | [optional] 
+**SubPropertyId** | Pointer to **string** |  | [optional] 
+**PlayerRemotePlayed** | Pointer to **bool** |  | [optional] 
+**ViewMaxPlayheadPosition** | Pointer to **string** |  | [optional] 
+**ViewPlayingTime** | Pointer to **string** |  | [optional] 
+**ViewSessionId** | Pointer to **string** |  | [optional] 
+**ViewerConnectionType** | Pointer to **string** |  | [optional] 
+**ViewerDeviceModel** | Pointer to **string** |  | [optional] 
+**WeightedAverageBitrate** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -2935,6 +2943,206 @@ SetPlayerMuxPluginName sets PlayerMuxPluginName field to given value.
 `func (o *VideoView) HasPlayerMuxPluginName() bool`
 
 HasPlayerMuxPluginName returns a boolean if a field has been set.
+
+### GetSubPropertyId
+
+`func (o *VideoView) GetSubPropertyId() string`
+
+GetSubPropertyId returns the SubPropertyId field if non-nil, zero value otherwise.
+
+### GetSubPropertyIdOk
+
+`func (o *VideoView) GetSubPropertyIdOk() (*string, bool)`
+
+GetSubPropertyIdOk returns a tuple with the SubPropertyId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubPropertyId
+
+`func (o *VideoView) SetSubPropertyId(v string)`
+
+SetSubPropertyId sets SubPropertyId field to given value.
+
+### HasSubPropertyId
+
+`func (o *VideoView) HasSubPropertyId() bool`
+
+HasSubPropertyId returns a boolean if a field has been set.
+
+### GetPlayerRemotePlayed
+
+`func (o *VideoView) GetPlayerRemotePlayed() bool`
+
+GetPlayerRemotePlayed returns the PlayerRemotePlayed field if non-nil, zero value otherwise.
+
+### GetPlayerRemotePlayedOk
+
+`func (o *VideoView) GetPlayerRemotePlayedOk() (*bool, bool)`
+
+GetPlayerRemotePlayedOk returns a tuple with the PlayerRemotePlayed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlayerRemotePlayed
+
+`func (o *VideoView) SetPlayerRemotePlayed(v bool)`
+
+SetPlayerRemotePlayed sets PlayerRemotePlayed field to given value.
+
+### HasPlayerRemotePlayed
+
+`func (o *VideoView) HasPlayerRemotePlayed() bool`
+
+HasPlayerRemotePlayed returns a boolean if a field has been set.
+
+### GetViewMaxPlayheadPosition
+
+`func (o *VideoView) GetViewMaxPlayheadPosition() string`
+
+GetViewMaxPlayheadPosition returns the ViewMaxPlayheadPosition field if non-nil, zero value otherwise.
+
+### GetViewMaxPlayheadPositionOk
+
+`func (o *VideoView) GetViewMaxPlayheadPositionOk() (*string, bool)`
+
+GetViewMaxPlayheadPositionOk returns a tuple with the ViewMaxPlayheadPosition field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewMaxPlayheadPosition
+
+`func (o *VideoView) SetViewMaxPlayheadPosition(v string)`
+
+SetViewMaxPlayheadPosition sets ViewMaxPlayheadPosition field to given value.
+
+### HasViewMaxPlayheadPosition
+
+`func (o *VideoView) HasViewMaxPlayheadPosition() bool`
+
+HasViewMaxPlayheadPosition returns a boolean if a field has been set.
+
+### GetViewPlayingTime
+
+`func (o *VideoView) GetViewPlayingTime() string`
+
+GetViewPlayingTime returns the ViewPlayingTime field if non-nil, zero value otherwise.
+
+### GetViewPlayingTimeOk
+
+`func (o *VideoView) GetViewPlayingTimeOk() (*string, bool)`
+
+GetViewPlayingTimeOk returns a tuple with the ViewPlayingTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewPlayingTime
+
+`func (o *VideoView) SetViewPlayingTime(v string)`
+
+SetViewPlayingTime sets ViewPlayingTime field to given value.
+
+### HasViewPlayingTime
+
+`func (o *VideoView) HasViewPlayingTime() bool`
+
+HasViewPlayingTime returns a boolean if a field has been set.
+
+### GetViewSessionId
+
+`func (o *VideoView) GetViewSessionId() string`
+
+GetViewSessionId returns the ViewSessionId field if non-nil, zero value otherwise.
+
+### GetViewSessionIdOk
+
+`func (o *VideoView) GetViewSessionIdOk() (*string, bool)`
+
+GetViewSessionIdOk returns a tuple with the ViewSessionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewSessionId
+
+`func (o *VideoView) SetViewSessionId(v string)`
+
+SetViewSessionId sets ViewSessionId field to given value.
+
+### HasViewSessionId
+
+`func (o *VideoView) HasViewSessionId() bool`
+
+HasViewSessionId returns a boolean if a field has been set.
+
+### GetViewerConnectionType
+
+`func (o *VideoView) GetViewerConnectionType() string`
+
+GetViewerConnectionType returns the ViewerConnectionType field if non-nil, zero value otherwise.
+
+### GetViewerConnectionTypeOk
+
+`func (o *VideoView) GetViewerConnectionTypeOk() (*string, bool)`
+
+GetViewerConnectionTypeOk returns a tuple with the ViewerConnectionType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewerConnectionType
+
+`func (o *VideoView) SetViewerConnectionType(v string)`
+
+SetViewerConnectionType sets ViewerConnectionType field to given value.
+
+### HasViewerConnectionType
+
+`func (o *VideoView) HasViewerConnectionType() bool`
+
+HasViewerConnectionType returns a boolean if a field has been set.
+
+### GetViewerDeviceModel
+
+`func (o *VideoView) GetViewerDeviceModel() string`
+
+GetViewerDeviceModel returns the ViewerDeviceModel field if non-nil, zero value otherwise.
+
+### GetViewerDeviceModelOk
+
+`func (o *VideoView) GetViewerDeviceModelOk() (*string, bool)`
+
+GetViewerDeviceModelOk returns a tuple with the ViewerDeviceModel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewerDeviceModel
+
+`func (o *VideoView) SetViewerDeviceModel(v string)`
+
+SetViewerDeviceModel sets ViewerDeviceModel field to given value.
+
+### HasViewerDeviceModel
+
+`func (o *VideoView) HasViewerDeviceModel() bool`
+
+HasViewerDeviceModel returns a boolean if a field has been set.
+
+### GetWeightedAverageBitrate
+
+`func (o *VideoView) GetWeightedAverageBitrate() int64`
+
+GetWeightedAverageBitrate returns the WeightedAverageBitrate field if non-nil, zero value otherwise.
+
+### GetWeightedAverageBitrateOk
+
+`func (o *VideoView) GetWeightedAverageBitrateOk() (*int64, bool)`
+
+GetWeightedAverageBitrateOk returns a tuple with the WeightedAverageBitrate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWeightedAverageBitrate
+
+`func (o *VideoView) SetWeightedAverageBitrate(v int64)`
+
+SetWeightedAverageBitrate sets WeightedAverageBitrate field to given value.
+
+### HasWeightedAverageBitrate
+
+`func (o *VideoView) HasWeightedAverageBitrate() bool`
+
+HasWeightedAverageBitrate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

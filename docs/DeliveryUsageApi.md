@@ -32,7 +32,7 @@ func main() {
     page := int32(56) // int32 | Offset by this many pages, of the size of `limit` (optional) (default to 1)
     limit := int32(56) // int32 | Number of items to include in the response (optional) (default to 100)
     assetId := "assetId_example" // string | Filter response to return delivery usage for this asset only. (optional)
-    timeframe := []string{"Inner_example"} // []string | Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.  (optional)
+    timeframe := []string{"Inner_example"} // []string | Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
  **page** | **int32** | Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
  **limit** | **int32** | Number of items to include in the response | [default to 100]
  **assetId** | **string** | Filter response to return delivery usage for this asset only. | 
- **timeframe** | **[]string** | Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.  | 
+ **timeframe** | **[]string** | Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made. | 
 
 ### Return type
 

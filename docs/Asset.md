@@ -7,14 +7,15 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | Unique identifier for the Asset. Max 255 characters. | [optional] 
 **CreatedAt** | Pointer to **string** | Time the Asset was created, defined as a Unix timestamp (seconds since epoch). | [optional] 
 **Status** | Pointer to **string** | The status of the asset. | [optional] 
-**Duration** | Pointer to **float64** | The duration of the asset in seconds (max duration for a single asset is 24 hours). | [optional] 
+**Duration** | Pointer to **float64** | The duration of the asset in seconds (max duration for a single asset is 12 hours). | [optional] 
 **MaxStoredResolution** | Pointer to **string** | The maximum resolution that has been stored for the asset. The asset may be delivered at lower resolutions depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. | [optional] 
-**MaxStoredFrameRate** | Pointer to **float64** | The maximum frame rate that has been stored for the asset. The asset may be delivered at lower frame rates depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. This field may return -1 if the frame rate of the input cannot be reliably determined.  | [optional] 
+**MaxStoredFrameRate** | Pointer to **float64** | The maximum frame rate that has been stored for the asset. The asset may be delivered at lower frame rates depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. This field may return -1 if the frame rate of the input cannot be reliably determined. | [optional] 
 **AspectRatio** | Pointer to **string** | The aspect ratio of the asset in the form of &#x60;width:height&#x60;, for example &#x60;16:9&#x60;. | [optional] 
 **PlaybackIds** | Pointer to [**[]PlaybackID**](PlaybackID.md) | An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/video/play-your-videos) for more details. | [optional] 
 **Tracks** | Pointer to [**[]Track**](Track.md) | The individual media tracks that make up an asset. | [optional] 
 **Errors** | Pointer to [**AssetErrors**](Asset_errors.md) |  | [optional] 
 **PerTitleEncode** | Pointer to **bool** |  | [optional] 
+**UploadId** | Pointer to **string** | Unique identifier for the Direct Upload. This is an optional parameter added when the asset is created from a direct upload. | [optional] 
 **IsLive** | Pointer to **bool** | Whether the asset is created from a live stream and the live stream is currently &#x60;active&#x60; and not in &#x60;idle&#x60; state. | [optional] 
 **Passthrough** | Pointer to **string** | Arbitrary metadata set for the asset. Max 255 characters. | [optional] 
 **LiveStreamId** | Pointer to **string** | Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream. | [optional] 
@@ -321,6 +322,31 @@ SetPerTitleEncode sets PerTitleEncode field to given value.
 `func (o *Asset) HasPerTitleEncode() bool`
 
 HasPerTitleEncode returns a boolean if a field has been set.
+
+### GetUploadId
+
+`func (o *Asset) GetUploadId() string`
+
+GetUploadId returns the UploadId field if non-nil, zero value otherwise.
+
+### GetUploadIdOk
+
+`func (o *Asset) GetUploadIdOk() (*string, bool)`
+
+GetUploadIdOk returns a tuple with the UploadId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUploadId
+
+`func (o *Asset) SetUploadId(v string)`
+
+SetUploadId sets UploadId field to given value.
+
+### HasUploadId
+
+`func (o *Asset) HasUploadId() bool`
+
+HasUploadId returns a boolean if a field has been set.
 
 ### GetIsLive
 
