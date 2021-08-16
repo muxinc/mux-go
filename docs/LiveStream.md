@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **PlaybackIds** | Pointer to [**[]PlaybackID**](PlaybackID.md) | An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/video/play-your-videos) for more details. | [optional] 
 **NewAssetSettings** | Pointer to [**CreateAssetRequest**](CreateAssetRequest.md) |  | [optional] 
 **Passthrough** | Pointer to **string** | Arbitrary metadata set for the asset. Max 255 characters. | [optional] 
-**AudioOnly** | Pointer to **bool** | The live stream only processes the audio track if the value is set to true. Mux drops the video track if broadcasted. | [optional] 
 **ReconnectWindow** | Pointer to **float32** | When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset. **Min**: 0.1s. **Max**: 300s (5 minutes). | [optional] [default to 60]
 **ReducedLatency** | Pointer to **bool** | Latency is the time from when the streamer does something in real life to when you see it happen in the player. Set this if you want lower latency for your live stream. **Note**: Reconnect windows are incompatible with Reduced Latency and will always be set to zero (0) seconds. See the [Reduce live stream latency guide](https://docs.mux.com/guides/video/reduce-live-stream-latency) to understand the tradeoffs. | [optional] 
 **SimulcastTargets** | Pointer to [**[]SimulcastTarget**](SimulcastTarget.md) | Each Simulcast Target contains configuration details to broadcast (or \&quot;restream\&quot;) a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/video/stream-live-to-3rd-party-platforms). | [optional] 
@@ -262,31 +261,6 @@ SetPassthrough sets Passthrough field to given value.
 `func (o *LiveStream) HasPassthrough() bool`
 
 HasPassthrough returns a boolean if a field has been set.
-
-### GetAudioOnly
-
-`func (o *LiveStream) GetAudioOnly() bool`
-
-GetAudioOnly returns the AudioOnly field if non-nil, zero value otherwise.
-
-### GetAudioOnlyOk
-
-`func (o *LiveStream) GetAudioOnlyOk() (*bool, bool)`
-
-GetAudioOnlyOk returns a tuple with the AudioOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAudioOnly
-
-`func (o *LiveStream) SetAudioOnly(v bool)`
-
-SetAudioOnly sets AudioOnly field to given value.
-
-### HasAudioOnly
-
-`func (o *LiveStream) HasAudioOnly() bool`
-
-HasAudioOnly returns a boolean if a field has been set.
 
 ### GetReconnectWindow
 

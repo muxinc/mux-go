@@ -1,59 +1,55 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  contact:
-    email: devex@mux.com
-    name: Mux DevEx
-    url: https://docs.mux.com
-  description: Mux is how developers build online video. This API encompasses both
-    Mux Video and Mux Data functionality to help you build your video-related projects
-    better and faster than ever before.
+  description: |
+    Mux is how developers build online video. This API encompasses both
+    Mux Video and Mux Data functionality to help you build your video-related
+    projects better and faster than ever before.
   title: Mux API
   version: v1
 servers:
 - description: Mux Production Environment
-  url: https://api.mux.com
+  url: https://api.mux.com/
 security:
 - accessToken: []
 tags:
-- description: |-
+- description: |
     An asset refers to a piece of media content that is stored or is being live streamed through the Mux system. An asset always has a duration and one or more tracks (audio, video, and text data).
 
     The media content of an asset cannot be updated once created, however an asset can be used to create another asset, and can be modified within that process.
   name: Assets
-- description: |-
+- description: |
     A Live Stream represents a unique live stream of video being pushed to Mux. It includes configuration details (a Stream Key) for live broadcasting software/hardware and a Playback ID for playing the stream anywhere. Currently, RTMP is the only supported method of ingesting video. Use rtmp://global-live.mux.com:5222/app with the Live Stream's Stream Key for getting the video into Mux, and use https://stream.mux.com with the Live Stream's Playback ID for playback.
 
-    A Live Stream can be used once for a specific event, or re-used forever. If you're building an application like Facebook Live or Twitch, you could create one Live Stream per user. This allows them to configure their broadcasting software once, and the Live Stream Playback ID will always show their latest stream.
+    A Live Stream can be used once for a specific event, or re-used forever. If you're building an application like Facebook Live or Twitch, you could create one Live Stream per user. This allows them the configure their broadcasting software once, and the Live Stream Playback ID will always show their latest stream.
 
     Each RTMP session creates a new video asset automatically. You can set up a webhook to be notified each time a broadcast (or Live Stream RTMP session) begins or ends with the video.live_stream.active and video.live_stream.idle events respectively. Assets that are created from a Live Stream have the same behavior as other Assets you create.
 
     Learn more about [how to go live in our guides](https://docs.mux.com/docs/live-streaming).
   name: Live Streams
-- description: A URL signing key is used as the secret when signing any Mux URL. Mux
-    requires a [JSON Web Token](https://jwt.io/) as the value of the token query parameter.
-    The token query parameter must be set for URLs that reference a playback ID with
-    a signed playback policy.
+- description: |
+    A URL signing key is used as the secret when signing any Mux URL. Mux requires a [JSON Web Token](https://jwt.io/) as the value of the token query parameter. The token query parameter must be set for URLs that reference a playback ID with a signed playback policy.
   name: URL Signing Keys
-- description: |-
+- description: |
     Direct upload allows you to push assets directly to Mux storage instead of needing to go through your own first. When you create a new direct upload, we'll give you back a signed URL for a Google Cloud Storage bucket. Their storage API is S3 compatible, so whatever tool you use to upload to either GCS or S3 should work, just remember you're probably uploading large video files and should [take advantage of things like resumable or multipart uploads](https://cloud.google.com/storage/docs/json_api/v1/how-tos/resumable-upload).
 
     Particularly for customers that deal with a lot of user-generated content, it's common to expect quite a few abandoned uploads. To keep those abandoned uploads from cluttering up your asset lists, we don't create an asset for you until the upload is complete. Once that asset is created, you can expect all of the normal asset-related webhooks.
   name: Direct Upload
-- description: |-
+- description: |
     The Delivery Usage API allows you to get delivery/streaming usage details for each asset and across all assets. Delivery usage details are aggregated every hour at the top of the hour and can be requested for a specified time window within the last 90 days starting at 12 hours prior to when the request is made.
 
     Assets are ordered by delivery usage starting with the one with the highest usage. Only assets with delivery usage greater than 0 seconds are returned in the response.
   name: Delivery Usage
-- description: An individual video view tracked by Mux Data. For the full list of
-    properties for each view please refer to the table of data fields in the [Export
-    raw video view data guide](https://docs.mux.com/guides/data/export-raw-video-view-data).
+- description: |
+    An individual video view tracked by Mux Data. For the full list of properties for each view please refer to the table of data fields in the [Export raw video view data guide](https://docs.mux.com/guides/data/export-raw-video-view-data)
   name: Video Views
-- description: A list of playback errors detected by Mux Data.
+- description: |
+    A list of playback errors detected by Mux Data.
   name: Errors
 paths:
   /video/v1/assets:
     get:
-      description: List all Mux assets.
+      description: |
+        List all Mux assets.
       operationId: list-assets
       parameters:
       - description: Number of items to include in the response
@@ -75,24 +71,6 @@ paths:
           default: 1
           format: int32
           type: integer
-        style: form
-      - description: Filter response to return all the assets for this live stream
-          only
-        explode: true
-        in: query
-        name: live_stream_id
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter response to return an asset created from this direct upload
-          only
-        explode: true
-        in: query
-        name: upload_id
-        required: false
-        schema:
-          type: string
         style: form
       responses:
         "200":
@@ -155,7 +133,8 @@ paths:
       tags:
       - Assets
     post:
-      description: Create a new Mux Video asset.
+      description: |
+        Create a new Mux Video asset.
       operationId: create-asset
       parameters: []
       requestBody:
@@ -190,7 +169,8 @@ paths:
       - Assets
   /video/v1/assets/{ASSET_ID}:
     delete:
-      description: Deletes a video asset and all its data.
+      description: |
+        Deletes a video asset and all its data
       operationId: delete-asset
       parameters:
       - description: The asset ID.
@@ -937,8 +917,8 @@ paths:
       - Live Streams
   /video/v1/playback-ids/{PLAYBACK_ID}:
     get:
-      description: Retrieves the Identifier of the Asset or Live Stream associated
-        with the Playback ID.
+      description: |
+        Retrieves the Identifier of the Asset or Live Stream associated with the Playback ID.
       operationId: get-asset-or-livestream-id
       parameters:
       - description: The live stream's playback ID.
@@ -1079,7 +1059,8 @@ paths:
       - Live Streams
   /video/v1/signing-keys:
     get:
-      description: Returns a list of URL signing keys.
+      description: |
+        Returns a list of URL signing keys.
       operationId: list-url-signing-keys
       parameters:
       - description: Number of items to include in the response
@@ -1119,10 +1100,8 @@ paths:
       tags:
       - URL Signing Keys
     post:
-      description: Creates a new signing key pair. When creating a new signing key,
-        the API will generate a 2048-bit RSA key-pair and return the private key and
-        a generated key-id; the public key will be stored at Mux to validate signed
-        tokens.
+      description: |
+        Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens.
       operationId: create-url-signing-key
       responses:
         "201":
@@ -1141,9 +1120,8 @@ paths:
       - URL Signing Keys
   /video/v1/signing-keys/{SIGNING_KEY_ID}:
     delete:
-      description: Deletes an existing signing key. Use with caution, as this will
-        invalidate any existing signatures and no URLs can be signed using the key
-        again.
+      description: |
+        Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again.
       operationId: delete-url-signing-key
       parameters:
       - description: The ID of the signing key.
@@ -1358,8 +1336,8 @@ paths:
       - Direct Uploads
   /video/v1/delivery-usage:
     get:
-      description: Returns a list of delivery usage records and their associated Asset
-        IDs or Live Stream IDs.
+      description: |
+        Returns a list of delivery usage records and their associated Asset IDs or Live Stream IDs.
       operationId: list-delivery-usage
       parameters:
       - description: Offset by this many pages, of the size of `limit`
@@ -1390,10 +1368,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: Time window to get delivery usage information. timeframe[0] indicates
-          the start time, timeframe[1] indicates the end time in seconds since the
-          Unix epoch. Default time window is 1 hour representing usage from 13th to
-          12th hour from when the request is made.
+      - description: |
+          Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.
         explode: true
         in: query
         name: timeframe[]
@@ -1436,7 +1412,8 @@ paths:
       - Delivery Usage
   /data/v1/video-views:
     get:
-      description: Returns a list of video views.
+      description: |
+        Returns a list of video views
       operationId: list-video-views
       parameters:
       - description: Number of items to include in the response
@@ -1577,7 +1554,8 @@ paths:
       - Video Views
   /data/v1/video-views/{VIDEO_VIEW_ID}:
     get:
-      description: Returns the details of a video view.
+      description: |
+        Returns the details of a video view
       operationId: get-video-view
       parameters:
       - description: ID of the Video View
@@ -1601,7 +1579,8 @@ paths:
       - Video Views
   /data/v1/errors:
     get:
-      description: Returns a list of errors.
+      description: |
+        Returns a list of errors
       operationId: list-errors
       parameters:
       - description: |
@@ -1955,11 +1934,8 @@ paths:
       - Dimensions
   /data/v1/exports:
     get:
-      deprecated: true
       description: |
-        Deprecated: The API has been replaced by the list-exports-views API call.
-
-        Lists the available video view exports along with URLs to retrieve them.
+        Lists the available video view exports along with URLs to retrieve them
       operationId: list-exports
       responses:
         "200":
@@ -1980,45 +1956,10 @@ paths:
       summary: List property video view export links
       tags:
       - Exports
-  /data/v1/exports/views:
-    get:
-      description: Lists the available video view exports along with URLs to retrieve
-        them.
-      operationId: list-exports-views
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                total_row_count: 7
-                timeframe:
-                - 1626296941
-                - 1626383341
-                data:
-                - files:
-                  - version: 2
-                    type: csv
-                    path: https://s3.amazonaws.com/mux-data-exports/1/2021_01_03.csv.gz?...signature...
-                  export_date: 2021-01-03
-                - files:
-                  - version: 2
-                    type: csv
-                    path: https://s3.amazonaws.com/mux-data-exports/1/2021_01_02.csv.gz?...signature...
-                  export_date: 2021-01-02
-                - files:
-                  - version: 2
-                    type: csv
-                    path: https://s3.amazonaws.com/mux-data-exports/1/2021_01_01.csv.gz?...signature...
-                  export_date: 2021-01-01
-              schema:
-                $ref: '#/components/schemas/ListVideoViewExportsResponse'
-          description: OK
-      summary: List available property view exports
-      tags:
-      - Exports
   /data/v1/metrics/{METRIC_ID}/breakdown:
     get:
-      description: List the breakdown values for a specific metric.
+      description: |
+        List the breakdown values for a specific metric
       operationId: list-breakdown-values
       parameters:
       - description: ID of the Metric
@@ -2038,7 +1979,6 @@ paths:
           - playback_failure_percentage
           - playback_failure_score
           - player_startup_time
-          - playing_time
           - rebuffer_count
           - rebuffer_duration
           - rebuffer_frequency
@@ -2047,15 +1987,12 @@ paths:
           - requests_for_first_preroll
           - seek_latency
           - startup_time_score
-          - unique_viewers
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
           - video_startup_preroll_request_time
           - video_startup_time
           - viewer_experience_score
-          - views
-          - weighted_average_bitrate
           type: string
         style: simple
       - description: Breakdown value to group the results by
@@ -2107,7 +2044,7 @@ paths:
           - viewer_user_id
           type: string
         style: form
-      - description: Measurement for the provided metric. If omitted, the default
+      - description: Measurement for the provided metric. If omitted, the deafult
           for the metric will be used.
         explode: true
         in: query
@@ -2118,8 +2055,6 @@ paths:
           - 95th
           - median
           - avg
-          - count
-          - sum
           type: string
         style: form
       - description: |
@@ -2200,13 +2135,10 @@ paths:
                 timeframe:
                 - 1610028298
                 - 1610114698
-                meta:
-                  aggregation: view_end
                 data:
                 - views: 5
                   value: 4
                   total_watch_time: 513934
-                  total_playing_time: 413934
                   negative_impact: 1
                   field: US
               schema:
@@ -2217,8 +2149,8 @@ paths:
       - Metrics
   /data/v1/metrics/{METRIC_ID}/overall:
     get:
-      description: Returns the overall value for a specific metric, as well as the
-        total view count, watch time, and the Mux Global metric value for the metric.
+      description: |
+        Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.
       operationId: get-overall-values
       parameters:
       - description: ID of the Metric
@@ -2238,7 +2170,6 @@ paths:
           - playback_failure_percentage
           - playback_failure_score
           - player_startup_time
-          - playing_time
           - rebuffer_count
           - rebuffer_duration
           - rebuffer_frequency
@@ -2247,15 +2178,12 @@ paths:
           - requests_for_first_preroll
           - seek_latency
           - startup_time_score
-          - unique_viewers
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
           - video_startup_preroll_request_time
           - video_startup_time
           - viewer_experience_score
-          - views
-          - weighted_average_bitrate
           type: string
         style: simple
       - description: |
@@ -2283,7 +2211,7 @@ paths:
             type: string
           type: array
         style: form
-      - description: Measurement for the provided metric. If omitted, the default
+      - description: Measurement for the provided metric. If omitted, the deafult
           for the metric will be used.
         explode: true
         in: query
@@ -2294,8 +2222,6 @@ paths:
           - 95th
           - median
           - avg
-          - count
-          - sum
           type: string
         style: form
       responses:
@@ -2307,12 +2233,9 @@ paths:
                 timeframe:
                 - 1610029525
                 - 1610115925
-                meta:
-                  aggregation: view_end
                 data:
                   value: 4
                   total_watch_time: 513934
-                  total_playing_time: 413934
                   total_views: 5
                   global_value: 1169.1832095168065
               schema:
@@ -2323,9 +2246,8 @@ paths:
       - Metrics
   /data/v1/metrics/{METRIC_ID}/insights:
     get:
-      description: Returns a list of insights for a metric. These are the worst performing
-        values across all breakdowns sorted by how much they negatively impact a specific
-        metric.
+      description: |
+        Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.
       operationId: list-insights
       parameters:
       - description: ID of the Metric
@@ -2345,7 +2267,6 @@ paths:
           - playback_failure_percentage
           - playback_failure_score
           - player_startup_time
-          - playing_time
           - rebuffer_count
           - rebuffer_duration
           - rebuffer_frequency
@@ -2354,18 +2275,15 @@ paths:
           - requests_for_first_preroll
           - seek_latency
           - startup_time_score
-          - unique_viewers
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
           - video_startup_preroll_request_time
           - video_startup_time
           - viewer_experience_score
-          - views
-          - weighted_average_bitrate
           type: string
         style: simple
-      - description: Measurement for the provided metric. If omitted, the default
+      - description: Measurement for the provided metric. If omitted, the deafult
           for the metric will be used.
         explode: true
         in: query
@@ -2376,8 +2294,6 @@ paths:
           - 95th
           - median
           - avg
-          - count
-          - sum
           type: string
         style: form
       - description: Sort order.
@@ -2413,11 +2329,8 @@ paths:
                 timeframe:
                 - 1610029610
                 - 1610116010
-                meta:
-                  aggregation: view_end
                 data:
                 - total_watch_time: 351144
-                  total_playing_time: 341144
                   total_views: 1
                   negative_impact_score: -5
                   metric: 9
@@ -2437,7 +2350,8 @@ paths:
       - Metrics
   /data/v1/metrics/{METRIC_ID}/timeseries:
     get:
-      description: Returns timeseries data for a specific metric.
+      description: |
+        Returns timeseries data for a specific metric
       operationId: get-metric-timeseries-data
       parameters:
       - description: ID of the Metric
@@ -2457,7 +2371,6 @@ paths:
           - playback_failure_percentage
           - playback_failure_score
           - player_startup_time
-          - playing_time
           - rebuffer_count
           - rebuffer_duration
           - rebuffer_frequency
@@ -2466,15 +2379,12 @@ paths:
           - requests_for_first_preroll
           - seek_latency
           - startup_time_score
-          - unique_viewers
           - upscale_percentage
           - video_quality_score
           - video_startup_preroll_load_time
           - video_startup_preroll_request_time
           - video_startup_time
           - viewer_experience_score
-          - views
-          - weighted_average_bitrate
           type: string
         style: simple
       - description: |
@@ -2502,7 +2412,7 @@ paths:
             type: string
           type: array
         style: form
-      - description: Measurement for the provided metric. If omitted, the default
+      - description: Measurement for the provided metric. If omitted, the deafult
           for the metric will be used.
         explode: true
         in: query
@@ -2513,8 +2423,6 @@ paths:
           - 95th
           - median
           - avg
-          - count
-          - sum
           type: string
         style: form
       - description: Sort order.
@@ -2549,15 +2457,13 @@ paths:
                 timeframe:
                 - 1610029711
                 - 1610116111
-                meta:
-                  aggregation: view_end
                 data:
                 - - 2021-01-07T14:00:00Z
                   - null
                   - null
-                  - - 2021-01-07T15:00:00Z
-                    - null
-                    - null
+                - - 2021-01-07T15:00:00Z
+                  - null
+                  - null
               schema:
                 $ref: '#/components/schemas/GetMetricTimeseriesDataResponse'
           description: OK
@@ -2566,7 +2472,8 @@ paths:
       - Metrics
   /data/v1/metrics/comparison:
     get:
-      description: List all of the values across every breakdown for a specific metric.
+      description: |
+        List all of the values across every breakdown for a specific metric
       operationId: list-all-metric-values
       parameters:
       - description: |
@@ -2663,24 +2570,7 @@ paths:
                 data:
                 - watch_time: 513934
                   view_count: 5
-                  started_views: 6
-                  ended_views: 5
-                  unique_viewers: 6
-                  total_playing_time: 503934
                   name: totals
-                - value: 6
-                  type: number
-                  name: Views
-                  metric: views
-                  items:
-                  - value: 6
-                    type: number
-                    name: Unique Viewers
-                    metric: unique_viewers
-                  - value: 503934
-                    type: milliseconds
-                    name: Playing Time
-                    metric: playing_time
                 - value: 0.7803472280502319
                   type: score
                   name: Overall Score
@@ -2853,7 +2743,8 @@ paths:
       - Metrics
   /data/v1/realtime/dimensions:
     get:
-      description: Lists availiable real-time dimensions.
+      description: |
+        Lists availiable real-time dimensions
       operationId: list-realtime-dimensions
       responses:
         "200":
@@ -2893,7 +2784,8 @@ paths:
       - Real-Time
   /data/v1/realtime/metrics:
     get:
-      description: Lists availiable real-time metrics.
+      description: |
+        Lists availiable real-time metrics.
       operationId: list-realtime-metrics
       responses:
         "200":
@@ -2925,8 +2817,8 @@ paths:
       - Real-Time
   /data/v1/realtime/metrics/{REALTIME_METRIC_ID}/breakdown:
     get:
-      description: Gets breakdown information for a specific dimension and metric
-        along with the number of concurrent viewers and negative impact score.
+      description: |
+        Gets breakdown information for a specific dimension and metric along with the number of concurrent viewers and negative impact score.
       operationId: get-realtime-breakdown
       parameters:
       - description: ID of the Realtime Metric
@@ -3047,7 +2939,8 @@ paths:
       - Real-Time
   /data/v1/realtime/metrics/{REALTIME_HISTOGRAM_METRIC_ID}/histogram-timeseries:
     get:
-      description: Gets histogram timeseries information for a specific metric.
+      description: |
+        Gets histogram timeseries information for a specific metric.
       operationId: get-realtime-histogram-timeseries
       parameters:
       - description: ID of the Realtime Histogram Metric
@@ -3150,8 +3043,8 @@ paths:
       - Real-Time
   /data/v1/realtime/metrics/{REALTIME_METRIC_ID}/timeseries:
     get:
-      description: Gets Time series information for a specific metric along with the
-        number of concurrent viewers.
+      description: |
+        Gets Time series information for a specific metric along with the number of concurrent viewers.
       operationId: get-realtime-timeseries
       parameters:
       - description: ID of the Realtime Metric
@@ -3214,7 +3107,8 @@ paths:
       - Real-Time
   /data/v1/incidents:
     get:
-      description: Returns a list of incidents.
+      description: |
+        Returns a list of incidents
       operationId: list-incidents
       parameters:
       - description: Number of items to include in the response
@@ -3366,7 +3260,8 @@ paths:
       - Incidents
   /data/v1/incidents/{INCIDENT_ID}:
     get:
-      description: Returns the details of an incident.
+      description: |
+        Returns the details of an incident
       operationId: get-incident
       parameters:
       - description: ID of the Incident
@@ -3429,7 +3324,8 @@ paths:
       - Incidents
   /data/v1/incidents/{INCIDENT_ID}/related:
     get:
-      description: Returns all the incidents that seem related to a specific incident.
+      description: |
+        Returns all the incidents that seem related to a specific incident
       operationId: list-related-incidents
       parameters:
       - description: ID of the Incident
@@ -3633,7 +3529,7 @@ components:
         type: string
       style: form
     measurement:
-      description: Measurement for the provided metric. If omitted, the default for
+      description: Measurement for the provided metric. If omitted, the deafult for
         the metric will be used.
       explode: true
       in: query
@@ -3644,8 +3540,6 @@ components:
         - 95th
         - median
         - avg
-        - count
-        - sum
         type: string
       style: form
     order_by:
@@ -3821,10 +3715,8 @@ components:
         type: string
       style: form
     delivery_usage_timeframe:
-      description: Time window to get delivery usage information. timeframe[0] indicates
-        the start time, timeframe[1] indicates the end time in seconds since the Unix
-        epoch. Default time window is 1 hour representing usage from 13th to 12th
-        hour from when the request is made.
+      description: |
+        Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made.
       explode: true
       in: query
       name: timeframe[]
@@ -3995,7 +3887,6 @@ components:
         - playback_failure_percentage
         - playback_failure_score
         - player_startup_time
-        - playing_time
         - rebuffer_count
         - rebuffer_duration
         - rebuffer_frequency
@@ -4004,15 +3895,12 @@ components:
         - requests_for_first_preroll
         - seek_latency
         - startup_time_score
-        - unique_viewers
         - upscale_percentage
         - video_quality_score
         - video_startup_preroll_load_time
         - video_startup_preroll_request_time
         - video_startup_time
         - viewer_experience_score
-        - views
-        - weighted_average_bitrate
         type: string
       style: simple
     simulcast_target_id:
@@ -4071,31 +3959,11 @@ components:
       schema:
         type: string
       style: simple
-    list_asset_upload_id:
-      description: Filter response to return an asset created from this direct upload
-        only
-      explode: true
-      in: query
-      name: upload_id
-      required: false
-      schema:
-        type: string
-      style: form
-    list_asset_live_stream_id:
-      description: Filter response to return all the assets for this live stream only
-      explode: true
-      in: query
-      name: live_stream_id
-      required: false
-      schema:
-        type: string
-      style: form
   schemas:
     AssetResponse:
       example:
         data:
           aspect_ratio: aspect_ratio
-          upload_id: upload_id
           playback_ids:
           - id: id
           - id: id
@@ -4249,7 +4117,6 @@ components:
             $ref: '#/components/schemas/PlaybackPolicy'
           type: array
         per_title_encode:
-          deprecated: true
           format: boolean
           type: boolean
         passthrough:
@@ -4295,7 +4162,6 @@ components:
     CreateLiveStreamRequest:
       example:
         reconnect_window: 24.116837
-        audio_only: true
         test: true
         playback_policy:
         - null
@@ -4373,10 +4239,6 @@ components:
           type: number
         passthrough:
           type: string
-        audio_only:
-          description: Force the live stream to only process the audio track when
-            the value is set to true. Mux drops the video track if broadcasted.
-          type: boolean
         reduced_latency:
           description: 'Latency is the time from when the streamer does something
             in real life to when you see it happen in the player. Set this if you
@@ -4584,7 +4446,6 @@ components:
       example:
         data:
         - aspect_ratio: aspect_ratio
-          upload_id: upload_id
           playback_ids:
           - id: id
           - id: id
@@ -4669,7 +4530,6 @@ components:
             type: type
           status: preparing
         - aspect_ratio: aspect_ratio
-          upload_id: upload_id
           playback_ids:
           - id: id
           - id: id
@@ -4762,8 +4622,7 @@ components:
     ListLiveStreamsResponse:
       example:
         data:
-        - audio_only: true
-          playback_ids:
+        - playback_ids:
           - id: id
           - id: id
           test: true
@@ -4834,8 +4693,7 @@ components:
             url: url
             status: idle
           status: active
-        - audio_only: true
-          playback_ids:
+        - playback_ids:
           - id: id
           - id: id
           test: true
@@ -4935,7 +4793,6 @@ components:
           id: id
           new_asset_settings:
             aspect_ratio: aspect_ratio
-            upload_id: upload_id
             playback_ids:
             - id: id
             - id: id
@@ -5031,7 +4888,6 @@ components:
           id: id
           new_asset_settings:
             aspect_ratio: aspect_ratio
-            upload_id: upload_id
             playback_ids:
             - id: id
             - id: id
@@ -5131,7 +4987,6 @@ components:
     LiveStreamResponse:
       example:
         data:
-          audio_only: true
           playback_ids:
           - id: id
           - id: id
@@ -5268,7 +5123,6 @@ components:
           id: id
           new_asset_settings:
             aspect_ratio: aspect_ratio
-            upload_id: upload_id
             playback_ids:
             - id: id
             - id: id
@@ -5472,7 +5326,6 @@ components:
           quality_score: quality_score
           session_id: session_id
           viewer_application_version: viewer_application_version
-          view_session_id: view_session_id
           view_seek_count: 7
           viewer_user_id: viewer_user_id
           player_software_version: player_software_version
@@ -5486,7 +5339,6 @@ components:
           video_startup_preroll_request_time: 5
           isp: isp
           asn_name: asn_name
-          view_max_playhead_position: view_max_playhead_position
           viewer_os_architecture: viewer_os_architecture
           viewer_device_category: viewer_device_category
           video_startup_preroll_load_time: 4
@@ -5495,7 +5347,6 @@ components:
           longitude: longitude
           viewer_os_family: viewer_os_family
           page_load_time: 2
-          weighted_average_bitrate: 6
           experiment_name: experiment_name
           player_poster: player_poster
           player_language: player_language
@@ -5503,11 +5354,9 @@ components:
           buffering_duration: 1
           video_encoding_variant: video_encoding_variant
           player_source_host_name: player_source_host_name
-          sub_property_id: sub_property_id
           continent_code: continent_code
           startup_score: startup_score
           rebuffering_score: rebuffering_score
-          viewer_connection_type: viewer_connection_type
           player_source_type: player_source_type
           country_code: country_code
           player_error_message: player_error_message
@@ -5526,16 +5375,13 @@ components:
           player_height: 1
           video_producer: video_producer
           country_name: country_name
-          view_playing_time: view_playing_time
           playback_score: playback_score
           player_source_duration: 9
           preroll_played: true
           video_variant_id: video_variant_id
           short_time: short_time
           view_id: view_id
-          viewer_device_model: viewer_device_model
           platform_description: platform_description
-          player_remote_played: true
           player_source_stream_type: player_source_stream_type
           player_load_time: 1
           preroll_requested: true
@@ -5770,76 +5616,6 @@ components:
             format: int64
             type: integer
           type: array
-      type: object
-    ListVideoViewExportsResponse:
-      example:
-        timeframe:
-        - 1
-        - 1
-        data:
-        - export_date: 2000-01-23
-          files:
-          - path: path
-            type: type
-            version: 0
-          - path: path
-            type: type
-            version: 0
-        - export_date: 2000-01-23
-          files:
-          - path: path
-            type: type
-            version: 0
-          - path: path
-            type: type
-            version: 0
-        total_row_count: 6
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ExportDate'
-          type: array
-        total_row_count:
-          format: int32
-          type: integer
-        timeframe:
-          items:
-            format: int32
-            type: integer
-          type: array
-      type: object
-    ExportDate:
-      example:
-        export_date: 2000-01-23
-        files:
-        - path: path
-          type: type
-          version: 0
-        - path: path
-          type: type
-          version: 0
-      properties:
-        export_date:
-          format: date
-          type: string
-        files:
-          items:
-            $ref: '#/components/schemas/ExportFile'
-          type: array
-      type: object
-    ExportFile:
-      example:
-        path: path
-        type: type
-        version: 0
-      properties:
-        version:
-          format: int32
-          type: integer
-        type:
-          type: string
-        path:
-          type: string
       type: object
     ListBreakdownValuesResponse:
       example:
@@ -6236,7 +6012,7 @@ components:
           type: string
         name:
           description: The name of the track containing a human-readable description.
-            This value must be unique across all the text type and subtitles text
+            This value must be unqiue across all the text type and subtitles text
             type tracks. HLS manifest will associate subtitle text track with this
             value. For example, set the value to "English" for subtitles text track
             with language_code as en-US. If this parameter is not included, Mux will
@@ -6878,7 +6654,6 @@ components:
     Asset:
       example:
         aspect_ratio: aspect_ratio
-        upload_id: upload_id
         playback_ids:
         - id: id
         - id: id
@@ -6980,7 +6755,7 @@ components:
           type: string
         duration:
           description: The duration of the asset in seconds (max duration for a single
-            asset is 12 hours).
+            asset is 24 hours).
           format: double
           type: number
         max_stored_resolution:
@@ -6996,11 +6771,8 @@ components:
           - UHD
           type: string
         max_stored_frame_rate:
-          description: The maximum frame rate that has been stored for the asset.
-            The asset may be delivered at lower frame rates depending on the device
-            and bandwidth, however it cannot be delivered at a higher value than is
-            stored. This field may return -1 if the frame rate of the input cannot
-            be reliably determined.
+          description: |
+            The maximum frame rate that has been stored for the asset. The asset may be delivered at lower frame rates depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. This field may return -1 if the frame rate of the input cannot be reliably determined.
           format: double
           type: number
         aspect_ratio:
@@ -7022,13 +6794,8 @@ components:
         errors:
           $ref: '#/components/schemas/Asset_errors'
         per_title_encode:
-          deprecated: true
           format: boolean
           type: boolean
-        upload_id:
-          description: Unique identifier for the Direct Upload. This is an optional
-            parameter added when the asset is created from a direct upload.
-          type: string
         is_live:
           description: Whether the asset is created from a live stream and the live
             stream is currently `active` and not in `idle` state.
@@ -7286,7 +7053,6 @@ components:
       type: object
     LiveStream:
       example:
-        audio_only: true
         playback_ids:
         - id: id
         - id: id
@@ -7403,10 +7169,6 @@ components:
         passthrough:
           description: Arbitrary metadata set for the asset. Max 255 characters.
           type: string
-        audio_only:
-          description: The live stream only processes the audio track if the value
-            is set to true. Mux drops the video track if broadcasted.
-          type: boolean
         reconnect_window:
           default: 60
           description: 'When live streaming software disconnects from Mux, either
@@ -7579,7 +7341,6 @@ components:
         id: id
         new_asset_settings:
           aspect_ratio: aspect_ratio
-          upload_id: upload_id
           playback_ids:
           - id: id
           - id: id
@@ -8034,7 +7795,6 @@ components:
         quality_score: quality_score
         session_id: session_id
         viewer_application_version: viewer_application_version
-        view_session_id: view_session_id
         view_seek_count: 7
         viewer_user_id: viewer_user_id
         player_software_version: player_software_version
@@ -8048,7 +7808,6 @@ components:
         video_startup_preroll_request_time: 5
         isp: isp
         asn_name: asn_name
-        view_max_playhead_position: view_max_playhead_position
         viewer_os_architecture: viewer_os_architecture
         viewer_device_category: viewer_device_category
         video_startup_preroll_load_time: 4
@@ -8057,7 +7816,6 @@ components:
         longitude: longitude
         viewer_os_family: viewer_os_family
         page_load_time: 2
-        weighted_average_bitrate: 6
         experiment_name: experiment_name
         player_poster: player_poster
         player_language: player_language
@@ -8065,11 +7823,9 @@ components:
         buffering_duration: 1
         video_encoding_variant: video_encoding_variant
         player_source_host_name: player_source_host_name
-        sub_property_id: sub_property_id
         continent_code: continent_code
         startup_score: startup_score
         rebuffering_score: rebuffering_score
-        viewer_connection_type: viewer_connection_type
         player_source_type: player_source_type
         country_code: country_code
         player_error_message: player_error_message
@@ -8088,16 +7844,13 @@ components:
         player_height: 1
         video_producer: video_producer
         country_name: country_name
-        view_playing_time: view_playing_time
         playback_score: playback_score
         player_source_duration: 9
         preroll_played: true
         video_variant_id: video_variant_id
         short_time: short_time
         view_id: view_id
-        viewer_device_model: viewer_device_model
         platform_description: platform_description
-        player_remote_played: true
         player_source_stream_type: player_source_stream_type
         player_load_time: 1
         preroll_requested: true
@@ -8356,23 +8109,6 @@ components:
           type: string
         player_mux_plugin_name:
           type: string
-        sub_property_id:
-          type: string
-        player_remote_played:
-          type: boolean
-        view_max_playhead_position:
-          type: string
-        view_playing_time:
-          type: string
-        view_session_id:
-          type: string
-        viewer_connection_type:
-          type: string
-        viewer_device_model:
-          type: string
-        weighted_average_bitrate:
-          format: int64
-          type: integer
       type: object
     AbridgedVideoView:
       example:
