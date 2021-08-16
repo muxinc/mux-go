@@ -19,16 +19,52 @@ Method | HTTP request | Description
 [**SignalLiveStreamComplete**](LiveStreamsApi.md#SignalLiveStreamComplete) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/complete | Signal a live stream is finished
 
 
-# **CreateLiveStream**
-> LiveStreamResponse CreateLiveStream(ctx, createLiveStreamRequest)
+
+## CreateLiveStream
+
+> LiveStreamResponse CreateLiveStream(ctx).CreateLiveStreamRequest(createLiveStreamRequest).Execute()
+
 Create a live stream
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createLiveStreamRequest := *openapiclient.NewCreateLiveStreamRequest() // CreateLiveStreamRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.CreateLiveStream(context.Background()).CreateLiveStreamRequest(createLiveStreamRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.CreateLiveStream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateLiveStream`: LiveStreamResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.CreateLiveStream`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateLiveStreamRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **createLiveStreamRequest** | [**CreateLiveStreamRequest**](CreateLiveStreamRequest.md)|  | 
+ **createLiveStreamRequest** | [**CreateLiveStreamRequest**](CreateLiveStreamRequest.md) |  | 
 
 ### Return type
 
@@ -40,26 +76,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **CreateLiveStreamPlaybackId**
-> CreatePlaybackIdResponse CreateLiveStreamPlaybackId(ctx, lIVESTREAMID, createPlaybackIdRequest)
+
+## CreateLiveStreamPlaybackId
+
+> CreatePlaybackIDResponse CreateLiveStreamPlaybackId(ctx, lIVESTREAMID).CreatePlaybackIDRequest(createPlaybackIDRequest).Execute()
+
 Create a live stream playback ID
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+    createPlaybackIDRequest := *openapiclient.NewCreatePlaybackIDRequest() // CreatePlaybackIDRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.CreateLiveStreamPlaybackId(context.Background(), lIVESTREAMID).CreatePlaybackIDRequest(createPlaybackIDRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.CreateLiveStreamPlaybackId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateLiveStreamPlaybackId`: CreatePlaybackIDResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.CreateLiveStreamPlaybackId`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
-  **createPlaybackIdRequest** | [**CreatePlaybackIdRequest**](CreatePlaybackIdRequest.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateLiveStreamPlaybackIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **createPlaybackIDRequest** | [**CreatePlaybackIDRequest**](CreatePlaybackIDRequest.md) |  | 
 
 ### Return type
 
-[**CreatePlaybackIdResponse**](CreatePlaybackIDResponse.md)
+[**CreatePlaybackIDResponse**](CreatePlaybackIDResponse.md)
 
 ### Authorization
 
@@ -67,24 +146,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **CreateLiveStreamSimulcastTarget**
-> SimulcastTargetResponse CreateLiveStreamSimulcastTarget(ctx, lIVESTREAMID, createSimulcastTargetRequest)
+
+## CreateLiveStreamSimulcastTarget
+
+> SimulcastTargetResponse CreateLiveStreamSimulcastTarget(ctx, lIVESTREAMID).CreateSimulcastTargetRequest(createSimulcastTargetRequest).Execute()
+
 Create a live stream simulcast target
 
-Create a simulcast target for the parent live stream. Simulcast target can only be created when the parent live stream is in idle state. Only one simulcast target can be created at a time with this API.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+    createSimulcastTargetRequest := *openapiclient.NewCreateSimulcastTargetRequest("Url_example") // CreateSimulcastTargetRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.CreateLiveStreamSimulcastTarget(context.Background(), lIVESTREAMID).CreateSimulcastTargetRequest(createSimulcastTargetRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.CreateLiveStreamSimulcastTarget``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateLiveStreamSimulcastTarget`: SimulcastTargetResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.CreateLiveStreamSimulcastTarget`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
-  **createSimulcastTargetRequest** | [**CreateSimulcastTargetRequest**](CreateSimulcastTargetRequest.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateLiveStreamSimulcastTargetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **createSimulcastTargetRequest** | [**CreateSimulcastTargetRequest**](CreateSimulcastTargetRequest.md) |  | 
 
 ### Return type
 
@@ -96,21 +218,61 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteLiveStream**
-> DeleteLiveStream(ctx, lIVESTREAMID)
+
+## DeleteLiveStream
+
+> DeleteLiveStream(ctx, lIVESTREAMID).Execute()
+
 Delete a live stream
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.DeleteLiveStream(context.Background(), lIVESTREAMID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.DeleteLiveStream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteLiveStreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -122,22 +284,64 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteLiveStreamPlaybackId**
-> DeleteLiveStreamPlaybackId(ctx, lIVESTREAMID, pLAYBACKID)
+
+## DeleteLiveStreamPlaybackId
+
+> DeleteLiveStreamPlaybackId(ctx, lIVESTREAMID, pLAYBACKID).Execute()
+
 Delete a live stream playback ID
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+    pLAYBACKID := "pLAYBACKID_example" // string | The live stream's playback ID.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.DeleteLiveStreamPlaybackId(context.Background(), lIVESTREAMID, pLAYBACKID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.DeleteLiveStreamPlaybackId``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
-  **pLAYBACKID** | **string**| The live stream&#39;s playback ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+**pLAYBACKID** | **string** | The live stream&#39;s playback ID. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteLiveStreamPlaybackIdRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -149,24 +353,66 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DeleteLiveStreamSimulcastTarget**
-> DeleteLiveStreamSimulcastTarget(ctx, lIVESTREAMID, sIMULCASTTARGETID)
+
+## DeleteLiveStreamSimulcastTarget
+
+> DeleteLiveStreamSimulcastTarget(ctx, lIVESTREAMID, sIMULCASTTARGETID).Execute()
+
 Delete a Live Stream Simulcast Target
 
-Delete the simulcast target using the simulcast target ID returned when creating the simulcast target. Simulcast Target can only be deleted when the parent live stream is in idle state.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+    sIMULCASTTARGETID := "sIMULCASTTARGETID_example" // string | The ID of the simulcast target.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.DeleteLiveStreamSimulcastTarget(context.Background(), lIVESTREAMID, sIMULCASTTARGETID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.DeleteLiveStreamSimulcastTarget``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
-  **sIMULCASTTARGETID** | **string**| The ID of the simulcast target. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+**sIMULCASTTARGETID** | **string** | The ID of the simulcast target. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteLiveStreamSimulcastTargetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -178,23 +424,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **DisableLiveStream**
-> DisableLiveStreamResponse DisableLiveStream(ctx, lIVESTREAMID)
+
+## DisableLiveStream
+
+> DisableLiveStreamResponse DisableLiveStream(ctx, lIVESTREAMID).Execute()
+
 Disable a live stream
 
-Disables a live stream, making it reject incoming RTMP streams until re-enabled.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.DisableLiveStream(context.Background(), lIVESTREAMID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.DisableLiveStream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DisableLiveStream`: DisableLiveStreamResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.DisableLiveStream`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDisableLiveStreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -206,23 +494,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **EnableLiveStream**
-> EnableLiveStreamResponse EnableLiveStream(ctx, lIVESTREAMID)
+
+## EnableLiveStream
+
+> EnableLiveStreamResponse EnableLiveStream(ctx, lIVESTREAMID).Execute()
+
 Enable a live stream
 
-Enables a live stream, allowing it to accept an incoming RTMP stream.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.EnableLiveStream(context.Background(), lIVESTREAMID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.EnableLiveStream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `EnableLiveStream`: EnableLiveStreamResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.EnableLiveStream`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEnableLiveStreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -234,23 +564,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetLiveStream**
-> LiveStreamResponse GetLiveStream(ctx, lIVESTREAMID)
+
+## GetLiveStream
+
+> LiveStreamResponse GetLiveStream(ctx, lIVESTREAMID).Execute()
+
 Retrieve a live stream
 
-Retrieves the details of a live stream that has previously been created. Supply the unique live stream ID that was returned from your previous request, and Mux will return the corresponding live stream information. The same information is returned when creating a live stream.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.GetLiveStream(context.Background(), lIVESTREAMID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.GetLiveStream``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetLiveStream`: LiveStreamResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.GetLiveStream`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLiveStreamRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -262,24 +634,68 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetLiveStreamSimulcastTarget**
-> SimulcastTargetResponse GetLiveStreamSimulcastTarget(ctx, lIVESTREAMID, sIMULCASTTARGETID)
+
+## GetLiveStreamSimulcastTarget
+
+> SimulcastTargetResponse GetLiveStreamSimulcastTarget(ctx, lIVESTREAMID, sIMULCASTTARGETID).Execute()
+
 Retrieve a Live Stream Simulcast Target
 
-Retrieves the details of the simulcast target created for the parent live stream. Supply the unique live stream ID and simulcast target ID that was returned in the response of create simulcast target request, and Mux will return the corresponding information.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+    sIMULCASTTARGETID := "sIMULCASTTARGETID_example" // string | The ID of the simulcast target.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.GetLiveStreamSimulcastTarget(context.Background(), lIVESTREAMID, sIMULCASTTARGETID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.GetLiveStreamSimulcastTarget``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetLiveStreamSimulcastTarget`: SimulcastTargetResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.GetLiveStreamSimulcastTarget`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
-  **sIMULCASTTARGETID** | **string**| The ID of the simulcast target. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+**sIMULCASTTARGETID** | **string** | The ID of the simulcast target. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLiveStreamSimulcastTargetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -291,29 +707,63 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ListLiveStreams**
-> ListLiveStreamsResponse ListLiveStreams(ctx, optional)
+
+## ListLiveStreams
+
+> ListLiveStreamsResponse ListLiveStreams(ctx).Limit(limit).Page(page).StreamKey(streamKey).Execute()
+
 List live streams
 
-### Required Parameters
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    limit := int32(56) // int32 | Number of items to include in the response (optional) (default to 25)
+    page := int32(56) // int32 | Offset by this many pages, of the size of `limit` (optional) (default to 1)
+    streamKey := "streamKey_example" // string | Filter response to return live stream for this stream key only (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.ListLiveStreams(context.Background()).Limit(limit).Page(page).StreamKey(streamKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.ListLiveStreams``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListLiveStreams`: ListLiveStreamsResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.ListLiveStreams`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListLiveStreamsRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***ListLiveStreamsOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a ListLiveStreamsOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
- **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **limit** | **int32** | Number of items to include in the response | [default to 25]
+ **page** | **int32** | Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **streamKey** | **string** | Filter response to return live stream for this stream key only | 
 
 ### Return type
 
@@ -325,23 +775,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ResetStreamKey**
-> LiveStreamResponse ResetStreamKey(ctx, lIVESTREAMID)
+
+## ResetStreamKey
+
+> LiveStreamResponse ResetStreamKey(ctx, lIVESTREAMID).Execute()
+
 Reset a live stream’s stream key
 
-Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.ResetStreamKey(context.Background(), lIVESTREAMID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.ResetStreamKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResetStreamKey`: LiveStreamResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.ResetStreamKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResetStreamKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -353,23 +845,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **SignalLiveStreamComplete**
-> SignalLiveStreamCompleteResponse SignalLiveStreamComplete(ctx, lIVESTREAMID)
+
+## SignalLiveStreamComplete
+
+> SignalLiveStreamCompleteResponse SignalLiveStreamComplete(ctx, lIVESTREAMID).Execute()
+
 Signal a live stream is finished
 
-(Optional) Make the recorded asset available immediately instead of waiting for the reconnect_window.
 
-### Required Parameters
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    lIVESTREAMID := "lIVESTREAMID_example" // string | The live stream ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.LiveStreamsApi.SignalLiveStreamComplete(context.Background(), lIVESTREAMID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `LiveStreamsApi.SignalLiveStreamComplete``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SignalLiveStreamComplete`: SignalLiveStreamCompleteResponse
+    fmt.Fprintf(os.Stdout, "Response from `LiveStreamsApi.SignalLiveStreamComplete`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **lIVESTREAMID** | **string**| The live stream ID | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**lIVESTREAMID** | **string** | The live stream ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSignalLiveStreamCompleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -381,8 +915,10 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
