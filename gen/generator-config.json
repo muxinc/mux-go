@@ -1,0 +1,6 @@
+{
+  "!!source": "https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/go.md",
+  "packageName": "muxgo",
+  "packageVersion": "1.0.0-rc.1",
+  "userAgent": "Mux Go NG"
+}
