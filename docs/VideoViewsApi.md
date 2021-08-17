@@ -12,7 +12,7 @@ Method | HTTP request | Description
 > VideoViewResponse GetVideoView(ctx, vIDEOVIEWID)
 Get a Video View
 
-Returns the details of a video view 
+Returns the details of a video view.
 
 ### Required Parameters
 
@@ -40,7 +40,7 @@ Name | Type | Description  | Notes
 > ListVideoViewsResponse ListVideoViews(ctx, optional)
 List Video Views
 
-Returns a list of video views 
+Returns a list of video views.
 
 ### Required Parameters
 
@@ -59,8 +59,8 @@ Name | Type | Description  | Notes
  **viewerId** | **optional.String**| Viewer ID to filter results by. This value may be provided by the integration, or may be created by Mux. | 
  **errorId** | **optional.Int32**| Filter video views by the provided error ID (as returned in the error_type_id field in the list video views endpoint). If you provide any as the error ID, this will filter the results to those with any error. | 
  **orderDirection** | **optional.String**| Sort order. | 
- **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US).  Possible filter names are the same as returned by the List Filters endpoint.  | 
- **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600    * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
+ **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
+ **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
 
 ### Return type
 

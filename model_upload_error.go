@@ -5,6 +5,8 @@ package muxgo
 
 // Only set if an error occurred during asset creation.
 type UploadError struct {
-	Type    string `json:"type,omitempty"`
+	// Label for the specific error
+	Type string `json:"type,omitempty"`
+	// Human readable error message
 	Message string `json:"message,omitempty"`
 }

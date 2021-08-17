@@ -3,6 +3,7 @@
 
 package muxgo
 
+// Object that describes any errors that happened when processing this asset.
 type AssetErrors struct {
 	// The type of error that occurred for this asset.
 	Type string `json:"type,omitempty"`

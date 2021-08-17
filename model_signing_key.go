@@ -4,7 +4,10 @@
 package muxgo
 
 type SigningKey struct {
-	Id         string `json:"id,omitempty"`
-	CreatedAt  string `json:"created_at,omitempty"`
+	// Unique identifier for the Signing Key.
+	Id string `json:"id,omitempty"`
+	// Time at which the object was created. Measured in seconds since the Unix epoch.
+	CreatedAt string `json:"created_at,omitempty"`
+	// A Base64 encoded private key that can be used with the RS256 algorithm when creating a [JWT](https://jwt.io/). **Note that this value is only returned once when creating a URL signing key.**
 	PrivateKey string `json:"private_key,omitempty"`
 }

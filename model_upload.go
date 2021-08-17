@@ -4,6 +4,7 @@
 package muxgo
 
 type Upload struct {
+	// Unique identifier for the Direct Upload.
 	Id string `json:"id,omitempty"`
 	// Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
 	Timeout          int32  `json:"timeout,omitempty"`
@@ -15,6 +16,7 @@ type Upload struct {
 	// If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
 	CorsOrigin string `json:"cors_origin,omitempty"`
 	// The URL to upload the associated source media to.
-	Url  string `json:"url,omitempty"`
-	Test bool   `json:"test,omitempty"`
+	Url string `json:"url,omitempty"`
+	// Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
+	Test bool `json:"test,omitempty"`
 }

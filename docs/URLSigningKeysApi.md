@@ -14,7 +14,7 @@ Method | HTTP request | Description
 > SigningKeyResponse CreateUrlSigningKey(ctx, )
 Create a URL signing key
 
-Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens. 
+Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens.
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -38,7 +38,7 @@ This endpoint does not need any parameter.
 > DeleteUrlSigningKey(ctx, sIGNINGKEYID)
 Delete a URL signing key
 
-Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again. 
+Deletes an existing signing key. Use with caution, as this will invalidate any existing signatures and no URLs can be signed using the key again.
 
 ### Required Parameters
 
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 > ListSigningKeysResponse ListUrlSigningKeys(ctx, optional)
 List URL signing keys
 
-Returns a list of URL signing keys. 
+Returns a list of URL signing keys.
 
 ### Required Parameters
 

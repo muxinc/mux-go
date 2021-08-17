@@ -4,12 +4,20 @@
 package muxgo
 
 type Error struct {
-	Id          int64   `json:"id,omitempty"`
-	Percentage  float64 `json:"percentage,omitempty"`
-	Notes       string  `json:"notes,omitempty"`
-	Message     string  `json:"message,omitempty"`
-	LastSeen    string  `json:"last_seen,omitempty"`
-	Description string  `json:"description,omitempty"`
-	Count       int64   `json:"count,omitempty"`
-	Code        int64   `json:"code,omitempty"`
+	// A unique identifier for this error.
+	Id int64 `json:"id,omitempty"`
+	// The percentage of views that experienced this error.
+	Percentage float64 `json:"percentage,omitempty"`
+	// Notes that are attached to this error.
+	Notes string `json:"notes,omitempty"`
+	// The error message.
+	Message string `json:"message,omitempty"`
+	// The last time this error was seen (ISO 8601 timestamp).
+	LastSeen string `json:"last_seen,omitempty"`
+	// Description of the error.
+	Description string `json:"description,omitempty"`
+	// The total number of views that experiend this error.
+	Count int64 `json:"count,omitempty"`
+	// The error code
+	Code int64 `json:"code,omitempty"`
 }

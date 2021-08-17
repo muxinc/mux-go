@@ -741,8 +741,9 @@ func (a *LiveStreamsApiService) GetLiveStreamSimulcastTarget(lIVESTREAMID string
 }
 
 type ListLiveStreamsParams struct {
-	Limit int32
-	Page  int32
+	Limit     int32
+	Page      int32
+	StreamKey string
 }
 
 // ListLiveStreams optionally accepts the APIOption of WithParams(*ListLiveStreamsParams).
@@ -778,6 +779,9 @@ func (a *LiveStreamsApiService) ListLiveStreams(opts ...APIOption) (ListLiveStre
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
 		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.StreamKey) {
+		localVarQueryParams.Add("stream_key", parameterToString(localVarOptionals.StreamKey, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

@@ -3,8 +3,10 @@
 
 package muxgo
 
+// An object containing the current status of any static renditions (mp4s). The object does not exist if no static renditions have been requested. See [Download your videos](https://docs.mux.com/guides/video/download-your-videos) for more information.
 type AssetStaticRenditions struct {
 	// Indicates the status of downloadable MP4 versions of this asset.
-	Status string                       `json:"status,omitempty"`
-	Files  []AssetStaticRenditionsFiles `json:"files,omitempty"`
+	Status string `json:"status,omitempty"`
+	// Array of file objects.
+	Files []AssetStaticRenditionsFiles `json:"files,omitempty"`
 }

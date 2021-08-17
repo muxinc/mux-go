@@ -1,10 +1,10 @@
-# AssetMaster
+# ExportDate
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | **string** |  | [optional] 
-**Url** | **string** | The temporary URL to the master version of the video, as an MP4 file. This URL will expire after 24 hours. | [optional] 
+**ExportDate** | **string** |  | [optional] 
+**Files** | [**[]ExportFile**](ExportFile.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

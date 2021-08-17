@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 > DisableLiveStreamResponse DisableLiveStream(ctx, lIVESTREAMID)
 Disable a live stream
 
-Disables a live stream, making it reject incoming RTMP streams until re-enabled.
+Disables a live stream, making it reject incoming RTMP streams until re-enabled. The API also ends the live stream recording immediately when active. Ending the live stream recording adds the `EXT-X-ENDLIST` tag to the HLS manifest which notifies the player that this live stream is over.  Mux also closes the encoder connection immediately. Any attempt from the encoder to re-establish connection will fail till the live stream is re-enabled. 
 
 ### Required Parameters
 
@@ -314,6 +314,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
  **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **streamKey** | **optional.String**| Filter response to return live stream for this stream key only | 
 
 ### Return type
 
@@ -362,7 +363,7 @@ Name | Type | Description  | Notes
 > SignalLiveStreamCompleteResponse SignalLiveStreamComplete(ctx, lIVESTREAMID)
 Signal a live stream is finished
 
-(Optional) Make the recorded asset available immediately instead of waiting for the reconnect_window.
+(Optional) End the live stream recording immediately instead of waiting for the reconnect_window. `EXT-X-ENDLIST` tag is added to the HLS manifest which notifies the player that this live stream is over.  Mux does not close the encoder connection immediately. Encoders are often configured to re-establish connections immediately which would result in a new recorded asset. For this reason, Mux waits for 60s before closing the connection with the encoder. This 60s timeframe is meant to give encoder operators a chance to disconnect from their end. 
 
 ### Required Parameters
 

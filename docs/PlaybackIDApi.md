@@ -11,7 +11,7 @@ Method | HTTP request | Description
 > GetAssetOrLiveStreamIdResponse GetAssetOrLivestreamId(ctx, pLAYBACKID)
 Retrieve an Asset or Live Stream ID
 
-Retrieves the Identifier of the Asset or Live Stream associated with the Playback ID. 
+Retrieves the Identifier of the Asset or Live Stream associated with the Playback ID.
 
 ### Required Parameters
 

@@ -3,16 +3,17 @@
 
 package muxgo
 
+// An object containing one or more reasons the input file is non-standard. See [the guide on minimizing processing time](https://docs.mux.com/guides/video/minimize-processing-time) for more information on what a standard input is defined as. This object only exists on on-demand assets that have non-standard inputs, so if missing you can assume the input qualifies as standard.
 type AssetNonStandardInputReasons struct {
-	// The video codec used on the input file.
+	// The video codec used on the input file. For example, the input file encoded with `hevc` video codec is non-standard and the value of this parameter is `hevc`.
 	VideoCodec string `json:"video_codec,omitempty"`
-	// The audio codec used on the input file.
+	// The audio codec used on the input file. Non-AAC audio codecs are non-standard.
 	AudioCodec string `json:"audio_codec,omitempty"`
-	// The video key frame Interval (also called as Group of Picture or GOP) of the input file.
+	// The video key frame Interval (also called as Group of Picture or GOP) of the input file is `high`. This parameter is present when the gop is greater than 10 seconds.
 	VideoGopSize string `json:"video_gop_size,omitempty"`
-	// The video frame rate of the input file.
+	// The video frame rate of the input file. Video with average frames per second (fps) less than 10 or greater than 120 is non-standard. A `-1` frame rate value indicates Mux could not determine the frame rate of the video track.
 	VideoFrameRate string `json:"video_frame_rate,omitempty"`
-	// The video resolution of the input file.
+	// The video resolution of the input file. Video resolution higher than 2048 pixels on any one dimension (height or width) is considered non-standard, The resolution value is presented as `width` x `height` in pixels.
 	VideoResolution string `json:"video_resolution,omitempty"`
 	// The video pixel aspect ratio of the input file.
 	PixelAspectRatio string `json:"pixel_aspect_ratio,omitempty"`

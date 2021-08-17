@@ -22,7 +22,7 @@ Method | HTTP request | Description
 > AssetResponse CreateAsset(ctx, createAssetRequest)
 Create an asset
 
-Create a new Mux Video asset. 
+Create a new Mux Video asset.
 
 ### Required Parameters
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 > DeleteAsset(ctx, aSSETID)
 Delete an asset
 
-Deletes a video asset and all its data 
+Deletes a video asset and all its data.
 
 ### Required Parameters
 
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 > ListAssetsResponse ListAssets(ctx, optional)
 List assets
 
-List all Mux assets. 
+List all Mux assets.
 
 ### Required Parameters
 
@@ -285,6 +285,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
  **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
+ **liveStreamId** | **optional.String**| Filter response to return all the assets for this live stream only | 
+ **uploadId** | **optional.String**| Filter response to return an asset created from this direct upload only | 
 
 ### Return type
 
@@ -305,7 +307,7 @@ Name | Type | Description  | Notes
 > AssetResponse UpdateAssetMasterAccess(ctx, aSSETID, updateAssetMasterAccessRequest)
 Update master access
 
-Allows you add temporary access to the master (highest-quality) version of the asset in MP4 format. A URL will be created that can be used to download the master version for 24 hours. After 24 hours Master Access will revert to \"none\". This master version is not optimized for web and not meant to be streamed, only downloaded for purposes like archiving or editing the video offline.
+Allows you to add temporary access to the master (highest-quality) version of the asset in MP4 format. A URL will be created that can be used to download the master version for 24 hours. After 24 hours Master Access will revert to \"none\". This master version is not optimized for web and not meant to be streamed, only downloaded for purposes like archiving or editing the video offline.
 
 ### Required Parameters
 
@@ -334,7 +336,7 @@ Name | Type | Description  | Notes
 > AssetResponse UpdateAssetMp4Support(ctx, aSSETID, updateAssetMp4SupportRequest)
 Update MP4 support
 
-Allows you add or remove mp4 support for assets that were created without it. Currently there are two values supported in this request, `standard` and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
+Allows you to add or remove mp4 support for assets that were created without it. Currently there are two values supported in this request, `standard` and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
 
 ### Required Parameters
 
