@@ -115,6 +115,14 @@ Name | Type | Description | Notes
 **QualityScore** | **string** |  | [optional] 
 **PlayerSoftwareVersion** | **string** |  | [optional] 
 **PlayerMuxPluginName** | **string** |  | [optional] 
+**SubPropertyId** | **string** |  | [optional] 
+**PlayerRemotePlayed** | **bool** |  | [optional] 
+**ViewMaxPlayheadPosition** | **string** |  | [optional] 
+**ViewPlayingTime** | **string** |  | [optional] 
+**ViewSessionId** | **string** |  | [optional] 
+**ViewerConnectionType** | **string** |  | [optional] 
+**ViewerDeviceModel** | **string** |  | [optional] 
+**WeightedAverageBitrate** | **int64** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

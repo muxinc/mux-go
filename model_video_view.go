@@ -116,4 +116,12 @@ type VideoView struct {
 	QualityScore                   string           `json:"quality_score,omitempty"`
 	PlayerSoftwareVersion          string           `json:"player_software_version,omitempty"`
 	PlayerMuxPluginName            string           `json:"player_mux_plugin_name,omitempty"`
+	SubPropertyId                  string           `json:"sub_property_id,omitempty"`
+	PlayerRemotePlayed             bool             `json:"player_remote_played,omitempty"`
+	ViewMaxPlayheadPosition        string           `json:"view_max_playhead_position,omitempty"`
+	ViewPlayingTime                string           `json:"view_playing_time,omitempty"`
+	ViewSessionId                  string           `json:"view_session_id,omitempty"`
+	ViewerConnectionType           string           `json:"viewer_connection_type,omitempty"`
+	ViewerDeviceModel              string           `json:"viewer_device_model,omitempty"`
+	WeightedAverageBitrate         int64            `json:"weighted_average_bitrate,omitempty"`
 }

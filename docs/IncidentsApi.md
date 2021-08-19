@@ -13,7 +13,7 @@ Method | HTTP request | Description
 > IncidentResponse GetIncident(ctx, iNCIDENTID)
 Get an Incident
 
-Returns the details of an incident 
+Returns the details of an incident.
 
 ### Required Parameters
 
@@ -41,7 +41,7 @@ Name | Type | Description  | Notes
 > ListIncidentsResponse ListIncidents(ctx, optional)
 List Incidents
 
-Returns a list of incidents 
+Returns a list of incidents.
 
 ### Required Parameters
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 > ListRelatedIncidentsResponse ListRelatedIncidents(ctx, iNCIDENTID, optional)
 List Related Incidents
 
-Returns all the incidents that seem related to a specific incident 
+Returns all the incidents that seem related to a specific incident.
 
 ### Required Parameters
 

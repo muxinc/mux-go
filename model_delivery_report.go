@@ -4,11 +4,20 @@
 package muxgo
 
 type DeliveryReport struct {
-	LiveStreamId     string  `json:"live_stream_id,omitempty"`
-	AssetId          string  `json:"asset_id,omitempty"`
-	Passthrough      string  `json:"passthrough,omitempty"`
-	CreatedAt        string  `json:"created_at,omitempty"`
-	AssetState       string  `json:"asset_state,omitempty"`
-	AssetDuration    float64 `json:"asset_duration,omitempty"`
+	// Unique identifier for the live stream that created the asset.
+	LiveStreamId string `json:"live_stream_id,omitempty"`
+	// Unique identifier for the asset.
+	AssetId string `json:"asset_id,omitempty"`
+	// The `passthrough` value for the asset.
+	Passthrough string `json:"passthrough,omitempty"`
+	// Time at which the asset was created. Measured in seconds since the Unix epoch.
+	CreatedAt string `json:"created_at,omitempty"`
+	// If exists, time at which the asset was deleted. Measured in seconds since the Unix epoch.
+	DeletedAt string `json:"deleted_at,omitempty"`
+	// The state of the asset.
+	AssetState string `json:"asset_state,omitempty"`
+	// The duration of the asset in seconds.
+	AssetDuration float64 `json:"asset_duration,omitempty"`
+	// Total number of delivered seconds during this time window.
 	DeliveredSeconds float64 `json:"delivered_seconds,omitempty"`
 }

@@ -666,8 +666,10 @@ func (a *AssetsApiService) GetAssetPlaybackId(aSSETID string, pLAYBACKID string,
 }
 
 type ListAssetsParams struct {
-	Limit int32
-	Page  int32
+	Limit        int32
+	Page         int32
+	LiveStreamId string
+	UploadId     string
 }
 
 // ListAssets optionally accepts the APIOption of WithParams(*ListAssetsParams).
@@ -703,6 +705,12 @@ func (a *AssetsApiService) ListAssets(opts ...APIOption) (ListAssetsResponse, er
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
 		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.LiveStreamId) {
+		localVarQueryParams.Add("live_stream_id", parameterToString(localVarOptionals.LiveStreamId, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.UploadId) {
+		localVarQueryParams.Add("upload_id", parameterToString(localVarOptionals.UploadId, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

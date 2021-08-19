@@ -125,7 +125,7 @@ type GetRealtimeHistogramTimeseriesParams struct {
 }
 
 // GetRealtimeHistogramTimeseries optionally accepts the APIOption of WithParams(*GetRealtimeHistogramTimeseriesParams).
-func (a *RealTimeApiService) GetRealtimeHistogramTimeseries(rEALTIMEMETRICID string, opts ...APIOption) (GetRealTimeHistogramTimeseriesResponse, error) {
+func (a *RealTimeApiService) GetRealtimeHistogramTimeseries(rEALTIMEHISTOGRAMMETRICID string, opts ...APIOption) (GetRealTimeHistogramTimeseriesResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
@@ -146,8 +146,8 @@ func (a *RealTimeApiService) GetRealtimeHistogramTimeseries(rEALTIMEMETRICID str
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/data/v1/realtime/metrics/{REALTIME_METRIC_ID}/histogram-timeseries"
-	localVarPath = strings.Replace(localVarPath, "{"+"REALTIME_METRIC_ID"+"}", fmt.Sprintf("%v", rEALTIMEMETRICID), -1)
+	localVarPath := a.client.cfg.basePath + "/data/v1/realtime/metrics/{REALTIME_HISTOGRAM_METRIC_ID}/histogram-timeseries"
+	localVarPath = strings.Replace(localVarPath, "{"+"REALTIME_HISTOGRAM_METRIC_ID"+"}", fmt.Sprintf("%v", rEALTIMEHISTOGRAMMETRICID), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

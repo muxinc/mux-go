@@ -15,7 +15,7 @@ Method | HTTP request | Description
 > GetMetricTimeseriesDataResponse GetMetricTimeseriesData(ctx, mETRICID, optional)
 Get metric timeseries data
 
-Returns timeseries data for a specific metric 
+Returns timeseries data for a specific metric.
 
 ### Required Parameters
 
@@ -31,9 +31,9 @@ Optional parameters are passed through a pointer to a GetMetricTimeseriesDataOpt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600    * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
- **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US).  Possible filter names are the same as returned by the List Filters endpoint.  | 
- **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
+ **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
+ **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the default for the metric will be used. | 
  **orderDirection** | **optional.String**| Sort order. | 
  **groupBy** | **optional.String**| Time granularity to group results by. If this value is omitted, a default granularity is chosen based on the supplied timeframe. | 
 
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 > GetOverallValuesResponse GetOverallValues(ctx, mETRICID, optional)
 Get Overall values
 
-Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric. 
+Returns the overall value for a specific metric, as well as the total view count, watch time, and the Mux Global metric value for the metric.
 
 ### Required Parameters
 
@@ -72,9 +72,9 @@ Optional parameters are passed through a pointer to a GetOverallValuesOpts struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600    * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
- **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US).  Possible filter names are the same as returned by the List Filters endpoint.  | 
- **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
+ **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
+ **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the default for the metric will be used. | 
 
 ### Return type
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 > ListAllMetricValuesResponse ListAllMetricValues(ctx, optional)
 List all metric values
 
-List all of the values across every breakdown for a specific metric 
+List all of the values across every breakdown for a specific metric.
 
 ### Required Parameters
 
@@ -109,8 +109,8 @@ Optional parameters are passed through a pointer to a ListAllMetricValuesOpts st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600    * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
- **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US).  Possible filter names are the same as returned by the List Filters endpoint.  | 
+ **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
+ **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
  **dimension** | **optional.String**| Dimension the specified value belongs to | 
  **value** | **optional.String**| Value to show all available metrics for | 
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 > ListBreakdownValuesResponse ListBreakdownValues(ctx, mETRICID, optional)
 List breakdown values
 
-List the breakdown values for a specific metric 
+List the breakdown values for a specific metric.
 
 ### Required Parameters
 
@@ -150,13 +150,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **groupBy** | **optional.String**| Breakdown value to group the results by | 
- **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
- **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US).  Possible filter names are the same as returned by the List Filters endpoint.  | 
+ **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the default for the metric will be used. | 
+ **filters** | [**optional.Interface of []string**](string.md)| Filter key:value pairs. Must be provided as an array query string parameter (e.g. filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;country:US). Possible filter names are the same as returned by the List Filters endpoint.  | 
  **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
  **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
  **orderBy** | **optional.String**| Value to order the results by | 
  **orderDirection** | **optional.String**| Sort order. | 
- **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600    * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
+ **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
 
 ### Return type
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes
 > ListInsightsResponse ListInsights(ctx, mETRICID, optional)
 List Insights
 
-Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric. 
+Returns a list of insights for a metric. These are the worst performing values across all breakdowns sorted by how much they negatively impact a specific metric.
 
 ### Required Parameters
 
@@ -193,9 +193,9 @@ Optional parameters are passed through a pointer to a ListInsightsOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the deafult for the metric will be used. | 
+ **measurement** | **optional.String**| Measurement for the provided metric. If omitted, the default for the metric will be used. | 
  **orderDirection** | **optional.String**| Sort order. | 
- **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600    * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
+ **timeframe** | [**optional.Interface of []string**](string.md)| Timeframe window to limit results by. Must be provided as an array query string parameter (e.g. timeframe[]&#x3D;). Accepted formats are...   * array of epoch timestamps e.g. timeframe[]&#x3D;1498867200&amp;timeframe[]&#x3D;1498953600   * duration string e.g. timeframe[]&#x3D;24:hours or timeframe[]&#x3D;7:days.  | 
 
 ### Return type
 
