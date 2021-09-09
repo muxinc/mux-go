@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 > ListRealTimeDimensionsResponse ListRealtimeDimensions(ctx, )
 List Real-Time Dimensions
 
-Lists availiable real-time dimensions.
+Lists available real-time dimensions.
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -154,7 +154,7 @@ This endpoint does not need any parameter.
 > ListRealTimeMetricsResponse ListRealtimeMetrics(ctx, )
 List Real-Time Metrics
 
-Lists availiable real-time metrics.
+Lists available real-time metrics.
 
 ### Required Parameters
 This endpoint does not need any parameter.

@@ -159,6 +159,8 @@ Name | Type | Description  | Notes
 > DeleteAssetTrack(ctx, aSSETID, tRACKID)
 Delete an asset track
 
+Removes a text track from an asset. Audio and video tracks on assets cannot be removed.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
