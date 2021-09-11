@@ -4,7 +4,7 @@
 package muxgo
 
 type RealTimeTimeseriesDatapoint struct {
-	Value            float64 `json:"value,omitempty"`
-	Date             string  `json:"date,omitempty"`
-	ConcurentViewers int64   `json:"concurent_viewers,omitempty"`
+	Value             float64 `json:"value,omitempty"`
+	Date              string  `json:"date,omitempty"`
+	ConcurrentViewers int64   `json:"concurrent_viewers,omitempty"`
 }

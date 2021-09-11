@@ -4,9 +4,9 @@
 package muxgo
 
 type RealTimeBreakdownValue struct {
-	Value            string  `json:"value,omitempty"`
-	NegativeImpact   int64   `json:"negative_impact,omitempty"`
-	MetricValue      float64 `json:"metric_value,omitempty"`
-	DisplayValue     string  `json:"display_value,omitempty"`
-	ConcurentViewers int64   `json:"concurent_viewers,omitempty"`
+	Value             string  `json:"value,omitempty"`
+	NegativeImpact    int64   `json:"negative_impact,omitempty"`
+	MetricValue       float64 `json:"metric_value,omitempty"`
+	DisplayValue      string  `json:"display_value,omitempty"`
+	ConcurrentViewers int64   `json:"concurrent_viewers,omitempty"`
 }
