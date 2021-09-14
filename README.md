@@ -16,7 +16,7 @@ Not familiar with Mux? Check out https://mux.com/ for more information.
 ## Installation
 
 ```
-go get github.com/muxinc/mux-go
+go get github.com/muxinc/mux-go@0.15.1
 ```
 
 ## Getting Started
