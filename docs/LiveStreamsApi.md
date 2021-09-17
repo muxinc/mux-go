@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**DisableLiveStream**](LiveStreamsApi.md#DisableLiveStream) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/disable | Disable a live stream
 [**EnableLiveStream**](LiveStreamsApi.md#EnableLiveStream) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/enable | Enable a live stream
 [**GetLiveStream**](LiveStreamsApi.md#GetLiveStream) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID} | Retrieve a live stream
+[**GetLiveStreamPlaybackId**](LiveStreamsApi.md#GetLiveStreamPlaybackId) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID} | Retrieve a live stream playback ID
 [**GetLiveStreamSimulcastTarget**](LiveStreamsApi.md#GetLiveStreamSimulcastTarget) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets/{SIMULCAST_TARGET_ID} | Retrieve a Live Stream Simulcast Target
 [**ListLiveStreams**](LiveStreamsApi.md#ListLiveStreams) | **Get** /video/v1/live-streams | List live streams
 [**ResetStreamKey**](LiveStreamsApi.md#ResetStreamKey) | **Post** /video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key | Reset a live stream’s stream key
@@ -255,6 +256,33 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**LiveStreamResponse**](LiveStreamResponse.md)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetLiveStreamPlaybackId**
+> GetLiveStreamPlaybackIdResponse GetLiveStreamPlaybackId(ctx, lIVESTREAMID, pLAYBACKID)
+Retrieve a live stream playback ID
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **lIVESTREAMID** | **string**| The live stream ID | 
+  **pLAYBACKID** | **string**| The live stream&#39;s playback ID. | 
+
+### Return type
+
+[**GetLiveStreamPlaybackIdResponse**](GetLiveStreamPlaybackIDResponse.md)
 
 ### Authorization
 

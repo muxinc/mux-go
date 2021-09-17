@@ -664,6 +664,82 @@ func (a *LiveStreamsApiService) GetLiveStream(lIVESTREAMID string, opts ...APIOp
 	return localVarReturnValue, nil
 }
 
+func (a *LiveStreamsApiService) GetLiveStreamPlaybackId(lIVESTREAMID string, pLAYBACKID string, opts ...APIOption) (GetLiveStreamPlaybackIdResponse, error) {
+	var (
+		localVarAPIOptions   = new(APIOptions)
+		localVarHttpMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetLiveStreamPlaybackIdResponse
+	)
+
+	for _, opt := range opts {
+		opt(localVarAPIOptions)
+	}
+
+	// create path and map variables
+	localVarPath := a.client.cfg.basePath + "/video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"LIVE_STREAM_ID"+"}", fmt.Sprintf("%v", lIVESTREAMID), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"PLAYBACK_ID"+"}", fmt.Sprintf("%v", pLAYBACKID), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+
+	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, err
+	}
+
+	// Check for common HTTP error status codes
+	err = CheckForHttpError(localVarHttpResponse.StatusCode, localVarBody)
+	if err != nil {
+		return localVarReturnValue, err
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, newErr
+	}
+
+	return localVarReturnValue, nil
+}
+
 func (a *LiveStreamsApiService) GetLiveStreamSimulcastTarget(lIVESTREAMID string, sIMULCASTTARGETID string, opts ...APIOption) (SimulcastTargetResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
