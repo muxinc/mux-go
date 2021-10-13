@@ -15,6 +15,8 @@ type AssetNonStandardInputReasons struct {
 	VideoFrameRate string `json:"video_frame_rate,omitempty"`
 	// The video resolution of the input file. Video resolution higher than 2048 pixels on any one dimension (height or width) is considered non-standard, The resolution value is presented as `width` x `height` in pixels.
 	VideoResolution string `json:"video_resolution,omitempty"`
+	// The video bitrate of the input file is `high`. This parameter is present when the average bitrate of any key frame interval (also known as Group of Pictures or GOP) is higher than what's considered standard which typically is 16 Mbps.
+	VideoBitrate string `json:"video_bitrate,omitempty"`
 	// The video pixel aspect ratio of the input file.
 	PixelAspectRatio string `json:"pixel_aspect_ratio,omitempty"`
 	// Video Edit List reason indicates that the input file's video track contains a complex Edit Decision List.
