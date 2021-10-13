@@ -12,7 +12,7 @@ Method | HTTP request | Description
 > ListFilterValuesResponse ListFilterValues(ctx, fILTERID, optional)
 Lists values for a specific filter
 
-Deprecated: The API has been replaced by the list-dimension-values API call.  Lists the values for a filter along with a total count of related views. 
+The API has been replaced by the list-dimension-values API call.  Lists the values for a filter along with a total count of related views. 
 
 ### Required Parameters
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 > ListFiltersResponse ListFilters(ctx, )
 List Filters
 
-Deprecated: The API has been replaced by the list-dimensions API call.  Lists all the filters broken out into basic and advanced. 
+The API has been replaced by the list-dimensions API call.  Lists all the filters broken out into basic and advanced. 
 
 ### Required Parameters
 This endpoint does not need any parameter.
