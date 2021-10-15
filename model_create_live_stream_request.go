@@ -11,7 +11,7 @@ type CreateLiveStreamRequest struct {
 	Passthrough     string  `json:"passthrough,omitempty"`
 	// Force the live stream to only process the audio track when the value is set to true. Mux drops the video track if broadcasted.
 	AudioOnly bool `json:"audio_only,omitempty"`
-	// Describe the subtitle contents of the incoming live stream.
+	// Describe the embedded closed caption contents of the incoming live stream.
 	EmbeddedSubtitles []LiveStreamEmbeddedSubtitleSettings `json:"embedded_subtitles,omitempty"`
 	// Latency is the time from when the streamer does something in real life to when you see it happen in the player. Set this if you want lower latency for your live stream. Note: Reconnect windows are incompatible with Reduced Latency and will always be set to zero (0) seconds. Read more here: https://mux.com/blog/reduced-latency-for-mux-live-streaming-now-available/
 	ReducedLatency bool `json:"reduced_latency,omitempty"`

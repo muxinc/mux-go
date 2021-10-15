@@ -420,7 +420,7 @@ Name | Type | Description  | Notes
 > LiveStreamResponse UpdateLiveStreamEmbeddedSubtitles(ctx, lIVESTREAMID, updateLiveStreamEmbeddedSubtitlesRequest)
 Update a live stream's embedded subtitles
 
-Configures a live stream to receive embedded subtitles including captions and translations.
+Configures a live stream to receive embedded closed captions. The resulting Asset's subtitle text track will have `closed_captions: true` set. 
 
 ### Required Parameters
 
