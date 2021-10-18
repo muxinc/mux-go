@@ -73,9 +73,9 @@ func main() {
 	clipAsset, err := client.AssetsApi.CreateAsset(muxgo.CreateAssetRequest{
 		Input: []muxgo.InputSettings{
 			muxgo.InputSettings{
-				Url: "mux://assets/" + asset.Data.Id,
+				Url:       "mux://assets/" + asset.Data.Id,
 				StartTime: 0,
-				EndTime: 5,
+				EndTime:   5,
 			},
 		},
 	})
@@ -106,7 +106,6 @@ func main() {
 	common.AssertStringEqualsValue(pbResp.Data.Object.Id, asset.Data.Id)
 	common.AssertStringEqualsValue(pbResp.Data.Object.Type, "asset")
 	fmt.Println("get-asset-or-livestream-id OK ✅")
-
 
 	// ========== update-asset-mp4-support ==========
 	mp4r := muxgo.UpdateAssetMp4SupportRequest{"standard"}
@@ -145,6 +144,7 @@ func main() {
 	fmt.Println("create-asset-track OK ✅")
 
 	// ========== delete-asset-track ==========
+	time.Sleep(5 * time.Second)
 	err = client.AssetsApi.DeleteAssetTrack(asset.Data.Id, s.Data.Id)
 	common.AssertNoError(err)
 	a1s, err := client.AssetsApi.GetAsset(asset.Data.Id)
