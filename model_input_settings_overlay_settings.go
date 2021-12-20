@@ -3,7 +3,7 @@
 
 package muxgo
 
-// An object that describes how the image file referenced in url should be placed over the video (i.e. watermarking).
+// An object that describes how the image file referenced in URL should be placed over the video (i.e. watermarking). Ensure that the URL is active and persists the entire lifespan of the video object.
 type InputSettingsOverlaySettings struct {
 	// Where the vertical positioning of the overlay/watermark should begin from. Defaults to `\"top\"`
 	VerticalAlign string `json:"vertical_align,omitempty"`

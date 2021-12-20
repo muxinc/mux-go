@@ -6,7 +6,7 @@ package muxgo
 type SimulcastTarget struct {
 	// ID of the Simulcast Target
 	Id string `json:"id,omitempty"`
-	// Arbitrary Metadata set when creating a simulcast target.
+	// Arbitrary user-supplied metadata set when creating a simulcast target.
 	Passthrough string `json:"passthrough,omitempty"`
 	// The current status of the simulcast target. See Statuses below for detailed description.   * `idle`: Default status. When the parent live stream is in disconnected status, simulcast targets will be idle state.   * `starting`: The simulcast target transitions into this state when the parent live stream transition into connected state.   * `broadcasting`: The simulcast target has successfully connected to the third party live streaming service and is pushing video to that service.   * `errored`: The simulcast target encountered an error either while attempting to connect to the third party live streaming service, or mid-broadcasting. Compared to other errored statuses in the Mux Video API, a simulcast may transition back into the broadcasting state if a connection with the service can be re-established.
 	Status string `json:"status,omitempty"`

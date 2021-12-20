@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **PerTitleEncode** | **bool** |  | [optional] 
 **UploadId** | **string** | Unique identifier for the Direct Upload. This is an optional parameter added when the asset is created from a direct upload. | [optional] 
 **IsLive** | **bool** | Whether the asset is created from a live stream and the live stream is currently &#x60;active&#x60; and not in &#x60;idle&#x60; state. | [optional] 
-**Passthrough** | **string** | Arbitrary metadata set for the asset. Max 255 characters. | [optional] 
+**Passthrough** | **string** | Arbitrary user-supplied metadata set for the asset. Max 255 characters. | [optional] 
 **LiveStreamId** | **string** | Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream. | [optional] 
 **Master** | [**AssetMaster**](Asset_master.md) |  | [optional] 
 **MasterAccess** | **string** |  | [optional] [default to MASTER_ACCESS_NONE]

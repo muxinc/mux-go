@@ -37,20 +37,21 @@ type APIClient struct {
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	AssetsApi         *AssetsApiService
-	DeliveryUsageApi  *DeliveryUsageApiService
-	DimensionsApi     *DimensionsApiService
-	DirectUploadsApi  *DirectUploadsApiService
-	ErrorsApi         *ErrorsApiService
-	ExportsApi        *ExportsApiService
-	FiltersApi        *FiltersApiService
-	IncidentsApi      *IncidentsApiService
-	LiveStreamsApi    *LiveStreamsApiService
-	MetricsApi        *MetricsApiService
-	PlaybackIDApi     *PlaybackIDApiService
-	RealTimeApi       *RealTimeApiService
-	URLSigningKeysApi *URLSigningKeysApiService
-	VideoViewsApi     *VideoViewsApiService
+	AssetsApi               *AssetsApiService
+	DeliveryUsageApi        *DeliveryUsageApiService
+	DimensionsApi           *DimensionsApiService
+	DirectUploadsApi        *DirectUploadsApiService
+	ErrorsApi               *ErrorsApiService
+	ExportsApi              *ExportsApiService
+	FiltersApi              *FiltersApiService
+	IncidentsApi            *IncidentsApiService
+	LiveStreamsApi          *LiveStreamsApiService
+	MetricsApi              *MetricsApiService
+	PlaybackIDApi           *PlaybackIDApiService
+	PlaybackRestrictionsApi *PlaybackRestrictionsApiService
+	RealTimeApi             *RealTimeApiService
+	URLSigningKeysApi       *URLSigningKeysApiService
+	VideoViewsApi           *VideoViewsApiService
 }
 
 type service struct {
@@ -78,6 +79,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LiveStreamsApi = (*LiveStreamsApiService)(&c.common)
 	c.MetricsApi = (*MetricsApiService)(&c.common)
 	c.PlaybackIDApi = (*PlaybackIDApiService)(&c.common)
+	c.PlaybackRestrictionsApi = (*PlaybackRestrictionsApiService)(&c.common)
 	c.RealTimeApi = (*RealTimeApiService)(&c.common)
 	c.URLSigningKeysApi = (*URLSigningKeysApiService)(&c.common)
 	c.VideoViewsApi = (*VideoViewsApiService)(&c.common)

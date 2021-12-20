@@ -28,7 +28,7 @@ type Asset struct {
 	UploadId string `json:"upload_id,omitempty"`
 	// Whether the asset is created from a live stream and the live stream is currently `active` and not in `idle` state.
 	IsLive bool `json:"is_live,omitempty"`
-	// Arbitrary metadata set for the asset. Max 255 characters.
+	// Arbitrary user-supplied metadata set for the asset. Max 255 characters.
 	Passthrough string `json:"passthrough,omitempty"`
 	// Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream.
 	LiveStreamId string      `json:"live_stream_id,omitempty"`

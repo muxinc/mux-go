@@ -12,10 +12,11 @@ import (
 type DeliveryUsageApiService service
 
 type ListDeliveryUsageParams struct {
-	Page      int32
-	Limit     int32
-	AssetId   string
-	Timeframe []string
+	Page         int32
+	Limit        int32
+	AssetId      string
+	LiveStreamId string
+	Timeframe    []string
 }
 
 // ListDeliveryUsage optionally accepts the APIOption of WithParams(*ListDeliveryUsageParams).
@@ -54,6 +55,9 @@ func (a *DeliveryUsageApiService) ListDeliveryUsage(opts ...APIOption) (ListDeli
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.AssetId) {
 		localVarQueryParams.Add("asset_id", parameterToString(localVarOptionals.AssetId, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.LiveStreamId) {
+		localVarQueryParams.Add("live_stream_id", parameterToString(localVarOptionals.LiveStreamId, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
 		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.

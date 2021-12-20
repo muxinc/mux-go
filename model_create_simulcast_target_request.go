@@ -4,7 +4,7 @@
 package muxgo
 
 type CreateSimulcastTargetRequest struct {
-	// Arbitrary metadata set by you when creating a simulcast target.
+	// Arbitrary user-supplied metadata set by you when creating a simulcast target.
 	Passthrough string `json:"passthrough,omitempty"`
 	// Stream Key represents a stream identifier on the third party live streaming service to send the parent live stream to.
 	StreamKey string `json:"stream_key,omitempty"`

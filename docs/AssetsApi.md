@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**GetAssetInputInfo**](AssetsApi.md#GetAssetInputInfo) | **Get** /video/v1/assets/{ASSET_ID}/input-info | Retrieve asset input info
 [**GetAssetPlaybackId**](AssetsApi.md#GetAssetPlaybackId) | **Get** /video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID} | Retrieve a playback ID
 [**ListAssets**](AssetsApi.md#ListAssets) | **Get** /video/v1/assets | List assets
+[**UpdateAsset**](AssetsApi.md#UpdateAsset) | **Patch** /video/v1/assets/{ASSET_ID} | Update an Asset
 [**UpdateAssetMasterAccess**](AssetsApi.md#UpdateAssetMasterAccess) | **Put** /video/v1/assets/{ASSET_ID}/master-access | Update master access
 [**UpdateAssetMp4Support**](AssetsApi.md#UpdateAssetMp4Support) | **Put** /video/v1/assets/{ASSET_ID}/mp4-support | Update MP4 support
 
@@ -301,6 +302,35 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateAsset**
+> AssetResponse UpdateAsset(ctx, aSSETID, updateAssetRequest)
+Update an Asset
+
+Updates the details of an already-created Asset with the provided Asset ID. This currently supports only the `passthrough` field.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **aSSETID** | **string**| The asset ID. | 
+  **updateAssetRequest** | [**UpdateAssetRequest**](UpdateAssetRequest.md)|  | 
+
+### Return type
+
+[**AssetResponse**](AssetResponse.md)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

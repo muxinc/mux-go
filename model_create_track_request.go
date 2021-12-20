@@ -13,6 +13,6 @@ type CreateTrackRequest struct {
 	Name string `json:"name,omitempty"`
 	// Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH).
 	ClosedCaptions bool `json:"closed_captions,omitempty"`
-	// Arbitrary metadata set for the track either when creating the asset or track.
+	// Arbitrary user-supplied metadata set for the track either when creating the asset or track.
 	Passthrough string `json:"passthrough,omitempty"`
 }

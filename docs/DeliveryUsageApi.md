@@ -27,7 +27,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
  **limit** | **optional.Int32**| Number of items to include in the response | [default to 100]
- **assetId** | **optional.String**| Filter response to return delivery usage for this asset only. | 
+ **assetId** | **optional.String**| Filter response to return delivery usage for this asset only. You cannot specify both the &#x60;asset_id&#x60; and &#x60;live_stream_id&#x60; parameters together. | 
+ **liveStreamId** | **optional.String**| Filter response to return delivery usage for assets for this live stream. You cannot specify both the &#x60;asset_id&#x60; and &#x60;live_stream_id&#x60; parameters together. | 
  **timeframe** | [**optional.Interface of []string**](string.md)| Time window to get delivery usage information. timeframe[0] indicates the start time, timeframe[1] indicates the end time in seconds since the Unix epoch. Default time window is 1 hour representing usage from 13th to 12th hour from when the request is made. | 
 
 ### Return type
