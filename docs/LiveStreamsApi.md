@@ -345,6 +345,7 @@ Name | Type | Description  | Notes
  **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
  **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
  **streamKey** | **optional.String**| Filter response to return live stream for this stream key only | 
+ **status** | [**optional.Interface of LiveStreamStatus**](.md)| Filter response to return live streams with the specified status only | 
 
 ### Return type
 
