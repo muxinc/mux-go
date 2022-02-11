@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **CreatePlaybackRestriction**
-> PlaybackRestriction CreatePlaybackRestriction(ctx, createPlaybackRestrictionRequest)
+> PlaybackRestrictionResponse CreatePlaybackRestriction(ctx, createPlaybackRestrictionRequest)
 Create a Playback Restriction
 
 Create a new Playback Restriction.
@@ -26,7 +26,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlaybackRestriction**](PlaybackRestriction.md)
+[**PlaybackRestrictionResponse**](PlaybackRestrictionResponse.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetPlaybackRestriction**
-> PlaybackRestriction GetPlaybackRestriction(ctx, pLAYBACKRESTRICTIONID)
+> PlaybackRestrictionResponse GetPlaybackRestriction(ctx, pLAYBACKRESTRICTIONID)
 Retrieve a Playback Restriction
 
 Retrieves a Playback Restriction associated with the unique identifier.
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlaybackRestriction**](PlaybackRestriction.md)
+[**PlaybackRestrictionResponse**](PlaybackRestrictionResponse.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **ListPlaybackRestrictions**
-> []PlaybackRestriction ListPlaybackRestrictions(ctx, optional)
+> ListPlaybackRestrictionsResponse ListPlaybackRestrictions(ctx, optional)
 List Playback Restrictions
 
 Returns a list of all Playback Restrictions.
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PlaybackRestriction**](PlaybackRestriction.md)
+[**ListPlaybackRestrictionsResponse**](ListPlaybackRestrictionsResponse.md)
 
 ### Authorization
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateReferrerDomainRestriction**
-> PlaybackRestriction UpdateReferrerDomainRestriction(ctx, pLAYBACKRESTRICTIONID, body)
+> PlaybackRestrictionResponse UpdateReferrerDomainRestriction(ctx, pLAYBACKRESTRICTIONID, body)
 Update the Referrer Playback Restriction
 
 Allows you to modify the list of domians or change how Mux validates playback requests without the `Referer` HTTP header. The Referrer restriction fully replaces the old list with this new list of domains.
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PlaybackRestriction**](PlaybackRestriction.md)
+[**PlaybackRestrictionResponse**](PlaybackRestrictionResponse.md)
 
 ### Authorization
 

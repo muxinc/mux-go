@@ -820,6 +820,7 @@ type ListLiveStreamsParams struct {
 	Limit     int32
 	Page      int32
 	StreamKey string
+	Status    string
 }
 
 // ListLiveStreams optionally accepts the APIOption of WithParams(*ListLiveStreamsParams).
@@ -858,6 +859,9 @@ func (a *LiveStreamsApiService) ListLiveStreams(opts ...APIOption) (ListLiveStre
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.StreamKey) {
 		localVarQueryParams.Add("stream_key", parameterToString(localVarOptionals.StreamKey, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.Status) {
+		localVarQueryParams.Add("status", parameterToString(localVarOptionals.Status, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

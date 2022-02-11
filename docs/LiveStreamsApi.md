@@ -345,6 +345,7 @@ Name | Type | Description  | Notes
  **limit** | **optional.Int32**| Number of items to include in the response | [default to 25]
  **page** | **optional.Int32**| Offset by this many pages, of the size of &#x60;limit&#x60; | [default to 1]
  **streamKey** | **optional.String**| Filter response to return live stream for this stream key only | 
+ **status** | **optional.String**| Filter response to return live streams with the specified status only &#x60;idle&#x60; indicates that there is no active broadcast. &#x60;active&#x60; indicates that there is an active broadcast and &#x60;disabled&#x60; status indicates that no future RTMP streams can be published. | 
 
 ### Return type
 

@@ -13,9 +13,8 @@ type LiveStream struct {
 	// The Asset that is currently being created if there is an active broadcast.
 	ActiveAssetId string `json:"active_asset_id,omitempty"`
 	// An array of strings with the most recent Assets that were created from this live stream.
-	RecentAssetIds []string `json:"recent_asset_ids,omitempty"`
-	// `idle` indicates that there is no active broadcast. `active` indicates that there is an active broadcast and `disabled` status indicates that no future RTMP streams can be published.
-	Status string `json:"status,omitempty"`
+	RecentAssetIds []string         `json:"recent_asset_ids,omitempty"`
+	Status         LiveStreamStatus `json:"status,omitempty"`
 	// An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/video/play-your-videos) for more details.
 	PlaybackIds      []PlaybackId       `json:"playback_ids,omitempty"`
 	NewAssetSettings CreateAssetRequest `json:"new_asset_settings,omitempty"`
