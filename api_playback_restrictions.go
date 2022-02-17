@@ -12,7 +12,7 @@ import (
 
 type PlaybackRestrictionsApiService service
 
-func (a *PlaybackRestrictionsApiService) CreatePlaybackRestriction(createPlaybackRestrictionRequest CreatePlaybackRestrictionRequest, opts ...APIOption) (PlaybackRestriction, error) {
+func (a *PlaybackRestrictionsApiService) CreatePlaybackRestriction(createPlaybackRestrictionRequest CreatePlaybackRestrictionRequest, opts ...APIOption) (PlaybackRestrictionResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
@@ -20,7 +20,7 @@ func (a *PlaybackRestrictionsApiService) CreatePlaybackRestriction(createPlaybac
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PlaybackRestriction
+		localVarReturnValue  PlaybackRestrictionResponse
 	)
 
 	for _, opt := range opts {
@@ -153,7 +153,7 @@ func (a *PlaybackRestrictionsApiService) DeletePlaybackRestriction(pLAYBACKRESTR
 	return nil
 }
 
-func (a *PlaybackRestrictionsApiService) GetPlaybackRestriction(pLAYBACKRESTRICTIONID string, opts ...APIOption) (PlaybackRestriction, error) {
+func (a *PlaybackRestrictionsApiService) GetPlaybackRestriction(pLAYBACKRESTRICTIONID string, opts ...APIOption) (PlaybackRestrictionResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
@@ -161,7 +161,7 @@ func (a *PlaybackRestrictionsApiService) GetPlaybackRestriction(pLAYBACKRESTRICT
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PlaybackRestriction
+		localVarReturnValue  PlaybackRestrictionResponse
 	)
 
 	for _, opt := range opts {
@@ -234,7 +234,7 @@ type ListPlaybackRestrictionsParams struct {
 }
 
 // ListPlaybackRestrictions optionally accepts the APIOption of WithParams(*ListPlaybackRestrictionsParams).
-func (a *PlaybackRestrictionsApiService) ListPlaybackRestrictions(opts ...APIOption) ([]PlaybackRestriction, error) {
+func (a *PlaybackRestrictionsApiService) ListPlaybackRestrictions(opts ...APIOption) (ListPlaybackRestrictionsResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Get")
@@ -242,7 +242,7 @@ func (a *PlaybackRestrictionsApiService) ListPlaybackRestrictions(opts ...APIOpt
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PlaybackRestriction
+		localVarReturnValue  ListPlaybackRestrictionsResponse
 	)
 
 	for _, opt := range opts {
@@ -319,7 +319,7 @@ func (a *PlaybackRestrictionsApiService) ListPlaybackRestrictions(opts ...APIOpt
 	return localVarReturnValue, nil
 }
 
-func (a *PlaybackRestrictionsApiService) UpdateReferrerDomainRestriction(pLAYBACKRESTRICTIONID string, body ReferrerDomainRestriction, opts ...APIOption) (PlaybackRestriction, error) {
+func (a *PlaybackRestrictionsApiService) UpdateReferrerDomainRestriction(pLAYBACKRESTRICTIONID string, body ReferrerDomainRestriction, opts ...APIOption) (PlaybackRestrictionResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Put")
@@ -327,7 +327,7 @@ func (a *PlaybackRestrictionsApiService) UpdateReferrerDomainRestriction(pLAYBAC
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PlaybackRestriction
+		localVarReturnValue  PlaybackRestrictionResponse
 	)
 
 	for _, opt := range opts {
