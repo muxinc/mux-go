@@ -48,7 +48,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
+	"github.com/muxinc/mux-go/v4"
 )
 
 func main() {
