@@ -10,4 +10,6 @@ type UpdateLiveStreamRequest struct {
 	LatencyMode string `json:"latency_mode,omitempty"`
 	// When live streaming software disconnects from Mux, either intentionally or due to a drop in the network, the Reconnect Window is the time in seconds that Mux should wait for the streaming software to reconnect before considering the live stream finished and completing the recorded asset.
 	ReconnectWindow float32 `json:"reconnect_window,omitempty"`
+	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
+	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
 }

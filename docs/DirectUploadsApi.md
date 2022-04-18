@@ -42,6 +42,8 @@ Name | Type | Description  | Notes
 > UploadResponse CreateDirectUpload(ctx, createUploadRequest)
 Create a new direct upload URL
 
+Creates a new direct upload, through which video content can be uploaded for ingest to Mux.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -68,6 +70,8 @@ Name | Type | Description  | Notes
 > UploadResponse GetDirectUpload(ctx, uPLOADID)
 Retrieve a single direct upload's info
 
+Fetches information about a single direct upload in the current environment.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -93,6 +97,8 @@ Name | Type | Description  | Notes
 # **ListDirectUploads**
 > ListUploadsResponse ListDirectUploads(ctx, optional)
 List direct uploads
+
+Lists currently extant direct uploads in the current environment.
 
 ### Required Parameters
 

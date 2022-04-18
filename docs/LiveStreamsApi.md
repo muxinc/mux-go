@@ -16,7 +16,7 @@ Method | HTTP request | Description
 [**GetLiveStreamPlaybackId**](LiveStreamsApi.md#GetLiveStreamPlaybackId) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID} | Retrieve a live stream playback ID
 [**GetLiveStreamSimulcastTarget**](LiveStreamsApi.md#GetLiveStreamSimulcastTarget) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets/{SIMULCAST_TARGET_ID} | Retrieve a Live Stream Simulcast Target
 [**ListLiveStreams**](LiveStreamsApi.md#ListLiveStreams) | **Get** /video/v1/live-streams | List live streams
-[**ResetStreamKey**](LiveStreamsApi.md#ResetStreamKey) | **Post** /video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key | Reset a live stream’s stream key
+[**ResetStreamKey**](LiveStreamsApi.md#ResetStreamKey) | **Post** /video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key | Reset a live stream&#39;s stream key
 [**SignalLiveStreamComplete**](LiveStreamsApi.md#SignalLiveStreamComplete) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/complete | Signal a live stream is finished
 [**UpdateLiveStream**](LiveStreamsApi.md#UpdateLiveStream) | **Patch** /video/v1/live-streams/{LIVE_STREAM_ID} | Update a live stream
 [**UpdateLiveStreamEmbeddedSubtitles**](LiveStreamsApi.md#UpdateLiveStreamEmbeddedSubtitles) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/embedded-subtitles | Update a live stream&#39;s embedded subtitles
@@ -25,6 +25,8 @@ Method | HTTP request | Description
 # **CreateLiveStream**
 > LiveStreamResponse CreateLiveStream(ctx, createLiveStreamRequest)
 Create a live stream
+
+Creates a new live stream. Once created, an encoder can connect to Mux via the specified stream key and begin streaming to an audience.
 
 ### Required Parameters
 
@@ -51,6 +53,8 @@ Name | Type | Description  | Notes
 # **CreateLiveStreamPlaybackId**
 > CreatePlaybackIdResponse CreateLiveStreamPlaybackId(ctx, lIVESTREAMID, createPlaybackIdRequest)
 Create a live stream playback ID
+
+Create a new playback ID for this live stream, through which a viewer can watch the streamed content of the live stream.
 
 ### Required Parameters
 
@@ -108,6 +112,8 @@ Name | Type | Description  | Notes
 > DeleteLiveStream(ctx, lIVESTREAMID)
 Delete a live stream
 
+Deletes a live stream from the current environment. If the live stream is currently active and being streamed to, ingest will be terminated and the encoder will be disconnected.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -133,6 +139,8 @@ Name | Type | Description  | Notes
 # **DeleteLiveStreamPlaybackId**
 > DeleteLiveStreamPlaybackId(ctx, lIVESTREAMID, pLAYBACKID)
 Delete a live stream playback ID
+
+Deletes the playback ID for the live stream. This will not disable ingest (as the live stream still exists). New attempts to play back the live stream will fail immediately. However, current viewers will be able to continue watching the stream for some period of time.
 
 ### Required Parameters
 
@@ -274,6 +282,8 @@ Name | Type | Description  | Notes
 > GetLiveStreamPlaybackIdResponse GetLiveStreamPlaybackId(ctx, lIVESTREAMID, pLAYBACKID)
 Retrieve a live stream playback ID
 
+Fetches information about a live stream's playback ID, through which a viewer can watch the streamed content from this live stream.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -330,6 +340,8 @@ Name | Type | Description  | Notes
 > ListLiveStreamsResponse ListLiveStreams(ctx, optional)
 List live streams
 
+Lists the live streams that currently exist in the current environment.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -364,7 +376,7 @@ Name | Type | Description  | Notes
 
 # **ResetStreamKey**
 > LiveStreamResponse ResetStreamKey(ctx, lIVESTREAMID)
-Reset a live stream’s stream key
+Reset a live stream's stream key
 
 Reset a live stream key if you want to immediately stop the current stream key from working and create a new stream key that can be used for future broadcasts.
 

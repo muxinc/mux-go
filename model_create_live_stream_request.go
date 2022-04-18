@@ -22,4 +22,6 @@ type CreateLiveStreamRequest struct {
 	// Marks the live stream as a test live stream when the value is set to true. A test live stream can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test live streams created. Test live streams are watermarked with the Mux logo and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours.
 	Test             bool                           `json:"test,omitempty"`
 	SimulcastTargets []CreateSimulcastTargetRequest `json:"simulcast_targets,omitempty"`
+	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
+	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
 }

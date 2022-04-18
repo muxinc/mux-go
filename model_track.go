@@ -8,7 +8,7 @@ type Track struct {
 	Id string `json:"id,omitempty"`
 	// The type of track
 	Type string `json:"type,omitempty"`
-	// The duration in seconds of the track media. This parameter is not set for the `text` type track. This field is optional and may not be set. The top level `duration` field of an asset will always be set.
+	// The duration in seconds of the track media. This parameter is not set for `text` type tracks. This field is optional and may not be set. The top level `duration` field of an asset will always be set.
 	Duration float64 `json:"duration,omitempty"`
 	// The maximum width in pixels available for the track. Only set for the `video` type track.
 	MaxWidth int64 `json:"max_width,omitempty"`
@@ -20,14 +20,16 @@ type Track struct {
 	MaxChannels int64 `json:"max_channels,omitempty"`
 	// Only set for the `audio` type track.
 	MaxChannelLayout string `json:"max_channel_layout,omitempty"`
-	// This parameter is set only for the `text` type track.
+	// This parameter is only set for `text` type tracks.
 	TextType string `json:"text_type,omitempty"`
-	// The language code value represents [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is set for `text` type and `subtitles` text type track.
+	// The language code value represents [BCP 47](https://tools.ietf.org/html/bcp47) specification compliant value. For example, `en` for English or `en-US` for the US version of English. This parameter is only set for `text` type and `subtitles` text type tracks.
 	LanguageCode string `json:"language_code,omitempty"`
-	// The name of the track containing a human-readable description. The hls manifest will associate a subtitle text track with this value. For example, the value is \"English\" for subtitles text track for the `language_code` value of `en-US`. This parameter is set for the `text` type and `subtitles` text type track.
+	// The name of the track containing a human-readable description. The hls manifest will associate a subtitle text track with this value. For example, the value is \"English\" for subtitles text track for the `language_code` value of `en-US`. This parameter is only set for `text` type and `subtitles` text type tracks.
 	Name string `json:"name,omitempty"`
-	// Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This parameter is set for the `text` type and `subtitles` text type track.
+	// Indicates the track provides Subtitles for the Deaf or Hard-of-hearing (SDH). This parameter is only set for `text` type and `subtitles` text type tracks.
 	ClosedCaptions bool `json:"closed_captions,omitempty"`
-	// Arbitrary user-supplied metadata set for the track either when creating the asset or track. This parameter is set for `text` type and `subtitles` text type track. Max 255 characters.
+	// Arbitrary user-supplied metadata set for the track either when creating the asset or track. This parameter is only set for `text` type tracks. Max 255 characters.
 	Passthrough string `json:"passthrough,omitempty"`
+	// The status of the track. This parameter is only set for `text` type tracks.
+	Status string `json:"status,omitempty"`
 }

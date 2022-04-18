@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [**Incident**](.md) |  | [optional] 
+**Data** | [**Incident**](Incident.md) |  | [optional] 
 **Timeframe** | **[]int64** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

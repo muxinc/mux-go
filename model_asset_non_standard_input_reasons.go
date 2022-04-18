@@ -9,9 +9,9 @@ type AssetNonStandardInputReasons struct {
 	VideoCodec string `json:"video_codec,omitempty"`
 	// The audio codec used on the input file. Non-AAC audio codecs are non-standard.
 	AudioCodec string `json:"audio_codec,omitempty"`
-	// The video key frame Interval (also called as Group of Picture or GOP) of the input file is `high`. This parameter is present when the gop is greater than 10 seconds.
+	// The video key frame Interval (also called as Group of Picture or GOP) of the input file is `high`. This parameter is present when the gop is greater than 20 seconds.
 	VideoGopSize string `json:"video_gop_size,omitempty"`
-	// The video frame rate of the input file. Video with average frames per second (fps) less than 10 or greater than 120 is non-standard. A `-1` frame rate value indicates Mux could not determine the frame rate of the video track.
+	// The video frame rate of the input file. Video with average frames per second (fps) less than 5 or greater than 120 is non-standard. A `-1` frame rate value indicates Mux could not determine the frame rate of the video track.
 	VideoFrameRate string `json:"video_frame_rate,omitempty"`
 	// The video resolution of the input file. Video resolution higher than 2048 pixels on any one dimension (height or width) is considered non-standard, The resolution value is presented as `width` x `height` in pixels.
 	VideoResolution string `json:"video_resolution,omitempty"`

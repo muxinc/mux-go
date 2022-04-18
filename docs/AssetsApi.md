@@ -51,6 +51,8 @@ Name | Type | Description  | Notes
 > CreatePlaybackIdResponse CreateAssetPlaybackId(ctx, aSSETID, createPlaybackIdRequest)
 Create a playback ID
 
+Creates a playback ID that can be used to stream the asset to a viewer.
+
 ### Required Parameters
 
 Name | Type | Description  | Notes
@@ -77,6 +79,8 @@ Name | Type | Description  | Notes
 # **CreateAssetTrack**
 > CreateTrackResponse CreateAssetTrack(ctx, aSSETID, createTrackRequest)
 Create an asset track
+
+Adds an asset track (for example, subtitles) to an asset.
 
 ### Required Parameters
 
@@ -132,6 +136,8 @@ Name | Type | Description  | Notes
 # **DeleteAssetPlaybackId**
 > DeleteAssetPlaybackId(ctx, aSSETID, pLAYBACKID)
 Delete a playback ID
+
+Deletes a playback ID, rendering it nonfunctional for viewing an asset's video content. Please note that deleting the playback ID removes access to the underlying asset; a viewer who started playback before the playback ID was deleted may be able to watch the entire video for a limited duration.
 
 ### Required Parameters
 
@@ -244,6 +250,8 @@ Name | Type | Description  | Notes
 # **GetAssetPlaybackId**
 > GetAssetPlaybackIdResponse GetAssetPlaybackId(ctx, aSSETID, pLAYBACKID)
 Retrieve a playback ID
+
+Retrieves information about the specified playback ID.
 
 ### Required Parameters
 
