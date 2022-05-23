@@ -26,7 +26,7 @@ type Asset struct {
 	PerTitleEncode bool        `json:"per_title_encode,omitempty"`
 	// Unique identifier for the Direct Upload. This is an optional parameter added when the asset is created from a direct upload.
 	UploadId string `json:"upload_id,omitempty"`
-	// Whether the asset is created from a live stream and the live stream is currently `active` and not in `idle` state.
+	// Indicates whether the live stream that created this asset is currently `active` and not in `idle` state. This is an optional parameter added when the asset is created from a live stream.
 	IsLive bool `json:"is_live,omitempty"`
 	// Arbitrary user-supplied metadata set for the asset. Max 255 characters.
 	Passthrough string `json:"passthrough,omitempty"`
