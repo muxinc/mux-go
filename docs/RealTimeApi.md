@@ -32,7 +32,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **dimension** | **optional.String**| Dimension the specified value belongs to | 
- **timestamp** | **optional.Float64**| Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp. | 
+ **timestamp** | **optional.Int32**| Timestamp to limit results by. This value must be provided as a unix timestamp. Defaults to the current unix timestamp. | 
  **filters** | [**optional.Interface of []string**](string.md)| Limit the results to rows that match conditions from provided key:value pairs. Must be provided as an array query string parameter.  To exclude rows that match a certain condition, prepend a &#x60;!&#x60; character to the dimension.  Possible filter names are the same as returned by the List Filters endpoint.  Example:    * &#x60;filters[]&#x3D;operating_system:windows&amp;filters[]&#x3D;!country:US&#x60;  | 
  **orderBy** | **optional.String**| Value to order the results by | 
  **orderDirection** | **optional.String**| Sort order. | 

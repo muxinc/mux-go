@@ -14,7 +14,7 @@ type RealTimeApiService service
 
 type GetRealtimeBreakdownParams struct {
 	Dimension      string
-	Timestamp      float64
+	Timestamp      int32
 	Filters        []string
 	OrderBy        string
 	OrderDirection string
