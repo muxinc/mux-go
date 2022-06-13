@@ -104,7 +104,7 @@ func (a *SpacesApiService) CreateSpaceBroadcast(sPACEID string, createBroadcastR
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}/broadcasts"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}/broadcasts"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -180,7 +180,7 @@ func (a *SpacesApiService) DeleteSpace(sPACEID string, opts ...APIOption) error 
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -245,7 +245,7 @@ func (a *SpacesApiService) DeleteSpaceBroadcast(sPACEID string, bROADCASTID stri
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}/broadcasts/${BROADCAST_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}/broadcasts/{BROADCAST_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"BROADCAST_ID"+"}", fmt.Sprintf("%v", bROADCASTID), -1)
 
@@ -312,7 +312,7 @@ func (a *SpacesApiService) GetSpace(sPACEID string, opts ...APIOption) (SpaceRes
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -387,7 +387,7 @@ func (a *SpacesApiService) GetSpaceBroadcast(sPACEID string, bROADCASTID string,
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}/broadcasts/${BROADCAST_ID}"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}/broadcasts/{BROADCAST_ID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"BROADCAST_ID"+"}", fmt.Sprintf("%v", bROADCASTID), -1)
 
@@ -554,7 +554,7 @@ func (a *SpacesApiService) StartSpaceBroadcast(sPACEID string, bROADCASTID strin
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}/broadcasts/${BROADCAST_ID}/start"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}/broadcasts/{BROADCAST_ID}/start"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"BROADCAST_ID"+"}", fmt.Sprintf("%v", bROADCASTID), -1)
 
@@ -630,7 +630,7 @@ func (a *SpacesApiService) StopSpaceBroadcast(sPACEID string, bROADCASTID string
 	}
 
 	// create path and map variables
-	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/${SPACE_ID}/broadcasts/${BROADCAST_ID}/stop"
+	localVarPath := a.client.cfg.basePath + "/video/v1/spaces/{SPACE_ID}/broadcasts/{BROADCAST_ID}/stop"
 	localVarPath = strings.Replace(localVarPath, "{"+"SPACE_ID"+"}", fmt.Sprintf("%v", sPACEID), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"BROADCAST_ID"+"}", fmt.Sprintf("%v", bROADCASTID), -1)
 
