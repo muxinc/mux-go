@@ -20,7 +20,7 @@ func main() {
 		))
 
 	// ========== list-exports ==========
-	e, err := client.ExportsApi.ListExports()
+	e, err := client.ExportsApi.ListExportsViews()
 	common.AssertNoError(err)
 	common.AssertNotNil(e.Data)
 	if len(e.Data) < 1 {
