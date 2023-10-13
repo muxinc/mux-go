@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **VideoEditList** | **string** | Video Edit List reason indicates that the input file&#39;s video track contains a complex Edit Decision List. | [optional] 
 **AudioEditList** | **string** | Audio Edit List reason indicates that the input file&#39;s audio track contains a complex Edit Decision List. | [optional] 
 **UnexpectedMediaFileParameters** | **string** | A catch-all reason when the input file in created with non-standard encoding parameters. | [optional] 
+**UnsupportedPixelFormat** | **string** | The video pixel format, as a string, returned by libav. Considered non-standard if not one of yuv420p or yuvj420p. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

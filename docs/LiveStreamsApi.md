@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**SignalLiveStreamComplete**](LiveStreamsApi.md#SignalLiveStreamComplete) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/complete | Signal a live stream is finished
 [**UpdateLiveStream**](LiveStreamsApi.md#UpdateLiveStream) | **Patch** /video/v1/live-streams/{LIVE_STREAM_ID} | Update a live stream
 [**UpdateLiveStreamEmbeddedSubtitles**](LiveStreamsApi.md#UpdateLiveStreamEmbeddedSubtitles) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/embedded-subtitles | Update a live stream&#39;s embedded subtitles
+[**UpdateLiveStreamGeneratedSubtitles**](LiveStreamsApi.md#UpdateLiveStreamGeneratedSubtitles) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/generated-subtitles | Update a live stream&#39;s generated subtitles
 
 
 # **CreateLiveStream**
@@ -472,6 +473,35 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **lIVESTREAMID** | **string**| The live stream ID | 
   **updateLiveStreamEmbeddedSubtitlesRequest** | [**UpdateLiveStreamEmbeddedSubtitlesRequest**](UpdateLiveStreamEmbeddedSubtitlesRequest.md)|  | 
+
+### Return type
+
+[**LiveStreamResponse**](LiveStreamResponse.md)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateLiveStreamGeneratedSubtitles**
+> LiveStreamResponse UpdateLiveStreamGeneratedSubtitles(ctx, lIVESTREAMID, updateLiveStreamGeneratedSubtitlesRequest)
+Update a live stream's generated subtitles
+
+Updates a live stream's automatic-speech-recognition-generated subtitle configuration. Automatic speech recognition subtitles can be removed by sending an empty array in the request payload. 
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **lIVESTREAMID** | **string**| The live stream ID | 
+  **updateLiveStreamGeneratedSubtitlesRequest** | [**UpdateLiveStreamGeneratedSubtitlesRequest**](UpdateLiveStreamGeneratedSubtitlesRequest.md)|  | 
 
 ### Return type
 

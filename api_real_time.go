@@ -213,7 +213,8 @@ func (a *RealTimeApiService) GetRealtimeHistogramTimeseries(rEALTIMEHISTOGRAMMET
 }
 
 type GetRealtimeTimeseriesParams struct {
-	Filters []string
+	Filters   []string
+	Timestamp int32
 }
 
 // GetRealtimeTimeseries optionally accepts the APIOption of WithParams(*GetRealtimeTimeseriesParams).
@@ -251,6 +252,9 @@ func (a *RealTimeApiService) GetRealtimeTimeseries(rEALTIMEMETRICID string, opts
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
 		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.Timestamp) {
+		localVarQueryParams.Add("timestamp", parameterToString(localVarOptionals.Timestamp, ""))
 	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{}

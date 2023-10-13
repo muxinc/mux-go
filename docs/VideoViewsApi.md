@@ -40,7 +40,7 @@ Name | Type | Description  | Notes
 > ListVideoViewsResponse ListVideoViews(ctx, optional)
 List Video Views
 
-Returns a list of video views.
+Returns a list of video views which match the filters and have a `view_end` within the specified timeframe.
 
 ### Required Parameters
 

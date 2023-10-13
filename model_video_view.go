@@ -124,4 +124,25 @@ type VideoView struct {
 	ViewerConnectionType           string           `json:"viewer_connection_type,omitempty"`
 	ViewerDeviceModel              string           `json:"viewer_device_model,omitempty"`
 	WeightedAverageBitrate         int64            `json:"weighted_average_bitrate,omitempty"`
+	Custom1                        string           `json:"custom_1,omitempty"`
+	Custom2                        string           `json:"custom_2,omitempty"`
+	Custom3                        string           `json:"custom_3,omitempty"`
+	Custom4                        string           `json:"custom_4,omitempty"`
+	Custom5                        string           `json:"custom_5,omitempty"`
+	Custom6                        string           `json:"custom_6,omitempty"`
+	Custom7                        string           `json:"custom_7,omitempty"`
+	Custom8                        string           `json:"custom_8,omitempty"`
+	Custom9                        string           `json:"custom_9,omitempty"`
+	Custom10                       string           `json:"custom_10,omitempty"`
+	LiveStreamLatency              int64            `json:"live_stream_latency,omitempty"`
+	AssetId                        string           `json:"asset_id,omitempty"`
+	EnvironmentId                  string           `json:"environment_id,omitempty"`
+	LiveStreamId                   string           `json:"live_stream_id,omitempty"`
+	MuxEmbed                       string           `json:"mux_embed,omitempty"`
+	PlaybackId                     string           `json:"playback_id,omitempty"`
+	PlayerErrorContext             string           `json:"player_error_context,omitempty"`
+	ViewDrmType                    string           `json:"view_drm_type,omitempty"`
+	ViewDroppedFrameCount          int64            `json:"view_dropped_frame_count,omitempty"`
+	ViewHasAd                      bool             `json:"view_has_ad,omitempty"`
+	VideoStartupFailure            bool             `json:"video_startup_failure,omitempty"`
 }

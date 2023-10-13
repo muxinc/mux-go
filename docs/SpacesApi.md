@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 > BroadcastResponse CreateSpaceBroadcast(ctx, sPACEID, createBroadcastRequest)
 Create a space broadcast
 
-Creates a new broadcast. Broadcasts are used to create composited versions of your space, which can be broadcast to live streams.  **Note:** By default only a single broadcast destination can be specified. Contact Mux support if you need more.
+Creates a new broadcast. Broadcasts are used to create composited versions of your space, which can be broadcast to live streams. **Note:** By default only a single broadcast destination can be specified. Contact Mux support if you need more.
 
 ### Required Parameters
 

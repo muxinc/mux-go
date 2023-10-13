@@ -12,4 +12,6 @@ type AssetRecordingTimes struct {
 	StartedAt time.Time `json:"started_at,omitempty"`
 	// The duration of the live stream recorded. The time value is in seconds.
 	Duration float64 `json:"duration,omitempty"`
+	// The type of media represented by the recording session, either `content` for normal stream content or `slate` for slate media inserted during stream interruptions.
+	Type string `json:"type,omitempty"`
 }

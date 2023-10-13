@@ -25,4 +25,6 @@ type AssetNonStandardInputReasons struct {
 	AudioEditList string `json:"audio_edit_list,omitempty"`
 	// A catch-all reason when the input file in created with non-standard encoding parameters.
 	UnexpectedMediaFileParameters string `json:"unexpected_media_file_parameters,omitempty"`
+	// The video pixel format, as a string, returned by libav. Considered non-standard if not one of yuv420p or yuvj420p.
+	UnsupportedPixelFormat string `json:"unsupported_pixel_format,omitempty"`
 }

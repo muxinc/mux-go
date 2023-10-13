@@ -98,7 +98,7 @@ Name | Type | Description  | Notes
 > ListUploadsResponse ListDirectUploads(ctx, optional)
 List direct uploads
 
-Lists currently extant direct uploads in the current environment.
+Lists direct uploads in the current environment.
 
 ### Required Parameters
 
