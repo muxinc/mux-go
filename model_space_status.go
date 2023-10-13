@@ -8,6 +8,6 @@ type SpaceStatus string
 
 // List of SpaceStatus
 const (
-	IDLE   SpaceStatus = "idle"
-	ACTIVE SpaceStatus = "active"
+	SPACE_IDLE   SpaceStatus = "idle"
+	SPACE_ACTIVE SpaceStatus = "active"
 )

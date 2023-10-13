@@ -8,6 +8,6 @@ type BroadcastStatus string
 
 // List of BroadcastStatus
 const (
-	IDLE   BroadcastStatus = "idle"
-	ACTIVE BroadcastStatus = "active"
+	BROADCAST_IDLE   BroadcastStatus = "idle"
+	BROADCAST_ACTIVE BroadcastStatus = "active"
 )
