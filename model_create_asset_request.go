@@ -19,4 +19,8 @@ type CreateAssetRequest struct {
 	MasterAccess string `json:"master_access,omitempty"`
 	// Marks the asset as a test asset when the value is set to true. A Test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test asset are watermarked with the Mux logo, limited to 10 seconds, deleted after 24 hrs.
 	Test bool `json:"test,omitempty"`
+	// Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
+	MaxResolutionTier string `json:"max_resolution_tier,omitempty"`
+	// The encoding tier informs the cost, quality, and available platform features for the asset. By default the `smart` encoding tier is used.
+	EncodingTier string `json:"encoding_tier,omitempty"`
 }

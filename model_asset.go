@@ -12,8 +12,14 @@ type Asset struct {
 	Status string `json:"status,omitempty"`
 	// The duration of the asset in seconds (max duration for a single asset is 12 hours).
 	Duration float64 `json:"duration,omitempty"`
-	// The maximum resolution that has been stored for the asset. The asset may be delivered at lower resolutions depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored.
+	// This field is deprecated. Please use `resolution_tier` instead. The maximum resolution that has been stored for the asset. The asset may be delivered at lower resolutions depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored.
 	MaxStoredResolution string `json:"max_stored_resolution,omitempty"`
+	// The resolution tier that the asset was ingested at, affecting billing for ingest & storage. This field also represents the highest resolution tier that the content can be delivered at, however the actual resolution may be lower depending on the device, bandwidth, and exact resolution of the uploaded asset.
+	ResolutionTier string `json:"resolution_tier,omitempty"`
+	// Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
+	MaxResolutionTier string `json:"max_resolution_tier,omitempty"`
+	// The encoding tier informs the cost, quality, and available platform features for the asset. By default the `smart` encoding tier is used.
+	EncodingTier string `json:"encoding_tier,omitempty"`
 	// The maximum frame rate that has been stored for the asset. The asset may be delivered at lower frame rates depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. This field may return -1 if the frame rate of the input cannot be reliably determined.
 	MaxStoredFrameRate float64 `json:"max_stored_frame_rate,omitempty"`
 	// The aspect ratio of the asset in the form of `width:height`, for example `16:9`.
@@ -40,7 +46,7 @@ type Asset struct {
 	// Normalize the audio track loudness level. This parameter is only applicable to on-demand (not live) assets.
 	NormalizeAudio   bool                  `json:"normalize_audio,omitempty"`
 	StaticRenditions AssetStaticRenditions `json:"static_renditions,omitempty"`
-	// An array of individual live stream recording sessions. A recording session is created on each encoder connection during the live stream
+	// An array of individual live stream recording sessions. A recording session is created on each encoder connection during the live stream. Additionally any time slate media is inserted during brief interruptions in the live stream media or times when the live streaming software disconnects, a recording session representing the slate media will be added with a \"slate\" type.
 	RecordingTimes          []AssetRecordingTimes        `json:"recording_times,omitempty"`
 	NonStandardInputReasons AssetNonStandardInputReasons `json:"non_standard_input_reasons,omitempty"`
 	// True means this live stream is a test asset. A test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test assets are watermarked with the Mux logo, limited to 10 seconds, and deleted after 24 hrs.

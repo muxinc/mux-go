@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/muxinc/mux-go"
 	"github.com/muxinc/mux-go/examples/common"
@@ -34,7 +35,7 @@ func main() {
 		ks, err := client.URLSigningKeysApi.ListUrlSigningKeys()
 		common.AssertNoError(err)
 		common.AssertNotNil(ks.Data)
-		common.AssertStringEqualsValue(k.Data.Id, ks.Data[0].Id)
+		common.AssertStringEqualsValue(k.Data.Id, ks.Data[len(ks.Data)-1].Id)
 		fmt.Println("list-url-signing-keys OK ✅")
 
 		// ========== get-url-signing-key ==========
@@ -47,6 +48,7 @@ func main() {
 		// ========== delete-url-signing-key ==========
 		err = client.URLSigningKeysApi.DeleteUrlSigningKey(k.Data.Id)
 		common.AssertNoError(err)
+		time.Sleep(60 * time.Second)
 		_, err = client.URLSigningKeysApi.GetUrlSigningKey(k.Data.Id)
 		common.AssertNotNil(err)
 		fmt.Println("delete-url-signing-key OK ✅")
