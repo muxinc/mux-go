@@ -1,10 +1,19 @@
 name: Integration Test
 
+# PLEASE NOTE:  due to the way that github pull requests work, `release` actually fires
+#               after we've released the actual thing. This is unfortunate, but seeing as
+#               how we shouldn't be releasing anything where a master push _and_ a pull
+#               request aren't passing, I think we're okay with this as a "check the door
+#               after the horse is put away" type of thing. We have plans for future SDK
+#               build refactoring that will help with this further.
+
 on:
   push:
     branches:
       - master
-  pull_request: 
+  pull_request: {}
+  release:
+    types: [created]
 
 # I appreciate this isn't the cleanest workflow, but it's the neatest I can get it while we're
 # still using dep to manage dependencies. If we move to go modules this can be cleaned up a lot.
