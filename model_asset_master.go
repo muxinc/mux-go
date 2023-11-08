@@ -3,7 +3,7 @@
 
 package muxgo
 
-// An object containing the current status of Master Access and the link to the Master MP4 file when ready. This object does not exist if `master_acess` is set to `none` and when the temporary URL expires.
+// An object containing the current status of Master Access and the link to the Master MP4 file when ready. This object does not exist if `master_access` is set to `none` and when the temporary URL expires.
 type AssetMaster struct {
 	Status string `json:"status,omitempty"`
 	// The temporary URL to the master version of the video, as an MP4 file. This URL will expire after 24 hours.
