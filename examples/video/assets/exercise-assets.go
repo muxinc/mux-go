@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	muxgo "github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go/v5"
 	"github.com/muxinc/mux-go/examples/common"
 )
 
