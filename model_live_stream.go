@@ -15,9 +15,9 @@ type LiveStream struct {
 	// An array of strings with the most recent Asset IDs that were created from this Live Stream. The most recently generated Asset ID is the last entry in the list.
 	RecentAssetIds []string         `json:"recent_asset_ids,omitempty"`
 	Status         LiveStreamStatus `json:"status,omitempty"`
-	// An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/video/play-your-videos) for more details.
-	PlaybackIds      []PlaybackId       `json:"playback_ids,omitempty"`
-	NewAssetSettings CreateAssetRequest `json:"new_asset_settings,omitempty"`
+	// An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/play-your-videos) for more details.
+	PlaybackIds      []PlaybackId `json:"playback_ids,omitempty"`
+	NewAssetSettings AssetOptions `json:"new_asset_settings,omitempty"`
 	// Arbitrary user-supplied metadata set for the asset. Max 255 characters.
 	Passthrough string `json:"passthrough,omitempty"`
 	// The live stream only processes the audio track if the value is set to true. Mux drops the video track if broadcasted.
@@ -32,13 +32,13 @@ type LiveStream struct {
 	UseSlateForStandardLatency bool `json:"use_slate_for_standard_latency,omitempty"`
 	// The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. If this is not set, the default slate media will be used.
 	ReconnectSlateUrl string `json:"reconnect_slate_url,omitempty"`
-	// This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this if you want lower latency for your live stream. See the [Reduce live stream latency guide](https://docs.mux.com/guides/video/reduce-live-stream-latency) to understand the tradeoffs.
+	// This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this if you want lower latency for your live stream. See the [Reduce live stream latency guide](https://docs.mux.com/guides/reduce-live-stream-latency) to understand the tradeoffs.
 	ReducedLatency bool `json:"reduced_latency,omitempty"`
 	// This field is deprecated. Please use `latency_mode` instead. Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Setting this option will enable compatibility with the LL-HLS specification for low-latency streaming. This typically has lower latency than Reduced Latency streams, and cannot be combined with Reduced Latency.
 	LowLatency bool `json:"low_latency,omitempty"`
-	// Each Simulcast Target contains configuration details to broadcast (or \"restream\") a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/video/stream-live-to-3rd-party-platforms).
+	// Each Simulcast Target contains configuration details to broadcast (or \"restream\") a live stream to a third-party streaming service. [See the Stream live to 3rd party platforms guide](https://docs.mux.com/guides/stream-live-to-3rd-party-platforms).
 	SimulcastTargets []SimulcastTarget `json:"simulcast_targets,omitempty"`
-	// Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags. The Low Latency value is a beta feature. Read more here: https://mux.com/blog/introducing-low-latency-live-streaming/
+	// Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags.
 	LatencyMode string `json:"latency_mode,omitempty"`
 	// True means this live stream is a test live stream. Test live streams can be used to help evaluate the Mux Video APIs for free. There is no limit on the number of test live streams, but they are watermarked with the Mux logo, and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours.
 	Test bool `json:"test,omitempty"`

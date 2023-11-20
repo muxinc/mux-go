@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **CreateUrlSigningKey**
-> SigningKeyResponse CreateUrlSigningKey(ctx, )
+> SigningKeyCreateResponse CreateUrlSigningKey(ctx, )
 Create a URL signing key
 
 This route is now deprecated, please use the `Signing Keys` API. Creates a new signing key pair. When creating a new signing key, the API will generate a 2048-bit RSA key-pair and return the private key and a generated key-id; the public key will be stored at Mux to validate signed tokens.  Note: Any new access tokens authenticating this route will be required to have `System` level permissions. 
@@ -21,7 +21,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**SigningKeyResponse**](SigningKeyResponse.md)
+[**SigningKeyCreateResponse**](SigningKeyCreateResponse.md)
 
 ### Authorization
 

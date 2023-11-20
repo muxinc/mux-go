@@ -5,8 +5,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **WatchTime** | **int64** |  | [optional] 
 **ViewCount** | **int64** |  | [optional] 
+**UniqueViewers** | **int64** |  | [optional] 
+**StartedViews** | **int64** |  | [optional] 
+**TotalPlayingTime** | **int64** |  | [optional] 
 **Name** | **string** |  | [optional] 
+**EndedViews** | **int64** |  | [optional] 
 **Value** | **float64** |  | [optional] 
+**Type** | **string** |  | [optional] 
 **Metric** | **string** |  | [optional] 
 **Items** | [**[]Metric**](Metric.md) |  | [optional] 
 

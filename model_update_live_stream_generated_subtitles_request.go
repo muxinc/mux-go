@@ -5,5 +5,5 @@ package muxgo
 
 type UpdateLiveStreamGeneratedSubtitlesRequest struct {
 	// Update automated speech recognition subtitle configuration for a live stream. At most one subtitle track is allowed.
-	GeneratedSubtitles []LiveStreamGeneratedSubtitleSettings `json:"generated_subtitles,omitempty"`
+	GeneratedSubtitles []LiveStreamGeneratedSubtitleRequest `json:"generated_subtitles,omitempty"`
 }

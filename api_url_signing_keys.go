@@ -12,7 +12,7 @@ import (
 
 type URLSigningKeysApiService service
 
-func (a *URLSigningKeysApiService) CreateUrlSigningKey(opts ...APIOption) (SigningKeyResponse, error) {
+func (a *URLSigningKeysApiService) CreateUrlSigningKey(opts ...APIOption) (SigningKeyCreateResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Post")
@@ -20,7 +20,7 @@ func (a *URLSigningKeysApiService) CreateUrlSigningKey(opts ...APIOption) (Signi
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SigningKeyResponse
+		localVarReturnValue  SigningKeyCreateResponse
 	)
 
 	for _, opt := range opts {

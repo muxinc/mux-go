@@ -4,5 +4,5 @@
 package muxgo
 
 type CreatePlaybackRestrictionRequest struct {
-	Referrer ReferrerDomainRestriction `json:"referrer,omitempty"`
+	Referrer ReferrerDomainRestrictionRequest `json:"referrer,omitempty"`
 }

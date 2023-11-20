@@ -5,5 +5,5 @@ package muxgo
 
 type UpdateLiveStreamEmbeddedSubtitlesRequest struct {
 	// Describe the embedded closed caption contents of the incoming live stream.
-	EmbeddedSubtitles []LiveStreamEmbeddedSubtitleSettings `json:"embedded_subtitles,omitempty"`
+	EmbeddedSubtitles []LiveStreamEmbeddedSubtitleRequest `json:"embedded_subtitles,omitempty"`
 }
