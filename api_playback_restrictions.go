@@ -319,7 +319,7 @@ func (a *PlaybackRestrictionsApiService) ListPlaybackRestrictions(opts ...APIOpt
 	return localVarReturnValue, nil
 }
 
-func (a *PlaybackRestrictionsApiService) UpdateReferrerDomainRestriction(pLAYBACKRESTRICTIONID string, updateReferrerDomainRestrictionRequest UpdateReferrerDomainRestrictionRequest, opts ...APIOption) (PlaybackRestrictionResponse, error) {
+func (a *PlaybackRestrictionsApiService) UpdateReferrerDomainRestriction(pLAYBACKRESTRICTIONID string, referrerDomainRestrictionRequest ReferrerDomainRestrictionRequest, opts ...APIOption) (PlaybackRestrictionResponse, error) {
 	var (
 		localVarAPIOptions   = new(APIOptions)
 		localVarHttpMethod   = strings.ToUpper("Put")
@@ -360,7 +360,7 @@ func (a *PlaybackRestrictionsApiService) UpdateReferrerDomainRestriction(pLAYBAC
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	localVarPostBody = &updateReferrerDomainRestrictionRequest
+	localVarPostBody = &referrerDomainRestrictionRequest
 
 	r, err := a.client.prepareRequest(localVarAPIOptions, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {

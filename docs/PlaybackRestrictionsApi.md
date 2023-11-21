@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **UpdateReferrerDomainRestriction**
-> PlaybackRestrictionResponse UpdateReferrerDomainRestriction(ctx, pLAYBACKRESTRICTIONID, updateReferrerDomainRestrictionRequest)
+> PlaybackRestrictionResponse UpdateReferrerDomainRestriction(ctx, pLAYBACKRESTRICTIONID, referrerDomainRestrictionRequest)
 Update the Referrer Playback Restriction
 
 Allows you to modify the list of domains or change how Mux validates playback requests without the `Referer` HTTP header. The Referrer restriction fully replaces the old list with this new list of domains.
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **pLAYBACKRESTRICTIONID** | **string**| ID of the Playback Restriction. | 
-  **updateReferrerDomainRestrictionRequest** | [**UpdateReferrerDomainRestrictionRequest**](UpdateReferrerDomainRestrictionRequest.md)|  | 
+  **referrerDomainRestrictionRequest** | [**ReferrerDomainRestrictionRequest**](ReferrerDomainRestrictionRequest.md)|  | 
 
 ### Return type
 

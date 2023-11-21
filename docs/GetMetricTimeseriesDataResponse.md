@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [**[][]OneOfstringlongdouble**](array.md) |  | [optional] 
+**Data** | [**[][]string**](array.md) |  | [optional] 
 **TotalRowCount** | **int64** |  | [optional] 
 **Timeframe** | **[]int64** |  | [optional] 
 **Meta** | [**ListBreakdownValuesResponseMeta**](ListBreakdownValuesResponse_meta.md) |  | [optional] 

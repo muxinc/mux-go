@@ -4,7 +4,7 @@
 package muxgo
 
 type GetMetricTimeseriesDataResponse struct {
-	Data          [][]OneOfstringlongdouble       `json:"data,omitempty"`
+	Data          [][]string                      `json:"data,omitempty"`
 	TotalRowCount int64                           `json:"total_row_count,omitempty"`
 	Timeframe     []int64                         `json:"timeframe,omitempty"`
 	Meta          ListBreakdownValuesResponseMeta `json:"meta,omitempty"`
