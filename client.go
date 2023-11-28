@@ -56,6 +56,7 @@ type APIClient struct {
 	TranscriptionVocabulariesApi *TranscriptionVocabulariesApiService
 	URLSigningKeysApi            *URLSigningKeysApiService
 	VideoViewsApi                *VideoViewsApiService
+	WebInputsApi                 *WebInputsApiService
 }
 
 type service struct {
@@ -91,6 +92,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TranscriptionVocabulariesApi = (*TranscriptionVocabulariesApiService)(&c.common)
 	c.URLSigningKeysApi = (*URLSigningKeysApiService)(&c.common)
 	c.VideoViewsApi = (*VideoViewsApiService)(&c.common)
+	c.WebInputsApi = (*WebInputsApiService)(&c.common)
 
 	return c
 }

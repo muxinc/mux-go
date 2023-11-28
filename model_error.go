@@ -16,7 +16,7 @@ type Error struct {
 	LastSeen string `json:"last_seen,omitempty"`
 	// Description of the error.
 	Description string `json:"description,omitempty"`
-	// The total number of views that experiend this error.
+	// The total number of views that experienced this error.
 	Count int64 `json:"count,omitempty"`
 	// The error code
 	Code int64 `json:"code,omitempty"`

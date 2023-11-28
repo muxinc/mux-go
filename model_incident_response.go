@@ -4,6 +4,7 @@
 package muxgo
 
 type IncidentResponse struct {
-	Data      Incident `json:"data,omitempty"`
-	Timeframe []int64  `json:"timeframe,omitempty"`
+	Data          Incident `json:"data,omitempty"`
+	TotalRowCount int64    `json:"total_row_count,omitempty"`
+	Timeframe     []int64  `json:"timeframe,omitempty"`
 }

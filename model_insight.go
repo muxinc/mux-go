@@ -5,6 +5,7 @@ package muxgo
 
 type Insight struct {
 	TotalWatchTime      int64   `json:"total_watch_time,omitempty"`
+	TotalPlayingTime    int64   `json:"total_playing_time,omitempty"`
 	TotalViews          int64   `json:"total_views,omitempty"`
 	NegativeImpactScore float32 `json:"negative_impact_score,omitempty"`
 	Metric              float64 `json:"metric,omitempty"`

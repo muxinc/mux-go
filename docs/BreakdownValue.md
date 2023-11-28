@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **Views** | **int64** |  | [optional] 
 **Value** | **float64** |  | [optional] 
 **TotalWatchTime** | **int64** |  | [optional] 
+**TotalPlayingTime** | **int64** |  | [optional] 
 **NegativeImpact** | **int32** |  | [optional] 
 **Field** | **string** |  | [optional] 
 

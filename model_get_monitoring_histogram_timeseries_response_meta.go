@@ -4,5 +4,6 @@
 package muxgo
 
 type GetMonitoringHistogramTimeseriesResponseMeta struct {
-	Buckets []MonitoringHistogramTimeseriesBucket `json:"buckets,omitempty"`
+	BucketUnit string                                `json:"bucket_unit,omitempty"`
+	Buckets    []MonitoringHistogramTimeseriesBucket `json:"buckets,omitempty"`
 }
