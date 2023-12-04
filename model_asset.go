@@ -18,13 +18,13 @@ type Asset struct {
 	ResolutionTier string `json:"resolution_tier,omitempty"`
 	// Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
 	MaxResolutionTier string `json:"max_resolution_tier,omitempty"`
-	// The encoding tier informs the cost, quality, and available platform features for the asset. By default the `smart` encoding tier is used. [See the guide for more details.](https://docs.mux.com/guides/video/use-encoding-tiers)
+	// The encoding tier informs the cost, quality, and available platform features for the asset. By default the `smart` encoding tier is used. [See the guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
 	EncodingTier string `json:"encoding_tier,omitempty"`
 	// The maximum frame rate that has been stored for the asset. The asset may be delivered at lower frame rates depending on the device and bandwidth, however it cannot be delivered at a higher value than is stored. This field may return -1 if the frame rate of the input cannot be reliably determined.
 	MaxStoredFrameRate float64 `json:"max_stored_frame_rate,omitempty"`
 	// The aspect ratio of the asset in the form of `width:height`, for example `16:9`.
 	AspectRatio string `json:"aspect_ratio,omitempty"`
-	// An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/video/play-your-videos) for more details.
+	// An array of Playback ID objects. Use these to create HLS playback URLs. See [Play your videos](https://docs.mux.com/guides/play-your-videos) for more details.
 	PlaybackIds []PlaybackId `json:"playback_ids,omitempty"`
 	// The individual media tracks that make up an asset.
 	Tracks         []Track     `json:"tracks,omitempty"`

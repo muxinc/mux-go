@@ -8,6 +8,6 @@ type CreateUploadRequest struct {
 	Timeout int32 `json:"timeout,omitempty"`
 	// If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
 	CorsOrigin       string             `json:"cors_origin,omitempty"`
-	NewAssetSettings CreateAssetRequest `json:"new_asset_settings"`
+	NewAssetSettings CreateAssetRequest `json:"new_asset_settings,omitempty"`
 	Test             bool               `json:"test,omitempty"`
 }

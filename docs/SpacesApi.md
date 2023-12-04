@@ -190,7 +190,7 @@ Name | Type | Description  | Notes
 > ListSpacesResponse ListSpaces(ctx, optional)
 List spaces
 
-List all spaces in the current enviroment.
+List all spaces in the current environment.
 
 ### Required Parameters
 

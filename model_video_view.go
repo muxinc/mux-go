@@ -145,4 +145,6 @@ type VideoView struct {
 	ViewDroppedFrameCount          int64            `json:"view_dropped_frame_count,omitempty"`
 	ViewHasAd                      bool             `json:"view_has_ad,omitempty"`
 	VideoStartupFailure            bool             `json:"video_startup_failure,omitempty"`
+	LongResume                     bool             `json:"long_resume,omitempty"`
+	LongRebuffering                bool             `json:"long_rebuffering,omitempty"`
 }
