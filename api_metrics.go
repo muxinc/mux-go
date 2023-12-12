@@ -15,6 +15,7 @@ type MetricsApiService service
 type GetMetricTimeseriesDataParams struct {
 	Timeframe      []string
 	Filters        []string
+	MetricFilters  []string
 	Measurement    string
 	OrderDirection string
 	GroupBy        string
@@ -61,6 +62,13 @@ func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...API
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
@@ -125,9 +133,10 @@ func (a *MetricsApiService) GetMetricTimeseriesData(mETRICID string, opts ...API
 }
 
 type GetOverallValuesParams struct {
-	Timeframe   []string
-	Filters     []string
-	Measurement string
+	Timeframe     []string
+	Filters       []string
+	MetricFilters []string
+	Measurement   string
 }
 
 // GetOverallValues optionally accepts the APIOption of WithParams(*GetOverallValuesParams).
@@ -171,6 +180,13 @@ func (a *MetricsApiService) GetOverallValues(mETRICID string, opts ...APIOption)
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Measurement) {
@@ -229,10 +245,11 @@ func (a *MetricsApiService) GetOverallValues(mETRICID string, opts ...APIOption)
 }
 
 type ListAllMetricValuesParams struct {
-	Timeframe []string
-	Filters   []string
-	Dimension string
-	Value     string
+	Timeframe     []string
+	Filters       []string
+	MetricFilters []string
+	Dimension     string
+	Value         string
 }
 
 // ListAllMetricValues optionally accepts the APIOption of WithParams(*ListAllMetricValuesParams).
@@ -275,6 +292,13 @@ func (a *MetricsApiService) ListAllMetricValues(opts ...APIOption) (ListAllMetri
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Dimension) {
@@ -339,6 +363,7 @@ type ListBreakdownValuesParams struct {
 	GroupBy        string
 	Measurement    string
 	Filters        []string
+	MetricFilters  []string
 	Limit          int32
 	Page           int32
 	OrderBy        string
@@ -386,6 +411,13 @@ func (a *MetricsApiService) ListBreakdownValues(mETRICID string, opts ...APIOpti
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
@@ -463,6 +495,7 @@ type ListInsightsParams struct {
 	Measurement    string
 	OrderDirection string
 	Timeframe      []string
+	Filters        []string
 }
 
 // ListInsights optionally accepts the APIOption of WithParams(*ListInsightsParams).
@@ -505,6 +538,13 @@ func (a *MetricsApiService) ListInsights(mETRICID string, opts ...APIOption) (Li
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Timeframe {
 			localVarQueryParams.Add("timeframe[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.Filters {
+			localVarQueryParams.Add("filters[]", v)
 		}
 	}
 	// to determine the Content-Type header

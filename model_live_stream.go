@@ -44,4 +44,6 @@ type LiveStream struct {
 	Test bool `json:"test,omitempty"`
 	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
 	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
+	// Unique key used for encrypting a stream to a Mux SRT endpoint.
+	SrtPassphrase string `json:"srt_passphrase,omitempty"`
 }
