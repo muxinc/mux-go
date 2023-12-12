@@ -1,0 +1,13 @@
+diff --git a/model_broadcast_status.go b/model_broadcast_status.go
+index 2411549..f8db8a4 100644
+--- a/model_broadcast_status.go
++++ b/model_broadcast_status.go
+@@ -8,6 +8,6 @@ type BroadcastStatus string
+ 
+ // List of BroadcastStatus
+ const (
+-	IDLE   BroadcastStatus = "idle"
+-	ACTIVE BroadcastStatus = "active"
++	BROADCAST_IDLE   BroadcastStatus = "idle"
++	BROADCAST_ACTIVE BroadcastStatus = "active"
+ )

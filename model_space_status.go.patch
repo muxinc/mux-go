@@ -1,0 +1,13 @@
+diff --git a/model_space_status.go b/model_space_status.go
+index 31572b7..9adb99c 100644
+--- a/model_space_status.go
++++ b/model_space_status.go
+@@ -8,6 +8,6 @@ type SpaceStatus string
+ 
+ // List of SpaceStatus
+ const (
+-	IDLE   SpaceStatus = "idle"
+-	ACTIVE SpaceStatus = "active"
++	SPACE_IDLE   SpaceStatus = "idle"
++	SPACE_ACTIVE SpaceStatus = "active"
+ )
