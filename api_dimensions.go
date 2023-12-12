@@ -13,10 +13,11 @@ import (
 type DimensionsApiService service
 
 type ListDimensionValuesParams struct {
-	Limit     int32
-	Page      int32
-	Filters   []string
-	Timeframe []string
+	Limit         int32
+	Page          int32
+	Filters       []string
+	MetricFilters []string
+	Timeframe     []string
 }
 
 // ListDimensionValues optionally accepts the APIOption of WithParams(*ListDimensionValuesParams).
@@ -59,6 +60,13 @@ func (a *DimensionsApiService) ListDimensionValues(dIMENSIONID string, opts ...A
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {
