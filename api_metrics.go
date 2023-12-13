@@ -496,6 +496,7 @@ type ListInsightsParams struct {
 	OrderDirection string
 	Timeframe      []string
 	Filters        []string
+	MetricFilters  []string
 }
 
 // ListInsights optionally accepts the APIOption of WithParams(*ListInsightsParams).
@@ -545,6 +546,13 @@ func (a *MetricsApiService) ListInsights(mETRICID string, opts ...APIOption) (Li
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	// to determine the Content-Type header
