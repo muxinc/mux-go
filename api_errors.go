@@ -12,8 +12,9 @@ import (
 type ErrorsApiService service
 
 type ListErrorsParams struct {
-	Filters   []string
-	Timeframe []string
+	Filters       []string
+	MetricFilters []string
+	Timeframe     []string
 }
 
 // ListErrors optionally accepts the APIOption of WithParams(*ListErrorsParams).
@@ -49,6 +50,13 @@ func (a *ErrorsApiService) ListErrors(opts ...APIOption) (ListErrorsResponse, er
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {

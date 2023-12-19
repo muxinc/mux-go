@@ -34,4 +34,6 @@ type Track struct {
 	Passthrough string `json:"passthrough,omitempty"`
 	// The status of the track. This parameter is only set for `text` type tracks.
 	Status string `json:"status,omitempty"`
+	// For an audio track, indicates that this is the primary audio track, ingested from the main input for this asset. The primary audio track cannot be deleted.
+	Primary bool `json:"primary,omitempty"`
 }

@@ -94,6 +94,7 @@ type ListVideoViewsParams struct {
 	ErrorId        int32
 	OrderDirection string
 	Filters        []string
+	MetricFilters  []string
 	Timeframe      []string
 }
 
@@ -145,6 +146,13 @@ func (a *VideoViewsApiService) ListVideoViews(opts ...APIOption) (ListVideoViews
 		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
 		for _, v := range localVarOptionals.Filters {
 			localVarQueryParams.Add("filters[]", v)
+		}
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.MetricFilters) {
+		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
+		// The first version of this code checked the collectionFormat, but that's just wasted CPU cycles right now.
+		for _, v := range localVarOptionals.MetricFilters {
+			localVarQueryParams.Add("metric_filters[]", v)
 		}
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Timeframe) {

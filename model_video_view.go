@@ -123,7 +123,7 @@ type VideoView struct {
 	ViewSessionId                  string           `json:"view_session_id,omitempty"`
 	ViewerConnectionType           string           `json:"viewer_connection_type,omitempty"`
 	ViewerDeviceModel              string           `json:"viewer_device_model,omitempty"`
-	WeightedAverageBitrate         int64            `json:"weighted_average_bitrate,omitempty"`
+	WeightedAverageBitrate         float64          `json:"weighted_average_bitrate,omitempty"`
 	Custom1                        string           `json:"custom_1,omitempty"`
 	Custom2                        string           `json:"custom_2,omitempty"`
 	Custom3                        string           `json:"custom_3,omitempty"`
@@ -145,6 +145,17 @@ type VideoView struct {
 	ViewDroppedFrameCount          int64            `json:"view_dropped_frame_count,omitempty"`
 	ViewHasAd                      bool             `json:"view_has_ad,omitempty"`
 	VideoStartupFailure            bool             `json:"video_startup_failure,omitempty"`
+	AdAttemptCount                 int32            `json:"ad_attempt_count,omitempty"`
+	AdBreakCount                   int32            `json:"ad_break_count,omitempty"`
+	AdBreakErrorCount              int32            `json:"ad_break_error_count,omitempty"`
+	AdBreakErrorPercentage         string           `json:"ad_break_error_percentage,omitempty"`
+	AdErrorCount                   int32            `json:"ad_error_count,omitempty"`
+	AdErrorPercentage              string           `json:"ad_error_percentage,omitempty"`
+	AdImpressionCount              int32            `json:"ad_impression_count,omitempty"`
+	AdStartupErrorCount            int32            `json:"ad_startup_error_count,omitempty"`
+	AdStartupErrorPercentage       string           `json:"ad_startup_error_percentage,omitempty"`
+	AdExitBeforeStartCount         int32            `json:"ad_exit_before_start_count,omitempty"`
+	AdExitBeforeStartPercentage    string           `json:"ad_exit_before_start_percentage,omitempty"`
 	LongResume                     bool             `json:"long_resume,omitempty"`
 	LongRebuffering                bool             `json:"long_rebuffering,omitempty"`
 }

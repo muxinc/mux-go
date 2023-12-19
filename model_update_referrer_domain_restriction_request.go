@@ -4,7 +4,7 @@
 package muxgo
 
 type UpdateReferrerDomainRestrictionRequest struct {
-	// List of domains allowed to play videos. Possible values are   * `[]` Empty Array indicates deny video playback requests for all domains   * `[\"*\"]` A Single Wildcard `*` entry means allow video playback requests from any domain   *  `[\"*.example.com\", \"foo.com\"]` A list of up to 10 domains or valid dns-style wildcards
+	// List of domains allowed to play videos. Possible values are   * `[]` Empty Array indicates deny video playback requests for all domains   * `[\"*\"]` A Single Wildcard `*` entry means allow video playback requests from any domain   * `[\"*.example.com\", \"foo.com\"]` A list of up to 10 domains or valid dns-style wildcards
 	AllowedDomains []string `json:"allowed_domains,omitempty"`
 	// A boolean to determine whether to allow or deny HTTP requests without `Referer` HTTP request header. Playback requests coming from non-web/native applications like iOS, Android or smart TVs will not have a `Referer` HTTP header. Set this value to `true` to allow these playback requests.
 	AllowNoReferrer bool `json:"allow_no_referrer,omitempty"`
