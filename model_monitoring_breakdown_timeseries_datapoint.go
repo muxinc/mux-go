@@ -7,4 +7,5 @@ type MonitoringBreakdownTimeseriesDatapoint struct {
 	Value             string  `json:"value,omitempty"`
 	MetricValue       float64 `json:"metric_value,omitempty"`
 	ConcurrentViewers int64   `json:"concurrent_viewers,omitempty"`
+	StartingUpViewers int64   `json:"starting_up_viewers,omitempty"`
 }
