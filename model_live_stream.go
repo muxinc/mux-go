@@ -46,4 +46,6 @@ type LiveStream struct {
 	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
 	// Unique key used for encrypting a stream to a Mux SRT endpoint.
 	SrtPassphrase string `json:"srt_passphrase,omitempty"`
+	// The protocol used for the active ingest stream. This is only set when the live stream is active.
+	ActiveIngestProtocol string `json:"active_ingest_protocol,omitempty"`
 }

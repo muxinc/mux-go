@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **RecordingTimes** | [**[]AssetRecordingTimes**](Asset_recording_times.md) | An array of individual live stream recording sessions. A recording session is created on each encoder connection during the live stream. Additionally any time slate media is inserted during brief interruptions in the live stream media or times when the live streaming software disconnects, a recording session representing the slate media will be added with a \&quot;slate\&quot; type. | [optional] 
 **NonStandardInputReasons** | [**AssetNonStandardInputReasons**](Asset_non_standard_input_reasons.md) |  | [optional] 
 **Test** | **bool** | True means this live stream is a test asset. A test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test assets are watermarked with the Mux logo, limited to 10 seconds, and deleted after 24 hrs. | [optional] 
+**IngestType** | **string** | The type of ingest used to create the asset. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

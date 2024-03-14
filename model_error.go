@@ -20,4 +20,6 @@ type Error struct {
 	Count int64 `json:"count,omitempty"`
 	// The error code
 	Code int64 `json:"code,omitempty"`
+	// The string version of the error code
+	PlayerErrorCode string `json:"player_error_code,omitempty"`
 }

@@ -9,12 +9,12 @@ Method | HTTP request | Description
 [**CreateLiveStreamSimulcastTarget**](LiveStreamsApi.md#CreateLiveStreamSimulcastTarget) | **Post** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets | Create a live stream simulcast target
 [**DeleteLiveStream**](LiveStreamsApi.md#DeleteLiveStream) | **Delete** /video/v1/live-streams/{LIVE_STREAM_ID} | Delete a live stream
 [**DeleteLiveStreamPlaybackId**](LiveStreamsApi.md#DeleteLiveStreamPlaybackId) | **Delete** /video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID} | Delete a live stream playback ID
-[**DeleteLiveStreamSimulcastTarget**](LiveStreamsApi.md#DeleteLiveStreamSimulcastTarget) | **Delete** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets/{SIMULCAST_TARGET_ID} | Delete a Live Stream Simulcast Target
+[**DeleteLiveStreamSimulcastTarget**](LiveStreamsApi.md#DeleteLiveStreamSimulcastTarget) | **Delete** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets/{SIMULCAST_TARGET_ID} | Delete a live stream simulcast target
 [**DisableLiveStream**](LiveStreamsApi.md#DisableLiveStream) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/disable | Disable a live stream
 [**EnableLiveStream**](LiveStreamsApi.md#EnableLiveStream) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/enable | Enable a live stream
 [**GetLiveStream**](LiveStreamsApi.md#GetLiveStream) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID} | Retrieve a live stream
 [**GetLiveStreamPlaybackId**](LiveStreamsApi.md#GetLiveStreamPlaybackId) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/playback-ids/{PLAYBACK_ID} | Retrieve a live stream playback ID
-[**GetLiveStreamSimulcastTarget**](LiveStreamsApi.md#GetLiveStreamSimulcastTarget) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets/{SIMULCAST_TARGET_ID} | Retrieve a Live Stream Simulcast Target
+[**GetLiveStreamSimulcastTarget**](LiveStreamsApi.md#GetLiveStreamSimulcastTarget) | **Get** /video/v1/live-streams/{LIVE_STREAM_ID}/simulcast-targets/{SIMULCAST_TARGET_ID} | Retrieve a live stream simulcast target
 [**ListLiveStreams**](LiveStreamsApi.md#ListLiveStreams) | **Get** /video/v1/live-streams | List live streams
 [**ResetStreamKey**](LiveStreamsApi.md#ResetStreamKey) | **Post** /video/v1/live-streams/{LIVE_STREAM_ID}/reset-stream-key | Reset a live stream&#39;s stream key
 [**SignalLiveStreamComplete**](LiveStreamsApi.md#SignalLiveStreamComplete) | **Put** /video/v1/live-streams/{LIVE_STREAM_ID}/complete | Signal a live stream is finished
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 # **DeleteLiveStreamSimulcastTarget**
 > DeleteLiveStreamSimulcastTarget(ctx, lIVESTREAMID, sIMULCASTTARGETID)
-Delete a Live Stream Simulcast Target
+Delete a live stream simulcast target
 
 Delete the simulcast target using the simulcast target ID returned when creating the simulcast target. Simulcast Target can only be deleted when the parent live stream is in idle state.
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 
 # **GetLiveStreamSimulcastTarget**
 > SimulcastTargetResponse GetLiveStreamSimulcastTarget(ctx, lIVESTREAMID, sIMULCASTTARGETID)
-Retrieve a Live Stream Simulcast Target
+Retrieve a live stream simulcast target
 
 Retrieves the details of the simulcast target created for the parent live stream. Supply the unique live stream ID and simulcast target ID that was returned in the response of create simulcast target request, and Mux will return the corresponding information.
 
