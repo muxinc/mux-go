@@ -407,7 +407,7 @@ Name | Type | Description  | Notes
 > AssetResponse UpdateAssetMp4Support(ctx, aSSETID, updateAssetMp4SupportRequest)
 Update MP4 support
 
-Allows you to add or remove mp4 support for assets that were created without it. Currently there are two values supported in this request, `standard` and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
+Allows you to add or remove mp4 support for assets that were created without it. The values supported are `capped-1080p`, `audio-only`, `audio-only,capped-1080p`, `standard`(deprecated),  and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
 
 ### Required Parameters
 
