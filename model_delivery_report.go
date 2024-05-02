@@ -20,6 +20,8 @@ type DeliveryReport struct {
 	AssetDuration float64 `json:"asset_duration,omitempty"`
 	// The resolution tier that the asset was ingested at, affecting billing for ingest & storage
 	AssetResolutionTier string `json:"asset_resolution_tier,omitempty"`
+	// The encoding tier that the asset was ingested at. [See the encoding tiers guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
+	AssetEncodingTier string `json:"asset_encoding_tier,omitempty"`
 	// Total number of delivered seconds during this time window.
 	DeliveredSeconds             float64                                    `json:"delivered_seconds,omitempty"`
 	DeliveredSecondsByResolution DeliveryReportDeliveredSecondsByResolution `json:"delivered_seconds_by_resolution,omitempty"`

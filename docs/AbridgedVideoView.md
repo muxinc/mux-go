@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **ViewEnd** | **string** |  | [optional] 
 **ViewerExperienceScore** | **float32** |  | [optional] 
 **WatchTime** | **int32** |  | [optional] 
+**PlaybackFailure** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

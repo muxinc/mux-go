@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **UseSlateForStandardLatency** | **bool** | By default, Standard Latency live streams do not have slate media inserted while waiting for live streaming software to reconnect to Mux. Setting this to true enables slate insertion on a Standard Latency stream. | [optional] [default to false]
 **ReconnectSlateUrl** | **string** | The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. Set this to a blank string to clear the value so that the default slate media will be used. | [optional] 
 **MaxContinuousDuration** | **int32** | The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours. | [optional] [default to 43200]
+**NewAssetSettings** | [**UpdateLiveStreamNewAssetSettings**](UpdateLiveStreamNewAssetSettings.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

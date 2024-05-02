@@ -161,4 +161,10 @@ type VideoView struct {
 	PlaybackFailureErrorTypeId               int32            `json:"playback_failure_error_type_id,omitempty"`
 	PlaybackBusinessExceptionErrorTypeId     int32            `json:"playback_business_exception_error_type_id,omitempty"`
 	VideoStartupBusinessExceptionErrorTypeId int32            `json:"video_startup_business_exception_error_type_id,omitempty"`
+	PlaybackFailure                          bool             `json:"playback_failure,omitempty"`
+	AdPlaybackFailureErrorTypeId             int32            `json:"ad_playback_failure_error_type_id,omitempty"`
+	ViewContentStartupTime                   int32            `json:"view_content_startup_time,omitempty"`
+	AdPrerollStartupTime                     int32            `json:"ad_preroll_startup_time,omitempty"`
+	AdWatchTime                              int32            `json:"ad_watch_time,omitempty"`
+	ViewContentWatchTime                     int32            `json:"view_content_watch_time,omitempty"`
 }
