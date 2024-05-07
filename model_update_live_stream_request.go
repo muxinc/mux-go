@@ -15,5 +15,6 @@ type UpdateLiveStreamRequest struct {
 	// The URL of the image file that Mux should download and use as slate media during interruptions of the live stream media. This file will be downloaded each time a new recorded asset is created from the live stream. Set this to a blank string to clear the value so that the default slate media will be used.
 	ReconnectSlateUrl string `json:"reconnect_slate_url,omitempty"`
 	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
-	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
+	MaxContinuousDuration int32                            `json:"max_continuous_duration,omitempty"`
+	NewAssetSettings      UpdateLiveStreamNewAssetSettings `json:"new_asset_settings,omitempty"`
 }

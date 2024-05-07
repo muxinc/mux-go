@@ -17,4 +17,5 @@ type AbridgedVideoView struct {
 	ViewEnd               string  `json:"view_end,omitempty"`
 	ViewerExperienceScore float32 `json:"viewer_experience_score,omitempty"`
 	WatchTime             int32   `json:"watch_time,omitempty"`
+	PlaybackFailure       bool    `json:"playback_failure,omitempty"`
 }

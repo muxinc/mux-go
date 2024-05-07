@@ -4,5 +4,5 @@
 package muxgo
 
 type GenerateTrackSubtitlesResponse struct {
-	Data Track `json:"data,omitempty"`
+	Data []Track `json:"data,omitempty"`
 }

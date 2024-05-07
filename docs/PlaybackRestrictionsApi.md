@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetPlaybackRestriction**](PlaybackRestrictionsApi.md#GetPlaybackRestriction) | **Get** /video/v1/playback-restrictions/{PLAYBACK_RESTRICTION_ID} | Retrieve a Playback Restriction
 [**ListPlaybackRestrictions**](PlaybackRestrictionsApi.md#ListPlaybackRestrictions) | **Get** /video/v1/playback-restrictions | List Playback Restrictions
 [**UpdateReferrerDomainRestriction**](PlaybackRestrictionsApi.md#UpdateReferrerDomainRestriction) | **Put** /video/v1/playback-restrictions/{PLAYBACK_RESTRICTION_ID}/referrer | Update the Referrer Playback Restriction
+[**UpdateUserAgentRestriction**](PlaybackRestrictionsApi.md#UpdateUserAgentRestriction) | **Put** /video/v1/playback-restrictions/{PLAYBACK_RESTRICTION_ID}/user_agent | Update the User Agent Restriction
 
 
 # **CreatePlaybackRestriction**
@@ -144,6 +145,35 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **pLAYBACKRESTRICTIONID** | **string**| ID of the Playback Restriction. | 
   **updateReferrerDomainRestrictionRequest** | [**UpdateReferrerDomainRestrictionRequest**](UpdateReferrerDomainRestrictionRequest.md)|  | 
+
+### Return type
+
+[**PlaybackRestrictionResponse**](PlaybackRestrictionResponse.md)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateUserAgentRestriction**
+> PlaybackRestrictionResponse UpdateUserAgentRestriction(ctx, pLAYBACKRESTRICTIONID, updateUserAgentRestrictionRequest)
+Update the User Agent Restriction
+
+Allows you to modify how Mux validates playback requests with different user agents.  Please see [Using User-Agent HTTP header for validation](https://docs.mux.com/guides/secure-video-playback#using-user-agent-http-header-for-validation) for more details on this feature.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **pLAYBACKRESTRICTIONID** | **string**| ID of the Playback Restriction. | 
+  **updateUserAgentRestrictionRequest** | [**UpdateUserAgentRestrictionRequest**](UpdateUserAgentRestrictionRequest.md)|  | 
 
 ### Return type
 

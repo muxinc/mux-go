@@ -9,6 +9,7 @@ type PlaybackRestriction struct {
 	// Time the Playback Restriction was created, defined as a Unix timestamp (seconds since epoch).
 	CreatedAt string `json:"created_at,omitempty"`
 	// Time the Playback Restriction was last updated, defined as a Unix timestamp (seconds since epoch).
-	UpdatedAt string                    `json:"updated_at,omitempty"`
-	Referrer  ReferrerDomainRestriction `json:"referrer,omitempty"`
+	UpdatedAt string                       `json:"updated_at,omitempty"`
+	Referrer  ReferrerDomainRestriction    `json:"referrer,omitempty"`
+	UserAgent UserAgentRestrictionSettings `json:"user_agent,omitempty"`
 }
