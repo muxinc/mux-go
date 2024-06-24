@@ -38,6 +38,7 @@ type APIClient struct {
 
 	// API Services
 	AssetsApi                    *AssetsApiService
+	DRMConfigurationsApi         *DRMConfigurationsApiService
 	DeliveryUsageApi             *DeliveryUsageApiService
 	DimensionsApi                *DimensionsApiService
 	DirectUploadsApi             *DirectUploadsApiService
@@ -74,6 +75,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.AssetsApi = (*AssetsApiService)(&c.common)
+	c.DRMConfigurationsApi = (*DRMConfigurationsApiService)(&c.common)
 	c.DeliveryUsageApi = (*DeliveryUsageApiService)(&c.common)
 	c.DimensionsApi = (*DimensionsApiService)(&c.common)
 	c.DirectUploadsApi = (*DirectUploadsApiService)(&c.common)

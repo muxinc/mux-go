@@ -10,4 +10,5 @@ type PlaybackPolicy string
 const (
 	PUBLIC PlaybackPolicy = "public"
 	SIGNED PlaybackPolicy = "signed"
+	DRM    PlaybackPolicy = "drm"
 )

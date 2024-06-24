@@ -5,4 +5,6 @@ package muxgo
 
 type CreatePlaybackIdRequest struct {
 	Policy PlaybackPolicy `json:"policy,omitempty"`
+	// The DRM configuration used by this playback ID. Must only be set when `policy` is set to `drm`.
+	DrmConfigurationId string `json:"drm_configuration_id,omitempty"`
 }
