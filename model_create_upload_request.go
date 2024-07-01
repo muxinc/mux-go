@@ -9,5 +9,6 @@ type CreateUploadRequest struct {
 	// If the upload URL will be used in a browser, you must specify the origin in order for the signed URL to have the correct CORS headers.
 	CorsOrigin       string             `json:"cors_origin,omitempty"`
 	NewAssetSettings CreateAssetRequest `json:"new_asset_settings,omitempty"`
-	Test             bool               `json:"test,omitempty"`
+	// Indicates if this is a test Direct Upload, in which case the Asset that gets created will be a `test` Asset.
+	Test bool `json:"test,omitempty"`
 }
