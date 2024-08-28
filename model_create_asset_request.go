@@ -23,6 +23,8 @@ type CreateAssetRequest struct {
 	Test bool `json:"test,omitempty"`
 	// Max resolution tier can be used to control the maximum `resolution_tier` your asset is encoded, stored, and streamed at. If not set, this defaults to `1080p`.
 	MaxResolutionTier string `json:"max_resolution_tier,omitempty"`
-	// The encoding tier informs the cost, quality, and available platform features for the asset. By default the `smart` encoding tier is used. [See the guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
+	// This field is deprecated. Please use `video_quality` instead. The encoding tier informs the cost, quality, and available platform features for the asset. By default the `smart` encoding tier is used. [See the video quality guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
 	EncodingTier string `json:"encoding_tier,omitempty"`
+	// The video quality controls the cost, quality, and available platform features for the asset. By default the `plus` video quality is used. This field replaces the deprecated `encoding_tier` value. [See the video quality guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
+	VideoQuality string `json:"video_quality,omitempty"`
 }
