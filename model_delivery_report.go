@@ -20,9 +20,9 @@ type DeliveryReport struct {
 	AssetDuration float64 `json:"asset_duration,omitempty"`
 	// The resolution tier that the asset was ingested at, affecting billing for ingest & storage
 	AssetResolutionTier string `json:"asset_resolution_tier,omitempty"`
-	// This field is deprecated. Please use `asset_video_quality` instead. The encoding tier that the asset was ingested at. [See the video quality guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
+	// This field is deprecated. Please use `asset_video_quality` instead. The encoding tier that the asset was ingested at. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
 	AssetEncodingTier string `json:"asset_encoding_tier,omitempty"`
-	// The video quality that the asset was ingested at. This field replaces `asset_encoding_tier`. [See the video quality guide for more details.](https://docs.mux.com/guides/use-encoding-tiers)
+	// The video quality that the asset was ingested at. This field replaces `asset_encoding_tier`. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels)
 	AssetVideoQuality string `json:"asset_video_quality,omitempty"`
 	// Total number of delivered seconds during this time window.
 	DeliveredSeconds             float64                                    `json:"delivered_seconds,omitempty"`
