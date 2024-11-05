@@ -166,6 +166,7 @@ Name | Type | Description | Notes
 **AdPrerollStartupTime** | **int32** |  | [optional] 
 **AdWatchTime** | **int32** |  | [optional] 
 **ViewContentWatchTime** | **int32** |  | [optional] 
+**ViewDropped** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
