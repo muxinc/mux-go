@@ -53,7 +53,6 @@ type APIClient struct {
 	PlaybackRestrictionsApi      *PlaybackRestrictionsApiService
 	RealTimeApi                  *RealTimeApiService
 	SigningKeysApi               *SigningKeysApiService
-	SpacesApi                    *SpacesApiService
 	TranscriptionVocabulariesApi *TranscriptionVocabulariesApiService
 	URLSigningKeysApi            *URLSigningKeysApiService
 	VideoViewsApi                *VideoViewsApiService
@@ -90,7 +89,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PlaybackRestrictionsApi = (*PlaybackRestrictionsApiService)(&c.common)
 	c.RealTimeApi = (*RealTimeApiService)(&c.common)
 	c.SigningKeysApi = (*SigningKeysApiService)(&c.common)
-	c.SpacesApi = (*SpacesApiService)(&c.common)
 	c.TranscriptionVocabulariesApi = (*TranscriptionVocabulariesApiService)(&c.common)
 	c.URLSigningKeysApi = (*URLSigningKeysApiService)(&c.common)
 	c.VideoViewsApi = (*VideoViewsApiService)(&c.common)

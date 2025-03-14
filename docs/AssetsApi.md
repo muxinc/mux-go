@@ -6,9 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAsset**](AssetsApi.md#CreateAsset) | **Post** /video/v1/assets | Create an asset
 [**CreateAssetPlaybackId**](AssetsApi.md#CreateAssetPlaybackId) | **Post** /video/v1/assets/{ASSET_ID}/playback-ids | Create a playback ID
+[**CreateAssetStaticRendition**](AssetsApi.md#CreateAssetStaticRendition) | **Post** /video/v1/assets/{ASSET_ID}/static-renditions | Create a static rendition for an asset
 [**CreateAssetTrack**](AssetsApi.md#CreateAssetTrack) | **Post** /video/v1/assets/{ASSET_ID}/tracks | Create an asset track
 [**DeleteAsset**](AssetsApi.md#DeleteAsset) | **Delete** /video/v1/assets/{ASSET_ID} | Delete an asset
 [**DeleteAssetPlaybackId**](AssetsApi.md#DeleteAssetPlaybackId) | **Delete** /video/v1/assets/{ASSET_ID}/playback-ids/{PLAYBACK_ID} | Delete a playback ID
+[**DeleteAssetStaticRendition**](AssetsApi.md#DeleteAssetStaticRendition) | **Delete** /video/v1/assets/{ASSET_ID}/static-renditions/{STATIC_RENDITION_ID} | Delete a single static rendition for an asset
 [**DeleteAssetTrack**](AssetsApi.md#DeleteAssetTrack) | **Delete** /video/v1/assets/{ASSET_ID}/tracks/{TRACK_ID} | Delete an asset track
 [**GenerateAssetTrackSubtitles**](AssetsApi.md#GenerateAssetTrackSubtitles) | **Post** /video/v1/assets/{ASSET_ID}/tracks/{TRACK_ID}/generate-subtitles | Generate track subtitles
 [**GetAsset**](AssetsApi.md#GetAsset) | **Get** /video/v1/assets/{ASSET_ID} | Retrieve an asset
@@ -65,6 +67,35 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CreatePlaybackIdResponse**](CreatePlaybackIDResponse.md)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **CreateAssetStaticRendition**
+> CreateStaticRenditionResponse CreateAssetStaticRendition(ctx, aSSETID, createStaticRenditionRequest)
+Create a static rendition for an asset
+
+Creates a static rendition (i.e. MP4) for an asset
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **aSSETID** | **string**| The asset ID. | 
+  **createStaticRenditionRequest** | [**CreateStaticRenditionRequest**](CreateStaticRenditionRequest.md)|  | 
+
+### Return type
+
+[**CreateStaticRenditionResponse**](CreateStaticRenditionResponse.md)
 
 ### Authorization
 
@@ -147,6 +178,35 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **aSSETID** | **string**| The asset ID. | 
   **pLAYBACKID** | **string**| The live stream&#39;s playback ID. | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accessToken](../README.md#accessToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteAssetStaticRendition**
+> DeleteAssetStaticRendition(ctx, aSSETID, sTATICRENDITIONID)
+Delete a single static rendition for an asset
+
+Deletes a single static rendition for an asset
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **aSSETID** | **string**| The asset ID. | 
+  **sTATICRENDITIONID** | **string**| The static rendition ID. | 
 
 ### Return type
 
@@ -407,7 +467,7 @@ Name | Type | Description  | Notes
 > AssetResponse UpdateAssetMp4Support(ctx, aSSETID, updateAssetMp4SupportRequest)
 Update MP4 support
 
-Allows you to add or remove mp4 support for assets that were created without it. The values supported are `capped-1080p`, `audio-only`, `audio-only,capped-1080p`, `standard`(deprecated),  and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question.
+This method has been deprecated. Please see the [Static Rendition API](https://www.mux.com/docs/guides/enable-static-mp4-renditions#after-asset-creation). Allows you to add or remove mp4 support for assets that were created without it. The values supported are `capped-1080p`, `audio-only`, `audio-only,capped-1080p`, `standard`(deprecated),  and `none`. `none` means that an asset *does not* have mp4 support, so submitting a request with `mp4_support` set to `none` will delete the mp4 assets from the asset in question. 
 
 ### Required Parameters
 

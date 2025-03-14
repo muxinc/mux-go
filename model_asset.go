@@ -36,7 +36,7 @@ type Asset struct {
 	UploadId string `json:"upload_id,omitempty"`
 	// Indicates whether the live stream that created this asset is currently `active` and not in `idle` state. This is an optional parameter added when the asset is created from a live stream.
 	IsLive bool `json:"is_live,omitempty"`
-	// Arbitrary user-supplied metadata set for the asset. Max 255 characters.
+	// You can set this field to anything you want. It will be included in the asset details and related webhooks. If you're looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**.
 	Passthrough string `json:"passthrough,omitempty"`
 	// Unique identifier for the live stream. This is an optional parameter added when the asset is created from a live stream.
 	LiveStreamId string      `json:"live_stream_id,omitempty"`
@@ -54,5 +54,6 @@ type Asset struct {
 	// True means this live stream is a test asset. A test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test assets are watermarked with the Mux logo, limited to 10 seconds, and deleted after 24 hrs.
 	Test bool `json:"test,omitempty"`
 	// The type of ingest used to create the asset.
-	IngestType string `json:"ingest_type,omitempty"`
+	IngestType string        `json:"ingest_type,omitempty"`
+	Meta       AssetMetadata `json:"meta,omitempty"`
 }

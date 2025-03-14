@@ -4,6 +4,7 @@
 package muxgo
 
 type UpdateAssetRequest struct {
-	// Arbitrary metadata set for the Asset. Max 255 characters. In order to clear this value, the field should be included with an empty string value.
-	Passthrough string `json:"passthrough,omitempty"`
+	// You can set this field to anything you want. It will be included in the asset details and related webhooks. If you're looking for more structured metadata, such as `title` or `external_id` , you can use the `meta` object instead. **Max: 255 characters**. In order to clear this value, the field should be included with an empty string value.
+	Passthrough string        `json:"passthrough,omitempty"`
+	Meta        AssetMetadata `json:"meta,omitempty"`
 }
