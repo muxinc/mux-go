@@ -166,4 +166,21 @@ type VideoView struct {
 	ViewContentStartupTime                   int32            `json:"view_content_startup_time,omitempty"`
 	AdPrerollStartupTime                     int32            `json:"ad_preroll_startup_time,omitempty"`
 	ViewDropped                              bool             `json:"view_dropped,omitempty"`
+	ClientApplicationName                    string           `json:"client_application_name,omitempty"`
+	ClientApplicationVersion                 string           `json:"client_application_version,omitempty"`
+	VideoAffiliate                           string           `json:"video_affiliate,omitempty"`
+	ViewerPlan                               string           `json:"viewer_plan,omitempty"`
+	ViewerPlanStatus                         string           `json:"viewer_plan_status,omitempty"`
+	ViewerPlanCategory                       string           `json:"viewer_plan_category,omitempty"`
+	ViewDrmLevel                             string           `json:"view_drm_level,omitempty"`
+	VideoBrand                               string           `json:"video_brand,omitempty"`
+	UsedPip                                  bool             `json:"used_pip,omitempty"`
+	TimeShiftEnabled                         bool             `json:"time_shift_enabled,omitempty"`
+	UsedCaptions                             bool             `json:"used_captions,omitempty"`
+	VideoCodec                               string           `json:"video_codec,omitempty"`
+	AudioCodec                               string           `json:"audio_codec,omitempty"`
+	VideoDynamicRangeType                    string           `json:"video_dynamic_range_type,omitempty"`
+	ViewCdnEdgePop                           string           `json:"view_cdn_edge_pop,omitempty"`
+	ViewCdnOrigin                            string           `json:"view_cdn_origin,omitempty"`
+	VideoCreatorId                           string           `json:"video_creator_id,omitempty"`
 }
