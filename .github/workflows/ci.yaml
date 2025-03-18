@@ -15,21 +15,11 @@ jobs:
   build:
     name: Integration Test
     runs-on: ubuntu-latest
-    env:
-      GOPATH: /home/runner/work/mux-go/mux-go/go
-      CHECKOUT_LOCATION: /home/runner/work/mux-go/mux-go/go/src/github.com/muxinc/mux-go
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          path: ${{env.CHECKOUT_LOCATION}}
+        uses: actions/checkout@v4
       - name: Install Go
-        uses: actions/setup-go@v2
-      - name: Install Go Dependencies
-        run: |
-          cd $CHECKOUT_LOCATION
-          export PATH=$PATH:$(go env GOPATH)/bin
-          go install
+        uses: actions/setup-go@v5
       - name: Run Integration Tests
         run: |
           cd $CHECKOUT_LOCATION
