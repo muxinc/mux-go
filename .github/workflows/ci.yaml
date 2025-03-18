@@ -22,7 +22,6 @@ jobs:
         uses: actions/setup-go@v5
       - name: Run Integration Tests
         run: |
-          cd $CHECKOUT_LOCATION
           bash test.sh
         env: 
           MUX_TOKEN_ID: ${{ secrets.MUX_TOKEN_ID }}
