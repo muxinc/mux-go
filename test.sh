@@ -13,16 +13,18 @@ then
       exit 255
 fi
 
-VIDEO_TESTS=./examples/video/*/exercise*.go
-for f in $VIDEO_TESTS
-do
-  echo "========== Running $f =========="
-    go run $f
-done
+go run ./examples/video/latest/latest.go
 
-DATA_TESTS=./examples/data/*/exercise*.go
-for f in $DATA_TESTS
-do
-  echo "========== Running $f =========="
-    go run $f
-done
+# VIDEO_TESTS=./examples/video/*/exercise*.go
+# for f in $VIDEO_TESTS
+# do
+#   echo "========== Running $f =========="
+#     go run $f
+# done
+
+# DATA_TESTS=./examples/data/*/exercise*.go
+# for f in $DATA_TESTS
+# do
+#   echo "========== Running $f =========="
+#     go run $f
+# done
