@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	muxgo "github.com/muxinc/mux-go"
-	"github.com/muxinc/mux-go/examples/common"
+	muxgo "github.com/muxinc/mux-go/v6"
+	"github.com/muxinc/mux-go/v6/examples/common"
 )
 
 func main() {
@@ -84,7 +84,7 @@ func main() {
 	fmt.Println("clipping OK ✅")
 
 	// ========== create-asset-playback-id ==========
-	capr := muxgo.CreatePlaybackIdRequest{muxgo.PUBLIC}
+	capr := muxgo.CreatePlaybackIdRequest{Policy: muxgo.PUBLIC}
 	capre, err := client.AssetsApi.CreateAssetPlaybackId(asset.Data.Id, capr)
 	common.AssertNoError(err)
 	common.AssertNotNil(capre.Data)
@@ -108,7 +108,7 @@ func main() {
 	fmt.Println("get-asset-or-livestream-id OK ✅")
 
 	// ========== update-asset-mp4-support ==========
-	mp4r := muxgo.UpdateAssetMp4SupportRequest{"standard"}
+	mp4r := muxgo.UpdateAssetMp4SupportRequest{Mp4Support: "standard"}
 	mp4, err := client.AssetsApi.UpdateAssetMp4Support(asset.Data.Id, mp4r)
 	common.AssertNoError(err)
 	common.AssertNotNil(mp4.Data)
@@ -117,7 +117,7 @@ func main() {
 	fmt.Println("update-asset-mp4-support OK ✅")
 
 	// ========== update-asset-master-access ==========
-	mr := muxgo.UpdateAssetMasterAccessRequest{"temporary"}
+	mr := muxgo.UpdateAssetMasterAccessRequest{MasterAccess: "temporary"}
 	mas, err := client.AssetsApi.UpdateAssetMasterAccess(asset.Data.Id, mr)
 	common.AssertNoError(err)
 	common.AssertNotNil(mas.Data)

@@ -7,9 +7,9 @@ type Upload struct {
 	// Unique identifier for the Direct Upload.
 	Id string `json:"id,omitempty"`
 	// Max time in seconds for the signed upload URL to be valid. If a successful upload has not occurred before the timeout limit, the direct upload is marked `timed_out`
-	Timeout          int32  `json:"timeout,omitempty"`
-	Status           string `json:"status,omitempty"`
-	NewAssetSettings Asset  `json:"new_asset_settings,omitempty"`
+	Timeout          int32              `json:"timeout,omitempty"`
+	Status           string             `json:"status,omitempty"`
+	NewAssetSettings CreateAssetRequest `json:"new_asset_settings,omitempty"`
 	// Only set once the upload is in the `asset_created` state.
 	AssetId string      `json:"asset_id,omitempty"`
 	Error   UploadError `json:"error,omitempty"`

@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"github.com/muxinc/mux-go"
+
+	muxgo "github.com/muxinc/mux-go/v6"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 		},
 		PlaybackPolicy: []muxgo.PlaybackPolicy{muxgo.PUBLIC},
 	})
-	
+
 	if err == nil {
 		fmt.Printf("Playback URL: https://stream.mux.com/%s.m3u8 \n", asset.Data.PlaybackIds[0].Id)
 	} else {
