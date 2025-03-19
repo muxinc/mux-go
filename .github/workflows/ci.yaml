@@ -4,12 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_request: 
-
-# I appreciate this isn't the cleanest workflow, but it's the neatest I can get it while we're
-# still using dep to manage dependencies. If we move to go modules this can be cleaned up a lot.
-# I'd love to use a nicer checkout path, but GitHub actions won't let you use anything above
-# /home/runner/work/mux-go/mux-go/, so /home/runner/work/mux-go/mux-go/go it is!
+  pull_request:
 
 jobs:
   build:
