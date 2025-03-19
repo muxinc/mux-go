@@ -24,5 +24,3 @@ _testmain.go
 *.prof
 
 vendor
-
-.DS_Store
