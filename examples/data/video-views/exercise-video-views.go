@@ -31,13 +31,9 @@ func main() {
 	}
 	fmt.Println("list-video-views ✅")
 
-	fmt.Println(vs.Data[0].Id)
-
 	// ========== get-video-view ==========
 	v, err := client.VideoViewsApi.GetVideoView(vs.Data[0].Id)
 	common.AssertNoError(err)
 	common.AssertNotNil(v.Data)
 	fmt.Println("get-video-view ✅")
-
-	fmt.Println(v.Data.Events)
 }
