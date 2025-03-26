@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	muxgo "github.com/muxinc/mux-go/v6"
-	"github.com/muxinc/mux-go/v6/examples/common"
+	muxgo "github.com/muxinc/mux-go/v7"
+	"github.com/muxinc/mux-go/v7/examples/common"
 )
 
 func main() {
