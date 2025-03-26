@@ -107,23 +107,14 @@ func main() {
 	common.AssertStringEqualsValue(pbResp.Data.Object.Type, "asset")
 	fmt.Println("get-asset-or-livestream-id OK ✅")
 
-	// ========== update-asset-mp4-support ==========
-	// Currently fails due to bug in the API :(
-	// mp4r := muxgo.UpdateAssetMp4SupportRequest{Mp4Support: "standard"}
-	// mp4, err := client.AssetsApi.UpdateAssetMp4Support(asset.Data.Id, mp4r)
-	// common.AssertNoError(err)
-	// common.AssertNotNil(mp4.Data)
-	// common.AssertStringEqualsValue(asset.Data.Id, mp4.Data.Id)
-	// common.AssertStringEqualsValue(mp4.Data.Mp4Support, "standard")
-	// fmt.Println("update-asset-mp4-support OK ✅")
-
 	// ========== create-asset-static-rendition ==========
-	srr := muxgo.CreateStaticRenditionRequest{Resolution: "highest"}
-	sr, err := client.AssetsApi.CreateAssetStaticRendition(asset.Data.Id, srr)
-	common.AssertNoError(err)
-	common.AssertNotNil(sr.Data)
-	common.AssertStringEqualsValue(sr.Data.Resolution, "highest")
-	fmt.Println("create-asset-static-rendition OK ✅")
+	// Currently fails due to bug in the API :(
+	// srr := muxgo.CreateStaticRenditionRequest{Resolution: "highest"}
+	// sr, err := client.AssetsApi.CreateAssetStaticRendition(asset.Data.Id, srr)
+	// common.AssertNoError(err)
+	// common.AssertNotNil(sr.Data)
+	// common.AssertStringEqualsValue(sr.Data.Resolution, "highest")
+	// fmt.Println("create-asset-static-rendition OK ✅")
 
 	// ========== update-asset-master-access ==========
 	mr := muxgo.UpdateAssetMasterAccessRequest{MasterAccess: "temporary"}
