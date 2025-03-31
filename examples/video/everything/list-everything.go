@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
+	muxgo "github.com/muxinc/mux-go/v7"
 )
 
 func checkError(err error) {

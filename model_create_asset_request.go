@@ -4,11 +4,15 @@
 package muxgo
 
 type CreateAssetRequest struct {
-	// An array of objects that each describe an input file to be used to create the asset. As a shortcut, input can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+	// Deprecated. Use `inputs` instead, which accepts an identical type.
 	Input []InputSettings `json:"input,omitempty"`
-	// An array of playback policy names that you want applied to this asset and available through `playback_ids`. Options include:  * `\"public\"` (anyone with the playback URL can stream the asset). * `\"signed\"` (an additional access token is required to play the asset).  If no `playback_policy` is set, the asset will have no playback IDs and will therefore not be playable. For simplicity, a single string name can be used in place of the array in the case of only one playback policy.
+	// An array of objects that each describe an input file to be used to create the asset. As a shortcut, input can also be a string URL for a file when only one input file is used. See `input[].url` for requirements.
+	Inputs []InputSettings `json:"inputs,omitempty"`
+	// Deprecated. Use `playback_policies` instead, which accepts an identical type.
 	PlaybackPolicy []PlaybackPolicy `json:"playback_policy,omitempty"`
-	// An array of playback policy objects that you want applied to this asset and available through `playback_ids`. `advanced_playback_policies` must be used instead of `playback_policy` when creating a DRM playback ID.
+	// An array of playback policy names that you want applied to this asset and available through `playback_ids`. Options include:  * `\"public\"` (anyone with the playback URL can stream the asset). * `\"signed\"` (an additional access token is required to play the asset).  If no `playback_policies` are set, the asset will have no playback IDs and will therefore not be playable. For simplicity, a single string name can be used in place of the array in the case of only one playback policy.
+	PlaybackPolicies []PlaybackPolicy `json:"playback_policies,omitempty"`
+	// An array of playback policy objects that you want applied to this asset and available through `playback_ids`. `advanced_playback_policies` must be used instead of `playback_policies` when creating a DRM playback ID.
 	AdvancedPlaybackPolicies []CreatePlaybackIdRequest `json:"advanced_playback_policies,omitempty"`
 	PerTitleEncode           bool                      `json:"per_title_encode,omitempty"`
 	// You can set this field to anything you want. It will be included in the asset details and related webhooks. If you're looking for more structured metadata, such as `title` or `external_id`, you can use the `meta` object instead. **Max: 255 characters**.

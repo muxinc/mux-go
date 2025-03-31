@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go"
-	"github.com/muxinc/mux-go/examples/common"
+	muxgo "github.com/muxinc/mux-go/v7"
+	"github.com/muxinc/mux-go/v7/examples/common"
 )
 
 // Exercises all metrics operations:
@@ -29,7 +29,7 @@ func main() {
 	common.AssertNoError(err)
 	common.AssertNotNil(bdv.Data)
 	fmt.Println("list-breakdown-values ✅")
-	
+
 	// ========== get-overall-values ==========
 	ovopts := muxgo.GetOverallValuesParams{Timeframe: []string{"7:days"}}
 	ov, err := client.MetricsApi.GetOverallValues("video_startup_time", muxgo.WithParams(&ovopts))
