@@ -108,13 +108,12 @@ func main() {
 	fmt.Println("get-asset-or-livestream-id OK ✅")
 
 	// ========== create-asset-static-rendition ==========
-	// Currently fails due to bug in the API :(
-	// srr := muxgo.CreateStaticRenditionRequest{Resolution: "highest"}
-	// sr, err := client.AssetsApi.CreateAssetStaticRendition(asset.Data.Id, srr)
-	// common.AssertNoError(err)
-	// common.AssertNotNil(sr.Data)
-	// common.AssertStringEqualsValue(sr.Data.Resolution, "highest")
-	// fmt.Println("create-asset-static-rendition OK ✅")
+	srr := muxgo.CreateStaticRenditionRequest{Resolution: "highest"}
+	sr, err := client.AssetsApi.CreateAssetStaticRendition(asset.Data.Id, srr)
+	common.AssertNoError(err)
+	common.AssertNotNil(sr.Data)
+	common.AssertStringEqualsValue(sr.Data.Resolution, "highest")
+	fmt.Println("create-asset-static-rendition OK ✅")
 
 	// ========== update-asset-master-access ==========
 	mr := muxgo.UpdateAssetMasterAccessRequest{MasterAccess: "temporary"}
