@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **VideoQuality** | **string** | The video quality controls the cost, quality, and available platform features for the asset. The default video quality for an account can be set in the Mux Dashboard. This field replaces the deprecated &#x60;encoding_tier&#x60; value. [See the video quality guide for more details.](https://docs.mux.com/guides/use-video-quality-levels) | [optional] 
 **StaticRenditions** | [**[]CreateStaticRenditionRequest**](CreateStaticRenditionRequest.md) | An array of static renditions to create for this asset. You may not enable both &#x60;static_renditions&#x60; and &#x60;mp4_support (the latter being deprecated)&#x60; | [optional] 
 **Meta** | [**AssetMetadata**](AssetMetadata.md) |  | [optional] 
+**CopyOverlays** | **bool** | If the created asset is a clip, this controls whether overlays are copied from the source asset. | [optional] [default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

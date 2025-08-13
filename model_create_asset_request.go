@@ -34,4 +34,6 @@ type CreateAssetRequest struct {
 	// An array of static renditions to create for this asset. You may not enable both `static_renditions` and `mp4_support (the latter being deprecated)`
 	StaticRenditions []CreateStaticRenditionRequest `json:"static_renditions,omitempty"`
 	Meta             AssetMetadata                  `json:"meta,omitempty"`
+	// If the created asset is a clip, this controls whether overlays are copied from the source asset.
+	CopyOverlays bool `json:"copy_overlays,omitempty"`
 }

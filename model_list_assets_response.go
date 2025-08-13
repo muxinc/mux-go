@@ -4,5 +4,7 @@
 package muxgo
 
 type ListAssetsResponse struct {
-	Data []Asset `json:"data,omitempty"`
+	// If there are more pages of data, this field will contain a string that can be used with the `cursor` querystring parameter to fetch the next page of data.
+	NextCursor string  `json:"next_cursor,omitempty"`
+	Data       []Asset `json:"data,omitempty"`
 }

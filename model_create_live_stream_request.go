@@ -34,5 +34,6 @@ type CreateLiveStreamRequest struct {
 	Test             bool                           `json:"test,omitempty"`
 	SimulcastTargets []CreateSimulcastTargetRequest `json:"simulcast_targets,omitempty"`
 	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
-	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
+	MaxContinuousDuration int32              `json:"max_continuous_duration,omitempty"`
+	Meta                  LiveStreamMetadata `json:"meta,omitempty"`
 }

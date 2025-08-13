@@ -16,7 +16,7 @@ Not familiar with Mux? Check out https://mux.com/ for more information.
 ## Installation
 
 ```
-go get github.com/muxinc/mux-go/v7
+go get github.com/muxinc/mux-go/v6
 ```
 
 ## Getting Started
@@ -48,7 +48,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/muxinc/mux-go/v7"
+	"github.com/muxinc/mux-go/v6"
 )
 
 func main() {

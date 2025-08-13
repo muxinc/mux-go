@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique identifier for the Live Stream. Max 255 characters. | [optional] 
 **CreatedAt** | **string** | Time the Live Stream was created, defined as a Unix timestamp (seconds since epoch). | [optional] 
-**StreamKey** | **string** | Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. | [optional] 
+**StreamKey** | **string** | Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters. | [optional] 
 **ActiveAssetId** | **string** | The Asset that is currently being created if there is an active broadcast. | [optional] 
 **RecentAssetIds** | **[]string** | An array of strings with the most recent Asset IDs that were created from this Live Stream. The most recently generated Asset ID is the last entry in the list. | [optional] 
 **Status** | [**LiveStreamStatus**](LiveStreamStatus.md) |  | [optional] 
@@ -24,8 +24,9 @@ Name | Type | Description | Notes
 **LatencyMode** | **string** | Latency is the time from when the streamer transmits a frame of video to when you see it in the player. Set this as an alternative to setting low latency or reduced latency flags. | [optional] 
 **Test** | **bool** | True means this live stream is a test live stream. Test live streams can be used to help evaluate the Mux Video APIs for free. There is no limit on the number of test live streams, but they are watermarked with the Mux logo, and limited to 5 minutes. The test live stream is disabled after the stream is active for 5 mins and the recorded asset also deleted after 24 hours. | [optional] 
 **MaxContinuousDuration** | **int32** | The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours. | [optional] [default to 43200]
-**SrtPassphrase** | **string** | Unique key used for encrypting a stream to a Mux SRT endpoint. | [optional] 
+**SrtPassphrase** | **string** | Unique key used for encrypting a stream to a Mux SRT endpoint. Max 64 characters. | [optional] 
 **ActiveIngestProtocol** | **string** | The protocol used for the active ingest stream. This is only set when the live stream is active. | [optional] 
+**Meta** | [**LiveStreamMetadata**](LiveStreamMetadata.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

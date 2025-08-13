@@ -889,6 +889,7 @@ func (a *AssetsApiService) GetAssetPlaybackId(aSSETID string, pLAYBACKID string,
 type ListAssetsParams struct {
 	Limit        int32
 	Page         int32
+	Cursor       string
 	LiveStreamId string
 	UploadId     string
 }
@@ -926,6 +927,9 @@ func (a *AssetsApiService) ListAssets(opts ...APIOption) (ListAssetsResponse, er
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
 		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.Cursor) {
+		localVarQueryParams.Add("cursor", parameterToString(localVarOptionals.Cursor, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.LiveStreamId) {
 		localVarQueryParams.Add("live_stream_id", parameterToString(localVarOptionals.LiveStreamId, ""))

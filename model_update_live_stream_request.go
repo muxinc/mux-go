@@ -17,4 +17,5 @@ type UpdateLiveStreamRequest struct {
 	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
 	MaxContinuousDuration int32                            `json:"max_continuous_duration,omitempty"`
 	NewAssetSettings      UpdateLiveStreamNewAssetSettings `json:"new_asset_settings,omitempty"`
+	Meta                  LiveStreamMetadata               `json:"meta,omitempty"`
 }

@@ -4,10 +4,10 @@
 package muxgo
 
 type AssetMetadata struct {
-	// The video title. Max 512 code points.
+	// The asset title. Max 512 code points.
 	Title string `json:"title,omitempty"`
-	// This is an identifier you provide to keep track of the creator of the video. Max 128 code points.
+	// This is an identifier you provide to keep track of the creator of the asset. Max 128 code points.
 	CreatorId string `json:"creator_id,omitempty"`
-	// This is an identifier you provide to link the video to your own data. Max 128 code points.
+	// This is an identifier you provide to link the asset to your own data. Max 128 code points.
 	ExternalId string `json:"external_id,omitempty"`
 }

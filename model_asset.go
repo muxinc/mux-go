@@ -56,4 +56,5 @@ type Asset struct {
 	// The type of ingest used to create the asset.
 	IngestType string        `json:"ingest_type,omitempty"`
 	Meta       AssetMetadata `json:"meta,omitempty"`
+	Progress   AssetProgress `json:"progress,omitempty"`
 }

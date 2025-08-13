@@ -8,7 +8,7 @@ type LiveStream struct {
 	Id string `json:"id,omitempty"`
 	// Time the Live Stream was created, defined as a Unix timestamp (seconds since epoch).
 	CreatedAt string `json:"created_at,omitempty"`
-	// Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming.
+	// Unique key used for streaming to a Mux RTMP endpoint. This should be considered as sensitive as credentials, anyone with this stream key can begin streaming. Max 64 characters.
 	StreamKey string `json:"stream_key,omitempty"`
 	// The Asset that is currently being created if there is an active broadcast.
 	ActiveAssetId string `json:"active_asset_id,omitempty"`
@@ -44,8 +44,9 @@ type LiveStream struct {
 	Test bool `json:"test,omitempty"`
 	// The time in seconds a live stream may be continuously active before being disconnected. Defaults to 12 hours.
 	MaxContinuousDuration int32 `json:"max_continuous_duration,omitempty"`
-	// Unique key used for encrypting a stream to a Mux SRT endpoint.
+	// Unique key used for encrypting a stream to a Mux SRT endpoint. Max 64 characters.
 	SrtPassphrase string `json:"srt_passphrase,omitempty"`
 	// The protocol used for the active ingest stream. This is only set when the live stream is active.
-	ActiveIngestProtocol string `json:"active_ingest_protocol,omitempty"`
+	ActiveIngestProtocol string             `json:"active_ingest_protocol,omitempty"`
+	Meta                 LiveStreamMetadata `json:"meta,omitempty"`
 }

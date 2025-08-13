@@ -33,6 +33,7 @@ Name | Type | Description | Notes
 **Test** | **bool** | True means this live stream is a test asset. A test asset can help evaluate the Mux Video APIs without incurring any cost. There is no limit on number of test assets created. Test assets are watermarked with the Mux logo, limited to 10 seconds, and deleted after 24 hrs. | [optional] 
 **IngestType** | **string** | The type of ingest used to create the asset. | [optional] 
 **Meta** | [**AssetMetadata**](AssetMetadata.md) |  | [optional] 
+**Progress** | [**AssetProgress**](AssetProgress.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
