@@ -183,4 +183,5 @@ type VideoView struct {
 	ViewCdnEdgePop                           string           `json:"view_cdn_edge_pop,omitempty"`
 	ViewCdnOrigin                            string           `json:"view_cdn_origin,omitempty"`
 	VideoCreatorId                           string           `json:"video_creator_id,omitempty"`
+	VideoCdnTrace                            []string         `json:"video_cdn_trace,omitempty"`
 }
