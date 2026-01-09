@@ -14,6 +14,7 @@ type DimensionsApiService service
 
 type ListDimensionElementsParams struct {
 	Limit          int32
+	Page           int32
 	Filters        []string
 	MetricFilters  []string
 	Timeframe      []string
@@ -52,6 +53,9 @@ func (a *DimensionsApiService) ListDimensionElements(dIMENSIONID string, opts ..
 
 	if localVarOptionals != nil && isSet(localVarOptionals.Limit) {
 		localVarQueryParams.Add("limit", parameterToString(localVarOptionals.Limit, ""))
+	}
+	if localVarOptionals != nil && isSet(localVarOptionals.Page) {
+		localVarQueryParams.Add("page", parameterToString(localVarOptionals.Page, ""))
 	}
 	if localVarOptionals != nil && isSet(localVarOptionals.Filters) {
 		// This will "always work" for Mux's use case, since we always treat collections in query params as "multi" types.
