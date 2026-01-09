@@ -277,7 +277,7 @@ func (c *APIClient) prepareRequest(
 
 	// Override request host, if applicable
 	if c.cfg.host != "" {
-		localVarRequest.Host = c.cfg.host
+		url.Host = c.cfg.host
 	}
 
 	// Generate a new request
