@@ -471,6 +471,10 @@ func (e BadRequestError) Error() string {
 	return e.error
 }
 
+func (e BadRequestError) Body() []byte {
+	return e.body
+}
+
 // 401 Error
 type UnauthorizedError struct {
 	body  []byte
