@@ -95,11 +95,11 @@ All API calls return an err as their final return value. Below is documented the
 
 ### TooManyRequestsError
 
-`TooManyRequestsError` is returned when you exceed the maximum number of requests allowed for a given time period. Please get in touch with [support@mux.com](mailto:support@mux.com) if you need to talk about this limit.
+`TooManyRequestsError` is returned when you exceed the maximum number of requests allowed for a given time period. Please get in touch with us at [mux.com/support](https://www.mux.com/support) if you need to talk about this limit.
 
 ### ServiceError
 
-`ServiceError` is returned when Mux returns a HTTP 5XX Status Code. If you encounter this reproducibly, please get in touch with [support@mux.com](mailto:support@mux.com).
+`ServiceError` is returned when Mux returns a HTTP 5XX Status Code. If you encounter this reproducibly, please get in touch with us at [mux.com/support](https://www.mux.com/support).
 
 ### GenericOpenAPIError
 
